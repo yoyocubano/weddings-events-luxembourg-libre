@@ -157,8 +157,9 @@
             "phone": "Phone",
             "whatsapp": "WhatsApp Available",
             "location": "Location",
+            "location_val": "Luxembourg City, Luxembourg",
             "hours": "Business Hours",
-            "hours_val": "Mon - Fri: 9:00 AM - 6:00 PM\nSat: 10:00 AM - 4:00 PM\nSun: By appointment"
+            "hours_val": "Mon - Fri: 9:00 AM - 6:00 PM\nSat: 10:00 AM - 4:00 PM\nSun: By Appointment"
         },
         "form": {
             "title": "Send Us a Message",

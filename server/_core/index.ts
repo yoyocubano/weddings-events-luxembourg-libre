@@ -62,4 +62,32 @@ async function startServer() {
   });
 }
 
-startServer().catch(console.error);
+// Only start the server if this file is run directly (not imported)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  startServer().catch(console.error);
+}
+
+// Export a function to create the app for Verce/Serverless environments
+export async function createApp() {
+  const app = express();
+  // Configure body parser with larger size limit for file uploads
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // OAuth callback under /api/oauth/callback
+  registerOAuthRoutes(app);
+  // tRPC API
+  app.use(
+    "/api/trpc",
+    createExpressMiddleware({
+      router: appRouter,
+      createContext,
+    })
+  );
+
+  // Note: Vercel handles static files via vercel.json, but for completeness (or mixed modes):
+  if (process.env.NODE_ENV === "production") {
+    serveStatic(app);
+  }
+
+  return app;
+}

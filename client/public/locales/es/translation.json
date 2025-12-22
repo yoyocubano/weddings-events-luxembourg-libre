@@ -62,7 +62,7 @@
         "title": "Nuestro Portafolio",
         "subtitle": "Explore nuestra colección de hermosas bodas y eventos capturados en todo Luxemburgo",
         "all_projects": "Todos los Proyectos",
-        "view_photos": "Ver {{count}} fotos",
+        "view_photos": "Ver {{count}} foto(s)",
         "no_projects": "Aún no se encontraron proyectos en esta categoría."
     },
     "services_page": {
@@ -157,6 +157,7 @@
             "phone": "Teléfono",
             "whatsapp": "WhatsApp Disponible",
             "location": "Ubicación",
+            "location_val": "Ciudad de Luxemburgo, Luxemburgo",
             "hours": "Horario Comercial",
             "hours_val": "Lun - Vie: 9:00 - 18:00\nSáb: 10:00 - 16:00\nDom: Con cita previa"
         },
@@ -204,7 +205,7 @@
         }
     },
     "brand": {
-        "name": "Bodas & Eventos"
+        "name": "Bodas y Eventos"
     },
     "common": {
         "whatsapp": "WhatsApp"
