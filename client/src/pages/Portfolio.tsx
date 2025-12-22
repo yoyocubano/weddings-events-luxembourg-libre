@@ -6,16 +6,23 @@ import { Card, CardContent } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { MOCK_PROJECTS, MOCK_CATEGORIES } from "@/lib/mockData";
 
 export default function Portfolio() {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(undefined);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const { data: categories } = trpc.portfolio.getCategories.useQuery();
-  const { data: projects, isLoading } = trpc.portfolio.getProjects.useQuery({
+  const { data: categoriesData } = trpc.portfolio.getCategories.useQuery();
+  const { data: projectsData, isLoading: isLoadingProjects } = trpc.portfolio.getProjects.useQuery({
     categoryId: selectedCategory,
   });
+
+  const categories = categoriesData || MOCK_CATEGORIES;
+  const projects = projectsData || MOCK_PROJECTS.filter(p => !selectedCategory || p.categoryId === selectedCategory);
+  const isLoading = false; // Force loading off since we have mock data
 
   const openGallery = (project: any, imageIndex: number = 0) => {
     setSelectedProject(project);
@@ -49,10 +56,10 @@ export default function Portfolio() {
       <section className="pt-32 pb-16 bg-gradient-to-br from-background via-secondary/30 to-background">
         <div className="container text-center">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
-            Our Portfolio
+            {t("portfolio.title")}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore our collection of beautiful weddings and events captured throughout Luxembourg
+            {t("portfolio.subtitle")}
           </p>
         </div>
       </section>
@@ -66,7 +73,7 @@ export default function Portfolio() {
               onClick={() => setSelectedCategory(undefined)}
               className={selectedCategory === undefined ? "" : "bg-transparent"}
             >
-              All Projects
+              {t("portfolio.all_projects")}
             </Button>
             {categories?.map((category) => (
               <Button
@@ -127,7 +134,7 @@ export default function Portfolio() {
                         </p>
                       )}
                       <p className="text-sm text-primary mt-3 font-medium">
-                        View {images.length} photos →
+                        {t("portfolio.view_photos", { count: images.length })} →
                       </p>
                     </CardContent>
                   </Card>
@@ -137,7 +144,7 @@ export default function Portfolio() {
           ) : (
             <div className="text-center py-20">
               <p className="text-lg text-muted-foreground">
-                No projects found in this category yet.
+                {t("portfolio.no_projects")}
               </p>
             </div>
           )}

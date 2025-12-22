@@ -16,8 +16,10 @@ import {
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Mail, Phone, MapPin, Clock, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,7 +60,7 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     createInquiry.mutate({
       name: formData.name,
       email: formData.email,
@@ -85,10 +87,10 @@ export default function Contact() {
       <section className="pt-32 pb-16 bg-gradient-to-br from-background via-secondary/30 to-background">
         <div className="container text-center">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
-            Get in Touch
+            {t("contact.title")}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Let's discuss your upcoming event and create something beautiful together
+            {t("contact.subtitle")}
           </p>
         </div>
       </section>
@@ -106,7 +108,7 @@ export default function Contact() {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Email</h3>
+                      <h3 className="font-semibold mb-1">{t("contact.info.email")}</h3>
                       <p className="text-sm text-muted-foreground">info@weddingslux.com</p>
                       <p className="text-sm text-muted-foreground">bookings@weddingslux.com</p>
                     </div>
@@ -121,9 +123,9 @@ export default function Contact() {
                       <Phone className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Phone</h3>
-                      <p className="text-sm text-muted-foreground">+352 123 456 789</p>
-                      <p className="text-sm text-muted-foreground">+352 987 654 321</p>
+                      <h3 className="font-semibold mb-1">{t("contact.info.phone")}</h3>
+                      <p className="text-sm text-muted-foreground">+352 621 430 283</p>
+                      <p className="text-sm text-muted-foreground">{t("contact.info.whatsapp")}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -136,7 +138,7 @@ export default function Contact() {
                       <MapPin className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Location</h3>
+                      <h3 className="font-semibold mb-1">{t("contact.info.location")}</h3>
                       <p className="text-sm text-muted-foreground">
                         Luxembourg City<br />
                         Luxembourg
@@ -153,11 +155,9 @@ export default function Contact() {
                       <Clock className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">Business Hours</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Mon - Fri: 9:00 AM - 6:00 PM<br />
-                        Sat: 10:00 AM - 4:00 PM<br />
-                        Sun: By appointment
+                      <h3 className="font-semibold mb-1">{t("contact.info.hours")}</h3>
+                      <p className="text-sm text-muted-foreground whitespace-pre-line">
+                        {t("contact.info.hours_val")}
                       </p>
                     </div>
                   </div>
@@ -170,12 +170,12 @@ export default function Contact() {
               <Card className="border-border">
                 <CardContent className="p-8">
                   <h2 className="text-3xl font-serif font-bold text-foreground mb-6">
-                    Send Us a Message
+                    {t("contact.form.title")}
                   </h2>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
+                        <Label htmlFor="name">{t("contact.form.name")}</Label>
                         <Input
                           id="name"
                           value={formData.name}
@@ -186,7 +186,7 @@ export default function Contact() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
+                        <Label htmlFor="email">{t("contact.form.email")}</Label>
                         <Input
                           id="email"
                           type="email"
@@ -200,7 +200,7 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
+                        <Label htmlFor="phone">{t("contact.form.phone")}</Label>
                         <Input
                           id="phone"
                           type="tel"
@@ -211,21 +211,21 @@ export default function Contact() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="eventType">Event Type *</Label>
+                        <Label htmlFor="eventType">{t("contact.form.event_type")}</Label>
                         <Select
                           value={formData.eventType}
                           onValueChange={(value) => handleInputChange("eventType", value)}
                           required
                         >
                           <SelectTrigger id="eventType">
-                            <SelectValue placeholder="Select event type" />
+                            <SelectValue placeholder={t("contact.form.select_event")} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="wedding">Wedding</SelectItem>
-                            <SelectItem value="corporate">Corporate Event</SelectItem>
-                            <SelectItem value="celebration">Celebration</SelectItem>
-                            <SelectItem value="engagement">Engagement</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
+                            <SelectItem value="wedding">{t("contact.form.event_types.wedding")}</SelectItem>
+                            <SelectItem value="corporate">{t("contact.form.event_types.corporate")}</SelectItem>
+                            <SelectItem value="celebration">{t("contact.form.event_types.celebration")}</SelectItem>
+                            <SelectItem value="engagement">{t("contact.form.event_types.engagement")}</SelectItem>
+                            <SelectItem value="other">{t("contact.form.event_types.other")}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -233,7 +233,7 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="eventDate">Event Date</Label>
+                        <Label htmlFor="eventDate">{t("contact.form.date")}</Label>
                         <Input
                           id="eventDate"
                           type="date"
@@ -243,7 +243,7 @@ export default function Contact() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="location">Event Location</Label>
+                        <Label htmlFor="location">{t("contact.form.location")}</Label>
                         <Input
                           id="location"
                           value={formData.location}
@@ -255,25 +255,25 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="budget">Budget Range</Label>
+                        <Label htmlFor="budget">{t("contact.form.budget")}</Label>
                         <Select
                           value={formData.budget}
                           onValueChange={(value) => handleInputChange("budget", value)}
                         >
                           <SelectTrigger id="budget">
-                            <SelectValue placeholder="Select budget range" />
+                            <SelectValue placeholder={t("contact.form.select_budget")} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="under-2000">Under €2,000</SelectItem>
-                            <SelectItem value="2000-5000">€2,000 - €5,000</SelectItem>
-                            <SelectItem value="5000-10000">€5,000 - €10,000</SelectItem>
-                            <SelectItem value="over-10000">Over €10,000</SelectItem>
+                            <SelectItem value="under-2000">{t("contact.form.budgets.under_2k")}</SelectItem>
+                            <SelectItem value="2000-5000">{t("contact.form.budgets.2k_5k")}</SelectItem>
+                            <SelectItem value="5000-10000">{t("contact.form.budgets.5k_10k")}</SelectItem>
+                            <SelectItem value="over-10000">{t("contact.form.budgets.over_10k")}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="guestCount">Expected Guests</Label>
+                        <Label htmlFor="guestCount">{t("contact.form.guests")}</Label>
                         <Input
                           id="guestCount"
                           type="number"
@@ -285,29 +285,29 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="serviceInterest">Service Interest</Label>
+                      <Label htmlFor="serviceInterest">{t("contact.form.service_interest")}</Label>
                       <Select
                         value={formData.serviceInterest}
                         onValueChange={(value) => handleInputChange("serviceInterest", value)}
                       >
                         <SelectTrigger id="serviceInterest">
-                          <SelectValue placeholder="Select service" />
+                          <SelectValue placeholder={t("contact.form.select_service")} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="photography">Photography Only</SelectItem>
-                          <SelectItem value="videography">Videography Only</SelectItem>
-                          <SelectItem value="both">Photography & Videography</SelectItem>
+                          <SelectItem value="photography">{t("contact.form.services.photo")}</SelectItem>
+                          <SelectItem value="videography">{t("contact.form.services.video")}</SelectItem>
+                          <SelectItem value="both">{t("contact.form.services.both")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="message">Additional Details</Label>
+                      <Label htmlFor="message">{t("contact.form.message")}</Label>
                       <Textarea
                         id="message"
                         value={formData.message}
                         onChange={(e) => handleInputChange("message", e.target.value)}
-                        placeholder="Tell us more about your event and any specific requirements..."
+                        placeholder={t("contact.form.placeholder_msg")}
                         rows={5}
                       />
                     </div>
@@ -321,10 +321,10 @@ export default function Contact() {
                       {createInquiry.isPending ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Sending...
+                          {t("contact.form.sending")}
                         </>
                       ) : (
-                        "Send Inquiry"
+                        t("contact.form.submit")
                       )}
                     </Button>
                   </form>
@@ -340,10 +340,10 @@ export default function Contact() {
         <div className="container">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-serif font-bold text-foreground mb-4">
-              Service Areas in Luxembourg
+              {t("contact.areas.title")}
             </h2>
             <p className="text-muted-foreground">
-              We provide photography and videography services throughout Luxembourg and surrounding regions
+              {t("contact.areas.subtitle")}
             </p>
           </div>
           <div className="aspect-video rounded-xl overflow-hidden shadow-lg border border-border">
@@ -360,7 +360,7 @@ export default function Contact() {
           </div>
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              <strong>Primary Service Areas:</strong> Luxembourg City, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz, and surrounding municipalities
+              <strong>{t("contact.areas.primary")}</strong> Luxembourg City, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz, and surrounding municipalities
             </p>
           </div>
         </div>

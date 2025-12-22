@@ -1,0 +1,222 @@
+{
+    "hero": {
+        "title_start": "Immortalisez Vos",
+        "title_highlight": "Moments Parfaits",
+        "subtitle": "Services professionnels de photographie et vidéographie pour mariages et événements au Luxembourg. Nous transformons votre jour spécial en souvenirs intemporels.",
+        "view_work": "Voir Nos Réalisations",
+        "get_quote": "Obtenir un Devis",
+        "award_winning": "Primé",
+        "studio": "Studio Photographie"
+    },
+    "services": {
+        "title": "Nos Services",
+        "subtitle": "Solutions complètes de photographie et vidéographie adaptées à vos besoins",
+        "wedding": {
+            "title": "Photographie de Mariage",
+            "desc": "Capturez chaque moment précieux de votre journée spéciale avec nos services experts."
+        },
+        "video": {
+            "title": "Vidéographie d'Événement",
+            "desc": "Production vidéo professionnelle qui raconte votre histoire de manière cinématographique."
+        },
+        "full": {
+            "title": "Couverture Complète",
+            "desc": "Couverture complète combinant photo et vidéo pour une collection de souvenirs exhaustive."
+        },
+        "view_all": "Voir Tous les Services"
+    },
+    "featured": {
+        "title": "Travaux en Vedette",
+        "subtitle": "Un aperçu de notre portfolio de magnifiques mariages et événements",
+        "view_full": "Voir le Portfolio Complet"
+    },
+    "why_choose": {
+        "title": "Pourquoi Nous Choisir",
+        "subtitle": "Expérience, qualité et dévouement à capturer vos moments parfaits",
+        "team": {
+            "title": "Équipe Primée",
+            "desc": "Professionnels reconnus avec des années d'expérience dans la photographie de luxe"
+        },
+        "service": {
+            "title": "Service Personnalisé",
+            "desc": "Forfaits sur mesure et attention dédiée à chaque détail de votre événement"
+        },
+        "local": {
+            "title": "Experts du Luxembourg",
+            "desc": "Connaissance approfondie des meilleurs lieux et endroits à travers le Luxembourg"
+        }
+    },
+    "cta": {
+        "title": "Prêt à Capturer Votre Histoire ?",
+        "subtitle": "Discutons de votre prochain événement et créons quelque chose de beau ensemble",
+        "button": "Contactez-nous"
+    },
+    "nav": {
+        "home": "Accueil",
+        "portfolio": "Portfolio",
+        "services": "Services",
+        "about": "À Propos",
+        "contact": "Contact"
+    },
+    "portfolio": {
+        "title": "Notre Portfolio",
+        "subtitle": "Explorez notre collection de magnifiques mariages et événements capturés au Luxembourg",
+        "all_projects": "Tous les Projets",
+        "view_photos": "Voir {{count}} photos",
+        "no_projects": "Aucun projet trouvé dans cette catégorie pour le moment."
+    },
+    "services_page": {
+        "title": "Nos Services",
+        "subtitle": "Forfaits de photographie et vidéographie professionnels pour rendre votre événement inoubliable",
+        "most_popular": "Le Plus Populaire",
+        "custom_quote": "Devis Personnalisé",
+        "get_started": "Commencer",
+        "coming_soon": "Forfaits de services bientôt disponibles.",
+        "included": {
+            "title": "Ce Qui Est Inclus",
+            "subtitle": "Chaque forfait inclut nos standards de service premium",
+            "equipment": {
+                "title": "Équipement Professionnel",
+                "desc": "Appareils et éclairage de pointe"
+            },
+            "editing": {
+                "title": "Retouche Experte",
+                "desc": "Post-production et étalonnage professionnels"
+            },
+            "delivery": {
+                "title": "Livraison Numérique",
+                "desc": "Fichiers haute résolution via galerie en ligne sécurisée"
+            },
+            "support": {
+                "title": "Support Dédié",
+                "desc": "Consultation personnelle et aide à la planification"
+            }
+        },
+        "cta": {
+            "title": "Prêt à Réserver ?",
+            "subtitle": "Contactez-nous aujourd'hui pour un devis personnalisé",
+            "button": "Demander un Devis"
+        }
+    },
+    "about": {
+        "title": "À Propos de Nous",
+        "p1": "Nous sommes une équipe passionnée de photographes et vidéastes dédiés à capturer les moments les plus précieux de votre vie. Basés au Luxembourg, nous sommes spécialisés dans les mariages et événements spéciaux.",
+        "p2": "Notre approche combine excellence technique et émotion authentique, assurant que chaque photo et vidéo raconte votre histoire unique de la plus belle manière possible.",
+        "values": {
+            "title": "Nos Valeurs",
+            "subtitle": "Ce qui nous pousse à créer un travail exceptionnel pour chaque client",
+            "passion": {
+                "title": "Passion",
+                "desc": "Nous aimons ce que nous faisons et cela se voit dans chaque image"
+            },
+            "excellence": {
+                "title": "Excellence",
+                "desc": "Engagés à livrer la plus haute qualité dans chaque projet"
+            },
+            "creativity": {
+                "title": "Créativité",
+                "desc": "Apporter vision artistique et innovation à chaque séance"
+            },
+            "connection": {
+                "title": "Connexion",
+                "desc": "Construire des relations et comprendre votre histoire unique"
+            }
+        },
+        "team": {
+            "title": "Rencontrez Notre Équipe",
+            "subtitle": "Les professionnels talentueux derrière chaque beau moment",
+            "coming_soon": "Information sur l'équipe bientôt disponible."
+        },
+        "experience": {
+            "title": "Notre Expérience",
+            "subtitle": "Années d'expertise au service des clients à travers le Luxembourg",
+            "years": {
+                "value": "10+",
+                "label": "Années d'Expérience"
+            },
+            "events": {
+                "value": "500+",
+                "label": "Événements Couverts"
+            },
+            "satisfaction": {
+                "value": "100%",
+                "label": "Satisfaction Client"
+            }
+        },
+        "cta": {
+            "title": "Créons Quelque Chose de Beau",
+            "subtitle": "Nous aimerions entendre parler de votre événement et discuter de la façon dont nous pouvons aider",
+            "button": "Contactez-nous"
+        }
+    },
+    "contact": {
+        "title": "Contactez-nous",
+        "subtitle": "Discutons de votre prochain événement ensemble",
+        "info": {
+            "email": "Email",
+            "phone": "Téléphone",
+            "whatsapp": "WhatsApp Disponible",
+            "location": "Lieu",
+            "hours": "Heures d'Ouverture",
+            "hours_val": "Lun - Ven: 9h00 - 18h00\nSam: 10h00 - 16h00\nDim: Sur rendez-vous"
+        },
+        "form": {
+            "title": "Envoyez-nous un Message",
+            "name": "Nom Complet *",
+            "email": "Email *",
+            "phone": "Numéro de Téléphone",
+            "event_type": "Type d'Événement *",
+            "select_event": "Sélectionner le type",
+            "event_types": {
+                "wedding": "Mariage",
+                "corporate": "Événement Corporatif",
+                "celebration": "Célébration",
+                "engagement": "Fiançailles",
+                "other": "Autre"
+            },
+            "date": "Date de l'Événement",
+            "location": "Lieu de l'Événement",
+            "budget": "Budget",
+            "select_budget": "Sélectionner le budget",
+            "budgets": {
+                "under_2k": "Moins de 2 000 €",
+                "2k_5k": "2 000 € - 5 000 €",
+                "5k_10k": "5 000 € - 10 000 €",
+                "over_10k": "Plus de 10 000 €"
+            },
+            "guests": "Invités Prévus",
+            "service_interest": "Intérêt de Service",
+            "select_service": "Sélectionner le service",
+            "services": {
+                "photo": "Photographie Uniquement",
+                "video": "Vidéographie Uniquement",
+                "both": "Photographie & Vidéographie"
+            },
+            "message": "Détails Supplémentaires",
+            "placeholder_msg": "Parlez-nous de votre événement...",
+            "submit": "Envoyer la Demande",
+            "sending": "Envoi en cours..."
+        },
+        "areas": {
+            "title": "Zones de Service au Luxembourg",
+            "subtitle": "Nous fournissons des services partout au Luxembourg et dans les régions avoisinantes",
+            "primary": "Zones Principales :"
+        }
+    },
+    "brand": {
+        "name": "Mariages & Événements"
+    },
+    "common": {
+        "whatsapp": "WhatsApp"
+    },
+    "error": {
+        "unexpected": "Une erreur inattendue s'est produite."
+    },
+    "footer": {
+        "quick_links": "Liens Rapides",
+        "contact": "Contact",
+        "follow_us": "Suivez-nous",
+        "rights": "Tous droits réservés.",
+        "text": "Capturer vos moments les plus précieux avec élégance et art au Luxembourg."
+    }
+}

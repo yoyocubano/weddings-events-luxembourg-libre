@@ -1,4 +1,6 @@
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Toaster } from "@/components/ui/sonner";
+import "@/lib/i18n";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
@@ -31,6 +33,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <WhatsAppButton />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

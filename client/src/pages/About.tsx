@@ -5,9 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc";
 import { Award, Heart, Camera, Users } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { MOCK_TEAM } from "@/lib/mockData";
 
 export default function About() {
-  const { data: team, isLoading } = trpc.team.getAll.useQuery();
+  const { t } = useTranslation();
+  const { data: teamData } = trpc.team.getAll.useQuery();
+  const team = teamData || MOCK_TEAM;
+  const isLoading = false;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -19,16 +24,13 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground">
-                About Us
+                {t("about.title")}
               </h1>
               <p className="text-lg text-muted-foreground">
-                We are a passionate team of photographers and videographers dedicated to capturing 
-                the most precious moments of your life. Based in Luxembourg, we specialize in weddings 
-                and special events, bringing years of experience and artistic vision to every project.
+                {t("about.p1")}
               </p>
               <p className="text-lg text-muted-foreground">
-                Our approach combines technical excellence with genuine emotion, ensuring that every 
-                photograph and video tells your unique story in the most beautiful way possible.
+                {t("about.p2")}
               </p>
             </div>
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
@@ -47,10 +49,10 @@ export default function About() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-foreground mb-4">
-              Our Values
+              {t("about.values.title")}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              What drives us to create exceptional work for every client
+              {t("about.values.subtitle")}
             </p>
           </div>
 
@@ -59,9 +61,9 @@ export default function About() {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Passion</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("about.values.passion.title")}</h3>
               <p className="text-muted-foreground">
-                We love what we do and it shows in every frame we capture
+                {t("about.values.passion.desc")}
               </p>
             </div>
 
@@ -69,9 +71,9 @@ export default function About() {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Excellence</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("about.values.excellence.title")}</h3>
               <p className="text-muted-foreground">
-                Committed to delivering the highest quality in every project
+                {t("about.values.excellence.desc")}
               </p>
             </div>
 
@@ -79,9 +81,9 @@ export default function About() {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Camera className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Creativity</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("about.values.creativity.title")}</h3>
               <p className="text-muted-foreground">
-                Bringing artistic vision and innovation to every shoot
+                {t("about.values.creativity.desc")}
               </p>
             </div>
 
@@ -89,9 +91,9 @@ export default function About() {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Connection</h3>
+              <h3 className="text-xl font-semibold mb-2">{t("about.values.connection.title")}</h3>
               <p className="text-muted-foreground">
-                Building relationships and understanding your unique story
+                {t("about.values.connection.desc")}
               </p>
             </div>
           </div>
@@ -103,10 +105,10 @@ export default function About() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-foreground mb-4">
-              Meet Our Team
+              {t("about.team.title")}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              The talented professionals behind every beautiful moment
+              {t("about.team.subtitle")}
             </p>
           </div>
 
@@ -150,7 +152,7 @@ export default function About() {
           ) : (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">
-                Team information coming soon.
+                {t("about.team.coming_soon")}
               </p>
             </div>
           )}
@@ -162,25 +164,25 @@ export default function About() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-foreground mb-4">
-              Our Experience
+              {t("about.experience.title")}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Years of expertise serving clients throughout Luxembourg
+              {t("about.experience.subtitle")}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-5xl font-serif font-bold text-primary mb-2">10+</div>
-              <p className="text-lg text-foreground font-medium">Years Experience</p>
+              <div className="text-5xl font-serif font-bold text-primary mb-2">{t("about.experience.years.value")}</div>
+              <p className="text-lg text-foreground font-medium">{t("about.experience.years.label")}</p>
             </div>
             <div>
-              <div className="text-5xl font-serif font-bold text-primary mb-2">500+</div>
-              <p className="text-lg text-foreground font-medium">Events Covered</p>
+              <div className="text-5xl font-serif font-bold text-primary mb-2">{t("about.experience.events.value")}</div>
+              <p className="text-lg text-foreground font-medium">{t("about.experience.events.label")}</p>
             </div>
             <div>
-              <div className="text-5xl font-serif font-bold text-primary mb-2">100%</div>
-              <p className="text-lg text-foreground font-medium">Client Satisfaction</p>
+              <div className="text-5xl font-serif font-bold text-primary mb-2">{t("about.experience.satisfaction.value")}</div>
+              <p className="text-lg text-foreground font-medium">{t("about.experience.satisfaction.label")}</p>
             </div>
           </div>
         </div>
@@ -190,14 +192,14 @@ export default function About() {
       <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10">
         <div className="container text-center">
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">
-            Let's Create Something Beautiful
+            {t("about.cta.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            We'd love to hear about your upcoming event and discuss how we can help
+            {t("about.cta.subtitle")}
           </p>
           <Link href="/contact">
             <Button size="lg" variant="default" className="text-base">
-              Get in Touch
+              {t("about.cta.button")}
             </Button>
           </Link>
         </div>

@@ -5,10 +5,12 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Camera, Video, Heart, Award, Users, MapPin } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const { data: featuredProjects, isLoading: loadingProjects } = trpc.portfolio.getFeatured.useQuery({ limit: 6 });
   const { data: services, isLoading: loadingServices } = trpc.services.getAll.useQuery();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -20,22 +22,21 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center py-20">
             <div className="space-y-8 animate-fade-in-up">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground leading-tight">
-                Capturing Your
-                <span className="text-primary block">Perfect Moments</span>
+                {t('hero.title_start')}
+                <span className="text-primary block">{t('hero.title_highlight')}</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
-                Professional photography and videography services for weddings and events throughout Luxembourg. 
-                We transform your special day into timeless memories.
+                {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/portfolio">
                   <Button size="lg" variant="default" className="text-base">
-                    View Our Work
+                    {t('hero.view_work')}
                   </Button>
                 </Link>
                 <Link href="/contact">
                   <Button size="lg" variant="outline" className="text-base bg-transparent">
-                    Get a Quote
+                    {t('hero.get_quote')}
                   </Button>
                 </Link>
               </div>
@@ -55,8 +56,8 @@ export default function Home() {
                     <Award className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">Award Winning</p>
-                    <p className="text-sm text-muted-foreground">Photography Studio</p>
+                    <p className="font-semibold text-foreground">{t('hero.award_winning')}</p>
+                    <p className="text-sm text-muted-foreground">{t('hero.studio')}</p>
                   </div>
                 </div>
               </div>
@@ -70,10 +71,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
-              Our Services
+              {t('services.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive photography and videography solutions tailored to your needs
+              {t('services.subtitle')}
             </p>
           </div>
 
@@ -83,9 +84,9 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Camera className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold mb-3">Wedding Photography</h3>
+                <h3 className="text-2xl font-serif font-semibold mb-3">{t('services.wedding.title')}</h3>
                 <p className="text-muted-foreground">
-                  Capture every precious moment of your special day with our expert wedding photography services.
+                  {t('services.wedding.desc')}
                 </p>
               </CardContent>
             </Card>
@@ -95,9 +96,9 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Video className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold mb-3">Event Videography</h3>
+                <h3 className="text-2xl font-serif font-semibold mb-3">{t('services.video.title')}</h3>
                 <p className="text-muted-foreground">
-                  Professional video production that tells your story in a cinematic and engaging way.
+                  {t('services.video.desc')}
                 </p>
               </CardContent>
             </Card>
@@ -107,9 +108,9 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Heart className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold mb-3">Full Event Coverage</h3>
+                <h3 className="text-2xl font-serif font-semibold mb-3">{t('services.full.title')}</h3>
                 <p className="text-muted-foreground">
-                  Complete coverage combining photography and videography for a comprehensive memory collection.
+                  {t('services.full.desc')}
                 </p>
               </CardContent>
             </Card>
@@ -118,7 +119,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/services">
               <Button variant="outline" size="lg" className="bg-transparent">
-                View All Services
+                {t('services.view_all')}
               </Button>
             </Link>
           </div>
@@ -130,10 +131,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
-              Featured Work
+              {t('featured.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A glimpse into our portfolio of beautiful weddings and events
+              {t('featured.subtitle')}
             </p>
           </div>
 
@@ -170,7 +171,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/portfolio">
               <Button variant="default" size="lg">
-                View Full Portfolio
+                {t('featured.view_full')}
               </Button>
             </Link>
           </div>
@@ -182,10 +183,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
-              Why Choose Us
+              {t('why_choose.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Experience, quality, and dedication to capturing your perfect moments
+              {t('why_choose.subtitle')}
             </p>
           </div>
 
@@ -194,9 +195,9 @@ export default function Home() {
               <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Award-Winning Team</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('why_choose.team.title')}</h3>
               <p className="text-muted-foreground">
-                Recognized professionals with years of experience in luxury event photography
+                {t('why_choose.team.desc')}
               </p>
             </div>
 
@@ -204,9 +205,9 @@ export default function Home() {
               <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Personalized Service</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('why_choose.service.title')}</h3>
               <p className="text-muted-foreground">
-                Tailored packages and dedicated attention to every detail of your event
+                {t('why_choose.service.desc')}
               </p>
             </div>
 
@@ -214,9 +215,9 @@ export default function Home() {
               <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Luxembourg Experts</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('why_choose.local.title')}</h3>
               <p className="text-muted-foreground">
-                Deep knowledge of the best venues and locations throughout Luxembourg
+                {t('why_choose.local.desc')}
               </p>
             </div>
           </div>
@@ -227,14 +228,14 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10">
         <div className="container text-center">
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">
-            Ready to Capture Your Story?
+            {t('cta.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Let's discuss your upcoming event and create something beautiful together
+            {t('cta.subtitle')}
           </p>
           <Link href="/contact">
             <Button size="lg" variant="default" className="text-base">
-              Get in Touch
+              {t('cta.button')}
             </Button>
           </Link>
         </div>

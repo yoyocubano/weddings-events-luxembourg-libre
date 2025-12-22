@@ -1,0 +1,222 @@
+{
+    "hero": {
+        "title_start": "Mir halen Är",
+        "title_highlight": "Perfekt Momenter fest",
+        "subtitle": "Professionell Foto- a Videografie Servicer fir Hochzäiten an Eventer uechter Lëtzebuerg. Mir verwandelen Äre speziellen Dag an zäitlos Erënnerungen.",
+        "view_work": "Eis Aarbecht kucken",
+        "get_quote": "Devis Ufroen",
+        "award_winning": "Ausgezeechent",
+        "studio": "Fotostudio"
+    },
+    "services": {
+        "title": "Eis Servicer",
+        "subtitle": "Ëmfangräich Foto- a Videoléisungen ugepasst un Är Besoinen",
+        "wedding": {
+            "title": "Hochzäitsfotografie",
+            "desc": "Halt all wäertvolle Moment vun Ärem speziellen Dag mat eise Hochzäitsfotografie-Experten fest."
+        },
+        "video": {
+            "title": "Event Videografie",
+            "desc": "Professionell Videoproduktioun déi Är Geschicht op eng cinematesch a fesselnd Aart erzielt."
+        },
+        "full": {
+            "title": "Komplett Ofdeckung",
+            "desc": "Vollstänneg Ofdeckung duerch Kombinatioun vu Foto a Video fir eng ëmfangräich Erënnerungssammlung."
+        },
+        "view_all": "All Servicer kucken"
+    },
+    "featured": {
+        "title": "Ausgewielt Aarbechten",
+        "subtitle": "En Abléck an eise Portfolio vu schéine Hochzäiten an Eventer",
+        "view_full": "De ganze Portfolio kucken"
+    },
+    "why_choose": {
+        "title": "Firwat Mir?",
+        "subtitle": "Erfarung, Qualitéit an Engagement fir Är perfekt Momenter festzehalen",
+        "team": {
+            "title": "Ausgezeechent Team",
+            "desc": "Unerkannt Profien mat jorelaanger Erfarung an der Luxus-Eventfotografie"
+        },
+        "service": {
+            "title": "Perséinleche Service",
+            "desc": "Moossgeschneidert Packagen an engagéiert Opmierksamkeet fir all Detail vun Ärem Event"
+        },
+        "local": {
+            "title": "Lëtzebuerg Experten",
+            "desc": "Déif Kenntnisser vun de beschte Plazen a Locatiounen uechter Lëtzebuerg"
+        }
+    },
+    "cta": {
+        "title": "Bereet Är Geschicht festzehalen?",
+        "subtitle": "Loosst eis iwwer Äert rezent Event schwätzen an eppes Schéines zesumme kreéieren",
+        "button": "Kontaktéiert eis"
+    },
+    "nav": {
+        "home": "Heem",
+        "portfolio": "Portfolio",
+        "services": "Servicer",
+        "about": "Iwwer eis",
+        "contact": "Kontakt"
+    },
+    "portfolio": {
+        "title": "Eise Portfolio",
+        "subtitle": "Entdeckt eis Sammlung vu schéine Hochzäiten an Eventer, déi zu Lëtzebuerg festgehale goufen",
+        "all_projects": "All Projeten",
+        "view_photos": "Kuckt {{count}} Fotoen",
+        "no_projects": "Nach keng Projeten an dëser Kategorie fonnt."
+    },
+    "services_page": {
+        "title": "Eis Servicer",
+        "subtitle": "Professionell Foto- a Videografie Packagen fir Äert Event onvergiesslech ze maachen",
+        "most_popular": "Beléiftst",
+        "custom_quote": "Moossgeschneidert Devis",
+        "get_started": "Lassleeën",
+        "coming_soon": "Service Packagen kommen geschwënn.",
+        "included": {
+            "title": "Wat ass abegraff",
+            "subtitle": "All Package enthält eis Premium Service Standarden",
+            "equipment": {
+                "title": "Professionellt Equipement",
+                "desc": "Modernst Kameraen a Beliichtungstechnik"
+            },
+            "editing": {
+                "title": "Experten Editing",
+                "desc": "Professionell Postproduktioun a Faarfkorrektur"
+            },
+            "delivery": {
+                "title": "Digital Liwwerung",
+                "desc": "Héichopléisend Dateien iwwer geséchert Online Galerie"
+            },
+            "support": {
+                "title": "Engagéierten Support",
+                "desc": "Perséinlech Berodung a Planungshëllef"
+            }
+        },
+        "cta": {
+            "title": "Bereet fir Äert Event ze buchen?",
+            "subtitle": "Kontaktéiert eis haut fir e perséinlecht Devis a Berodung",
+            "button": "Devis Ufroen"
+        }
+    },
+    "about": {
+        "title": "Iwwer Uns",
+        "p1": "Mir sinn e passionéiert Team vu Fotografen a Videografen, déi sech drop spezialiséiert hunn, déi wäertvollst Momenter vun Ärem Liewen festzehalen. Mat Sëtz zu Lëtzebuerg si mir op Hochzäiten a speziell Eventer spezialiséiert.",
+        "p2": "Eis Approche kombinéiert technesch Exzellenz mat reeller Emotioun a stellt sécher, datt all Foto a Video Är eenzegaarteg Geschicht op déi schéinstméiglech Manéier erzielt.",
+        "values": {
+            "title": "Eis Wäerter",
+            "subtitle": "Wat eis undreift fir aussergewéinlech Aarbecht fir all Client ze liwweren",
+            "passion": {
+                "title": "Passioun",
+                "desc": "Mir hunn eis Aarbecht gären an dat gesäit een an all Bild"
+            },
+            "excellence": {
+                "title": "Exzellenz",
+                "desc": "Verflicht fir déi héchst Qualitéit an all Projet"
+            },
+            "creativity": {
+                "title": "Kreativitéit",
+                "desc": "Kënschtleresch Visioun an Innovatioun bei all Shooting"
+            },
+            "connection": {
+                "title": "Verbindung",
+                "desc": "Bezéiungen opbauen an Är eenzegaarteg Geschicht verstoen"
+            }
+        },
+        "team": {
+            "title": "Eist Team",
+            "subtitle": "Déi talentéiert Profien hannert all schéinem Moment",
+            "coming_soon": "Team Informatiounen kommen geschwënn."
+        },
+        "experience": {
+            "title": "Eis Erfarung",
+            "subtitle": "Jorelaang Expertise am Déngscht vu Clienten uechter Lëtzebuerg",
+            "years": {
+                "value": "10+",
+                "label": "Joer Erfarung"
+            },
+            "events": {
+                "value": "500+",
+                "label": "Eventer Ofgedeckt"
+            },
+            "satisfaction": {
+                "value": "100%",
+                "label": "Zefriddenheet"
+            }
+        },
+        "cta": {
+            "title": "Loosst eis eppes Schéines kreéieren",
+            "subtitle": "Mir géifen gären vun Ärem rezenten Event héieren a beschwätzen, wéi mir hëllefe kënnen",
+            "button": "Kontaktéiert eis"
+        }
+    },
+    "contact": {
+        "title": "Kontaktéiert eis",
+        "subtitle": "Loosst eis Äert Event beschwätzen",
+        "info": {
+            "email": "Email",
+            "phone": "Telefon",
+            "whatsapp": "WhatsApp Verfügbar",
+            "location": "Standuert",
+            "hours": "Ouvertureszäiten",
+            "hours_val": "Mé - Fr: 9:00 - 18:00\nSa: 10:00 - 16:00\nSo: Op Rendez-vous"
+        },
+        "form": {
+            "title": "Schéckt eis eng Noriicht",
+            "name": "Vollständegen Numm *",
+            "email": "Email *",
+            "phone": "Telefonsnummer",
+            "event_type": "Typ vum Event *",
+            "select_event": "Typ wielen",
+            "event_types": {
+                "wedding": "Hochzäit",
+                "corporate": "Firmenevent",
+                "celebration": "Feier",
+                "engagement": "Verlobung",
+                "other": "Aneres"
+            },
+            "date": "Datum vum Event",
+            "location": "Plaz vum Event",
+            "budget": "Budget",
+            "select_budget": "Budget wielen",
+            "budgets": {
+                "under_2k": "Ënner 2.000 €",
+                "2k_5k": "2.000 € - 5.000 €",
+                "5k_10k": "5.000 € - 10.000 €",
+                "over_10k": "Iwwer 10.000 €"
+            },
+            "guests": "Erwaart Gäscht",
+            "service_interest": "Interesse un",
+            "select_service": "Service wielen",
+            "services": {
+                "photo": "Nëmmen Fotografie",
+                "video": "Nëmmen Videografie",
+                "both": "Fotografie & Videografie"
+            },
+            "message": "Zousätzlech Detailer",
+            "placeholder_msg": "Erzielt eis méi iwwer Äert Event...",
+            "submit": "Ufro schécken",
+            "sending": "Gëtt geschéckt..."
+        },
+        "areas": {
+            "title": "Servicegebidder zu Lëtzebuerg",
+            "subtitle": "Mir bidden Fotografie- a Videografieservicer uechter Lëtzebuerg an Ëmgéigend un",
+            "primary": "Haaptservicegebidder:"
+        }
+    },
+    "brand": {
+        "name": "Hochzäiten & Eventer"
+    },
+    "common": {
+        "whatsapp": "WhatsApp"
+    },
+    "error": {
+        "unexpected": "En onerwaarte Feeler ass geschitt."
+    },
+    "footer": {
+        "quick_links": "Séier Links",
+        "contact": "Kontakt",
+        "follow_us": "Follegt eis",
+        "rights": "All Rechter virbehalen.",
+        "text": "Mir halen Är wäertvollst Momenter mat Eleganz a Konscht zu Lëtzebuerg fest."
+    }
+}
