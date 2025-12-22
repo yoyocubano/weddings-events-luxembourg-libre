@@ -1,11 +1,19 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { 
+  InsertUser, 
+  users,
+  portfolioCategories,
+  portfolioProjects,
+  servicePackages,
+  clientInquiries,
+  InsertClientInquiry,
+  teamMembers
+} from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
@@ -89,4 +97,72 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Portfolio queries
+export async function getAllPortfolioCategories() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return await db.select().from(portfolioCategories).orderBy(portfolioCategories.displayOrder);
+}
+
+export async function getPortfolioProjectsByCategory(categoryId?: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  if (categoryId) {
+    return await db
+      .select()
+      .from(portfolioProjects)
+      .where(eq(portfolioProjects.categoryId, categoryId))
+      .orderBy(desc(portfolioProjects.featured), portfolioProjects.displayOrder);
+  }
+  
+  return await db
+    .select()
+    .from(portfolioProjects)
+    .orderBy(desc(portfolioProjects.featured), portfolioProjects.displayOrder);
+}
+
+export async function getFeaturedProjects(limit: number = 6) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return await db
+    .select()
+    .from(portfolioProjects)
+    .where(eq(portfolioProjects.featured, 1))
+    .orderBy(portfolioProjects.displayOrder)
+    .limit(limit);
+}
+
+// Service packages queries
+export async function getAllServicePackages() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return await db.select().from(servicePackages).orderBy(servicePackages.displayOrder);
+}
+
+// Client inquiries
+export async function createClientInquiry(inquiry: InsertClientInquiry) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(clientInquiries).values(inquiry);
+  return result;
+}
+
+export async function getAllClientInquiries() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return await db.select().from(clientInquiries).orderBy(desc(clientInquiries.createdAt));
+}
+
+// Team members
+export async function getAllTeamMembers() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return await db.select().from(teamMembers).orderBy(teamMembers.displayOrder);
+}
