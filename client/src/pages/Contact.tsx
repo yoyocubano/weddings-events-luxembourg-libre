@@ -37,13 +37,21 @@ export default function Contact() {
    * Supabase Integration via REST API
    * Submits directly to the 'inquiries' table.
    */
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    const SUPABASE_URL = "https://obijleonxnpsgpmqcdik.supabase.co";
-    // NOTE: This should technically be the Anon Key (starts with eyJ...). 
-    // If the provided 'sb_publishable...' key fails, replace it with the 'anon' public key from Supabase Dashboard -> Settings -> API.
-    const SUPABASE_KEY = "sb_publishable_RVNxXDSzoEWQmtaxkBHUDg_DgIv0GQi";
+    // Environment Variables (Must be set in .env or Netlify Dashboard)
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      toast.error("Configuration Error", { description: "Missing Supabase credentials." });
+      setIsSubmitting(false);
+      return;
+    }
 
     // Transform date to ISO string if present
     const payload = {
@@ -99,6 +107,8 @@ export default function Contact() {
       toast.error("Error sending message", {
         description: "Please check your internet connection or try again later.",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -343,9 +353,9 @@ export default function Contact() {
                       type="submit"
                       size="lg"
                       className="w-full"
-                      disabled={createInquiry.isPending}
+                      disabled={isSubmitting}
                     >
-                      {createInquiry.isPending ? (
+                      {isSubmitting ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                           {t("contact.form.sending")}
