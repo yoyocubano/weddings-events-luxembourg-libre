@@ -1,6 +1,6 @@
 [build]
   base = "/"
-  command = "npm config delete //registry.npmjs.org/:_authToken || true && npm install --legacy-peer-deps && npm run build"
+  command = "echo 'registry=https://registry.npmjs.org/' > .npmrc && npm install --legacy-peer-deps && npm run build"
   publish = "dist/public"
 
 [build.environment]
