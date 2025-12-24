@@ -92,7 +92,7 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Camera className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold mb-3">{t('services.wedding.title')}</h3>
+                <h3 className="text-xl lg:text-2xl font-serif font-semibold mb-3 break-words hyphens-auto">{t('services.wedding.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('services.wedding.desc')}
                 </p>
@@ -104,7 +104,7 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Video className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold mb-3">{t('services.video.title')}</h3>
+                <h3 className="text-xl lg:text-2xl font-serif font-semibold mb-3 break-words hyphens-auto">{t('services.video.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('services.video.desc')}
                 </p>
@@ -116,7 +116,7 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Heart className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold mb-3">{t('services.full.title')}</h3>
+                <h3 className="text-xl lg:text-2xl font-serif font-semibold mb-3 break-words hyphens-auto">{t('services.full.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('services.full.desc')}
                 </p>
