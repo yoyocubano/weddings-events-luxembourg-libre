@@ -39,7 +39,23 @@
             "title": "Komplettabdeckung",
             "desc": "Vollständige Abdeckung durch Kombination von Foto- und Videografie für eine umfassende Erinnerungssammlung."
         },
-        "view_all": "Alle Dienstleistungen ansehen"
+        "view_all": "Alle Dienstleistungen ansehen",
+        "pets": {
+            "title": "Tierfotografie",
+            "desc": "Wir fangen die einzigartige Persönlichkeit Ihrer pelzigen Freunde ein."
+        },
+        "corporate": {
+            "title": "Content Creation",
+            "desc": "Visuelles Storytelling für Unternehmen jeder Größe."
+        },
+        "dance_schools": {
+            "title": "Tanz & Schulen",
+            "desc": "Professionelle Begleitung für Schulen, Aufführungen und Workshops."
+        },
+        "private_events": {
+            "title": "Private Feiern",
+            "desc": "Gender Reveal, Geburtstage und alle Arten von Veranstaltungen."
+        }
     },
     "featured": {
         "title": "Ausgewählte Arbeiten",
@@ -64,7 +80,48 @@
         "subtitle": "Entdecken Sie unsere Sammlung wunderschöner Hochzeiten und Events, die in ganz Luxemburg festgehalten wurden",
         "all_projects": "Alle Projekte",
         "view_photos": "{{count}} Fotos ansehen",
-        "no_projects": "Noch keine Projekte in dieser Kategorie gefunden."
+        "no_projects": "Noch keine Projekte in dieser Kategorie gefunden.",
+        "categories": {
+            "weddings": "Hochzeiten & Events",
+            "engagements": "Verlobungen",
+            "events": "Events",
+            "pets": "Fotoshooting mit Haustieren",
+            "corporate": "Unternehmensinhalte",
+            "dance": "Tanz & Schulen",
+            "private": "Private Feiern"
+        },
+        "projects": {
+            "chateau": {
+                "title": "Schloss-Hochzeit",
+                "desc": "Eine wunderschöne Sommerhochzeit im Grand Chateau.",
+                "location": "Vianden, Luxemburg"
+            },
+            "city": {
+                "title": "Verlobung in der Stadt",
+                "desc": "Romantisches Fotoshooting in Luxemburg-Stadt.",
+                "location": "Luxemburg-Stadt"
+            },
+            "pets_park": {
+                "title": "Goldene Stunde im Park",
+                "desc": "Die Freude Ihres pelzigen Freundes in der Natur festhalten.",
+                "location": "Merl Park, Luxemburg"
+            },
+            "corporate_summit": {
+                "title": "Tech-Innovationsgipfel",
+                "desc": "Professionelle Berichterstattung über ein dynamisches Firmenevent.",
+                "location": "Kirchberg, Luxemburg"
+            },
+            "dance_studio": {
+                "title": "Urban Dance Kollektiv",
+                "desc": "Dynamische Studio- und Außenaufnahmen für eine moderne Tanzgruppe.",
+                "location": "Esch-sur-Alzette"
+            },
+            "private_celebration": {
+                "title": "Dachterrassen-Geburtstag & Enthüllung",
+                "desc": "Intime Feiern mit Familie und Freunden.",
+                "location": "Clausen, Luxemburg"
+            }
+        }
     },
     "services_page": {
         "title": "Unsere Dienstleistungen",

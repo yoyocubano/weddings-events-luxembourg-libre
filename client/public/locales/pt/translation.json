@@ -39,7 +39,23 @@
             "title": "Cobertura Completa",
             "desc": "Cobertura total combinando fotografia e videografia para uma coleção de memórias abrangente."
         },
-        "view_all": "Ver Todos os Serviços"
+        "view_all": "Ver Todos os Serviços",
+        "pets": {
+            "title": "Fotografia de Animais",
+            "desc": "Capturando a personalidade única dos seus amigos peludos."
+        },
+        "corporate": {
+            "title": "Criação de Conteúdo",
+            "desc": "Storytelling visual para empresas de todos os portes."
+        },
+        "dance_schools": {
+            "title": "Dança e Escolas",
+            "desc": "Cobertura profissional para escolas, apresentações e workshops."
+        },
+        "private_events": {
+            "title": "Festas Privadas",
+            "desc": "Revelação de sexo, aniversários e todo tipo de eventos."
+        }
     },
     "featured": {
         "title": "Trabalhos em Destaque",
@@ -64,7 +80,48 @@
         "subtitle": "Explore a nossa coleção de belos casamentos e eventos capturados em todo o Luxemburgo",
         "all_projects": "Todos os Projetos",
         "view_photos": "Ver {{count}} fotos",
-        "no_projects": "Nenhum projeto encontrado nesta categoria ainda."
+        "no_projects": "Nenhum projeto encontrado nesta categoria ainda.",
+        "categories": {
+            "weddings": "Casamentos e Eventos",
+            "engagements": "Compromissos",
+            "events": "Eventos",
+            "pets": "Sessões Pet",
+            "corporate": "Conteúdo Corporativo",
+            "dance": "Dança e Escolas",
+            "private": "Festas Privadas"
+        },
+        "projects": {
+            "chateau": {
+                "title": "Casamento no Castelo",
+                "desc": "Um lindo casamento de verão no Grand Château.",
+                "location": "Vianden, Luxemburgo"
+            },
+            "city": {
+                "title": "Noivado na Cidade",
+                "desc": "Sessão de fotos romântica na Cidade do Luxemburgo.",
+                "location": "Cidade de Luxemburgo"
+            },
+            "pets_park": {
+                "title": "Sessão no Parque ao Pôr do Sol",
+                "desc": "Capturando a alegria do seu amigo peludo na natureza.",
+                "location": "Parque Merl, Luxemburgo"
+            },
+            "corporate_summit": {
+                "title": "Cimeira de Inovação Tecnológica",
+                "desc": "Cobertura profissional de um evento corporativo dinâmico.",
+                "location": "Kirchberg, Luxemburgo"
+            },
+            "dance_studio": {
+                "title": "Coletivo de Dança Urbana",
+                "desc": "Sessões dinâmicas em estúdio e ao ar livre para um grupo de dança moderno.",
+                "location": "Esch-sur-Alzette"
+            },
+            "private_celebration": {
+                "title": "Aniversário e Revelação no Terraço",
+                "desc": "Celebrações íntimas com família e amigos.",
+                "location": "Clausen, Luxemburgo"
+            }
+        }
     },
     "services_page": {
         "title": "Nossos Serviços",

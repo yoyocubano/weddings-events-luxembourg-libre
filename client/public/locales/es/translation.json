@@ -82,7 +82,11 @@
         "categories": {
             "weddings": "Bodas y Eventos",
             "engagements": "Compromisos",
-            "events": "Eventos"
+            "events": "Eventos",
+            "pets": "Sesiones de Mascotas",
+            "corporate": "Contenido Corporativo",
+            "dance": "Bailes y Escuelas",
+            "private": "Fiestas Privadas"
         },
         "projects": {
             "chateau": {
@@ -94,6 +98,26 @@
                 "title": "Sesión en la Ciudad",
                 "desc": "Sesión romántica de compromiso en la ciudad de Luxemburgo.",
                 "location": "Ciudad de Luxemburgo"
+            },
+            "pets_park": {
+                "title": "Sesión en el Parque (Hora Dorada)",
+                "desc": "Capturando la alegría de su mascota en la naturaleza.",
+                "location": "Parque Merl, Luxemburgo"
+            },
+            "corporate_summit": {
+                "title": "Cumbre de Innovación Tecnológica",
+                "desc": "Cobertura profesional de un evento corporativo dinámico.",
+                "location": "Kirchberg, Luxemburgo"
+            },
+            "dance_studio": {
+                "title": "Colectivo de Danza Urbana",
+                "desc": "Sesiones dinámicas en estudio y exteriores para un grupo de danza moderna.",
+                "location": "Esch-sur-Alzette"
+            },
+            "private_celebration": {
+                "title": "Cumpleaños y Revelación en la Azotea",
+                "desc": "Celebraciones íntimas con familia y amigos.",
+                "location": "Clausen, Luxemburgo"
             }
         }
     },
@@ -181,7 +205,23 @@
             "title": "Cobertura Completa",
             "desc": "La historia completa. Fotografía y video trabajando en perfecta armonía de principio a fin."
         },
-        "view_all": "Ver Todos los Servicios"
+        "view_all": "Ver Todos los Servicios",
+        "pets": {
+            "title": "Fotografía de Mascotas",
+            "desc": "Capturando la personalidad única de tus amigos peludos."
+        },
+        "corporate": {
+            "title": "Creación de Contenido",
+            "desc": "Narrativa visual para empresas medianas, grandes y pequeñas."
+        },
+        "dance_schools": {
+            "title": "Bailes y Escuelas",
+            "desc": "Cobertura profesional para escuelas, actuaciones y talleres."
+        },
+        "private_events": {
+            "title": "Fiestas Privadas",
+            "desc": "Revelación de sexo, fiestas de cumpleaños y todo tipo de eventos."
+        }
     },
     "about": {
         "title": "Sobre Nosotros",

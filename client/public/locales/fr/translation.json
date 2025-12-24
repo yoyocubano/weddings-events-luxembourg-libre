@@ -70,7 +70,23 @@
             "title": "Couverture Complète",
             "desc": "Couverture complète combinant photo et vidéo pour une collection de souvenirs exhaustive."
         },
-        "view_all": "Voir Tous les Services"
+        "view_all": "Voir Tous les Services",
+        "pets": {
+            "title": "Photographie d'Animaux",
+            "desc": "Capter la personnalité unique de vos animaux de compagnie."
+        },
+        "corporate": {
+            "title": "Création de Contenu",
+            "desc": "Storytelling visuel pour entreprises de toutes tailles."
+        },
+        "dance_schools": {
+            "title": "Danse et Écoles",
+            "desc": "Couverture professionnelle pour écoles, spectacles et ateliers."
+        },
+        "private_events": {
+            "title": "Fêtes Privées",
+            "desc": "Gender reveal, anniversaires et tous types d'événements."
+        }
     },
     "featured": {
         "title": "Vraies Histoires d'Amour",
@@ -99,7 +115,11 @@
         "categories": {
             "weddings": "Mariages et Événements",
             "engagements": "Fiançailles",
-            "events": "Événements"
+            "events": "Événements",
+            "pets": "Animaux de Compagnie",
+            "corporate": "Contenu Corporatif",
+            "dance": "Danse et Écoles",
+            "private": "Fêtes Privées"
         },
         "projects": {
             "chateau": {
@@ -111,6 +131,26 @@
                 "title": "Fiançailles en Ville",
                 "desc": "Séance photo romantique à Luxembourg Ville.",
                 "location": "Luxembourg Ville"
+            },
+            "pets_park": {
+                "title": "Séance au Parc (Golden Hour)",
+                "desc": "Capturer la joie de votre compagnon à quatre pattes en pleine nature.",
+                "location": "Parc de Merl, Luxembourg"
+            },
+            "corporate_summit": {
+                "title": "Sommet de l'Innovation Tech",
+                "desc": "Couverture professionnelle d'un événement d'entreprise dynamique et collaboratif.",
+                "location": "Kirchberg, Luxembourg"
+            },
+            "dance_studio": {
+                "title": "Collectif de Danse Urbaine",
+                "desc": "Séances dynamiques en studio et en extérieur pour un groupe de danse moderne.",
+                "location": "Esch-sur-Alzette"
+            },
+            "private_celebration": {
+                "title": "Anniversaire & Révélation sur Toit-Terrasse",
+                "desc": "Célébrations intimes avec famille et amis.",
+                "location": "Clausen, Luxembourg"
             }
         }
     },

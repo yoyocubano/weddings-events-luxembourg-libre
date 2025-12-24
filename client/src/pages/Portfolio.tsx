@@ -17,6 +17,10 @@ export default function Portfolio() {
     { id: 1, name: t("portfolio.categories.weddings") },
     { id: 2, name: t("portfolio.categories.engagements") },
     { id: 3, name: t("portfolio.categories.events") },
+    { id: 4, name: t("portfolio.categories.pets") },
+    { id: 5, name: t("portfolio.categories.corporate") },
+    { id: 6, name: t("portfolio.categories.dance") },
+    { id: 7, name: t("portfolio.categories.private") },
   ];
 
   const allProjects = [
@@ -42,6 +46,58 @@ export default function Portfolio() {
         "/city-engagement.png",
       ],
       categoryId: 2,
+    },
+    {
+      id: 3,
+      title: t("portfolio.projects.pets_park.title"),
+      description: t("portfolio.projects.pets_park.desc"),
+      location: t("portfolio.projects.pets_park.location"),
+      coverImageUrl: "/pet-dog.png",
+      imageUrls: [
+        "/pet-dog.png",
+        "/pet-cat.png",
+        "/pet-walk.png"
+      ],
+      categoryId: 4,
+    },
+    {
+      id: 4,
+      title: t("portfolio.projects.corporate_summit.title"),
+      description: t("portfolio.projects.corporate_summit.desc"),
+      location: t("portfolio.projects.corporate_summit.location"),
+      coverImageUrl: "/corp-meeting.png",
+      imageUrls: [
+        "/corp-meeting.png",
+        "/corp-woman.png",
+        "/corp-presentation.png"
+      ],
+      categoryId: 5,
+    },
+    {
+      id: 5,
+      title: t("portfolio.projects.dance_studio.title"),
+      description: t("portfolio.projects.dance_studio.desc"),
+      location: t("portfolio.projects.dance_studio.location"),
+      coverImageUrl: "/dance-ballet.png",
+      imageUrls: [
+        "/dance-ballet.png",
+        "/dance-hiphop.png",
+        "/dance-duo.png"
+      ],
+      categoryId: 6,
+    },
+    {
+      id: 6,
+      title: t("portfolio.projects.private_celebration.title"),
+      description: t("portfolio.projects.private_celebration.desc"),
+      location: t("portfolio.projects.private_celebration.location"),
+      coverImageUrl: "/private-bday.png",
+      imageUrls: [
+        "/private-bday.png",
+        "/private-reveal.png",
+        "/private-dinner.png"
+      ],
+      categoryId: 7,
     },
   ];
 

@@ -39,7 +39,23 @@
             "title": "Komplett Ofdeckung",
             "desc": "Vollstänneg Ofdeckung duerch Kombinatioun vu Foto a Video fir eng ëmfangräich Erënnerungssammlung."
         },
-        "view_all": "All Servicer kucken"
+        "view_all": "All Servicer kucken",
+        "pets": {
+            "title": "Déierefotografie",
+            "desc": "D'Perséinlechkeet vun Äre Hausdéieren ofbilden."
+        },
+        "corporate": {
+            "title": "Inhaltskreatioun",
+            "desc": "Visuellt Storytelling fir Betriber vun all Gréisst."
+        },
+        "dance_schools": {
+            "title": "Danz & Schoulen",
+            "desc": "Professionell Begleedung fir Schoulen, Opféierungen a Workshops."
+        },
+        "private_events": {
+            "title": "Privat Feieren",
+            "desc": "Gender Reveal, Gebuertsdeeg an all Zort vun Evenementer."
+        }
     },
     "featured": {
         "title": "Ausgewielt Aarbechten",
@@ -64,7 +80,48 @@
         "subtitle": "Entdeckt eis Sammlung vu schéine Hochzäiten an Eventer, déi zu Lëtzebuerg festgehale goufen",
         "all_projects": "All Projeten",
         "view_photos": "Kuckt {{count}} Fotoen",
-        "no_projects": "Nach keng Projeten an dëser Kategorie fonnt."
+        "no_projects": "Nach keng Projeten an dëser Kategorie fonnt.",
+        "categories": {
+            "weddings": "Hochzäiten & Events",
+            "engagements": "Verlobungen",
+            "events": "Evenementer",
+            "pets": "Hausdéieren",
+            "corporate": "Inhaltskreatioun",
+            "dance": "Danz & Schoulen",
+            "private": "Privat Feieren"
+        },
+        "projects": {
+            "chateau": {
+                "title": "Schlasshochzäit",
+                "desc": "Eng wonnerschéin Summerhochzäit am Grand Château.",
+                "location": "Veianen, Lëtzebuerg"
+            },
+            "city": {
+                "title": "Verlobung an der Stad",
+                "desc": "Romantesch Fotosessioun an der Stad Lëtzebuerg.",
+                "location": "Lëtzebuerg Stad"
+            },
+            "pets_park": {
+                "title": "Golden Hour Park Sessioun",
+                "desc": "Fänkt d'Freed vun Ärem Déier an der Natur an.",
+                "location": "Merl Park, Lëtzebuerg"
+            },
+            "corporate_summit": {
+                "title": "Tech Innovatiouns Sommet",
+                "desc": "Professionell Coverage vun engem dynamesche Firmenevent.",
+                "location": "Kirchberg, Lëtzebuerg"
+            },
+            "dance_studio": {
+                "title": "Urban Dance Kollektiv",
+                "desc": "Dynamesch Studio- an Bausse-Sessiounen fir eng modern Danzgrupp.",
+                "location": "Esch-Uelzecht"
+            },
+            "private_celebration": {
+                "title": "Rooftop Gebuertsdag & Reveal",
+                "desc": "Intim Feieren mat Famill a Frënn.",
+                "location": "Clausen, Lëtzebuerg"
+            }
+        }
     },
     "services_page": {
         "title": "Eis Servicer",

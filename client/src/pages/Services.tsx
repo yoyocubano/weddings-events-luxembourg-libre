@@ -138,7 +138,83 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Additional Services */}
+      {/* Specialized Services */}
+      <section className="py-16 bg-gradient-to-br from-background via-secondary/20 to-background">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold text-foreground mb-4">
+              {t("services_page.specialized_title", "Specialized Services")}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t("services_page.specialized_subtitle", "Tailored solutions for every unique occasion.")}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="hover:shadow-lg transition-shadow border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                  <span className="text-2xl">🐾</span>
+                  {t("services.pets.title")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">{t("services.pets.desc")}</p>
+                <Link href="/contact">
+                  <Button variant="outline" className="w-full">{t("services_page.get_started")}</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                  <span className="text-2xl">🏢</span>
+                  {t("services.corporate.title")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">{t("services.corporate.desc")}</p>
+                <Link href="/contact">
+                  <Button variant="outline" className="w-full">{t("services_page.get_started")}</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                  <span className="text-2xl">💃</span>
+                  {t("services.dance_schools.title")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">{t("services.dance_schools.desc")}</p>
+                <Link href="/contact">
+                  <Button variant="outline" className="w-full">{t("services_page.get_started")}</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                  <span className="text-2xl">🎉</span>
+                  {t("services.private_events.title")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">{t("services.private_events.desc")}</p>
+                <Link href="/contact">
+                  <Button variant="outline" className="w-full">{t("services_page.get_started")}</Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Services (Included) */}
       <section className="py-16 bg-card">
         <div className="container">
           <div className="text-center mb-12">

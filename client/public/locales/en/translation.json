@@ -70,7 +70,23 @@
             "title": "Full Coverage",
             "desc": "The complete story. Both photo and video working in perfect harmony from start to finish."
         },
-        "view_all": "View All Services"
+        "view_all": "View All Services",
+        "pets": {
+            "title": "Pet Photography",
+            "desc": "Capturing the unique personality of your furry friends."
+        },
+        "corporate": {
+            "title": "Corporate Content",
+            "desc": "Visual storytelling for businesses of all sizes."
+        },
+        "dance_schools": {
+            "title": "Dance & Schools",
+            "desc": "Professional coverage for schools, performances, and workshops."
+        },
+        "private_events": {
+            "title": "Private Parties",
+            "desc": "Gender reveals, birthdays, and all types of events."
+        }
     },
     "featured": {
         "title": "Real Love Stories",
@@ -99,7 +115,11 @@
         "categories": {
             "weddings": "Weddings & Events",
             "engagements": "Engagements",
-            "events": "Events"
+            "events": "Events",
+            "pets": "Pet Sessions",
+            "corporate": "Corporate Content",
+            "dance": "Dance & Schools",
+            "private": "Private Parties"
         },
         "projects": {
             "chateau": {
@@ -111,6 +131,26 @@
                 "title": "City Engagement",
                 "desc": "Romantic engagement shoot in Luxembourg City.",
                 "location": "Luxembourg City"
+            },
+            "pets_park": {
+                "title": "Golden Hour Park Session",
+                "desc": "Capturing the joy of a furry friend in nature.",
+                "location": "Merl Park, Luxembourg"
+            },
+            "corporate_summit": {
+                "title": "Tech Innovation Summit",
+                "desc": "Professional coverage of a high-energy corporate event and team collaboration.",
+                "location": "Kirchberg, Luxembourg"
+            },
+            "dance_studio": {
+                "title": "Urban Dance Collective",
+                "desc": "Dynamic studio and outdoor sessions for a modern dance group.",
+                "location": "Esch-sur-Alzette"
+            },
+            "private_celebration": {
+                "title": "Rooftop Birthday & Reveal",
+                "desc": "Intimate celebrations with friends and family.",
+                "location": "Clausen, Luxembourg"
             }
         }
     },
