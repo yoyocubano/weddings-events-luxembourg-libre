@@ -68,47 +68,49 @@ export default function Contact() {
       return;
     }
 
-    setIsSubmitting(true);
-
-    // Environment variables verification
-    // if (!import.meta.env.VITE_SUPABASE_URL) {
-    //   console.warn("Missing Supabase URL");
-    // }
-
-    const payload = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone || null,
-      event_type: data.eventType,
-      event_date: data.eventDate || null,
-      location: data.location || null,
-      budget: data.budget || null,
-      guest_count: data.guestCount ? parseInt(data.guestCount) : null,
-      service_interest: data.serviceInterest || null,
-      message: data.message || null
-    };
+    // Environment variables
+    const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
 
     try {
-      // Use Netlify Function instead of direct Supabase call
-      const response = await fetch("/.netlify/functions/submit-inquiry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload)
-      });
+      // Create an array of promises to handle submissions
+      const submissions = [];
 
-      if (!response.ok) {
-        throw new Error("Failed to submit");
+      // 1. Primary: Netlify Function (Supabase + Resend)
+      // This is the robust path configured with the user's new API keys
+      submissions.push(
+        fetch("/.netlify/functions/submit-inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        }).then(res => {
+          if (!res.ok) throw new Error("Netlify Function Failed");
+          return res;
+        })
+      );
+
+      // 2. Secondary: Google Sheets (Optional/Backup)
+      // If the user has configured the script URL, we send here too.
+      if (GOOGLE_SCRIPT_URL) {
+        submissions.push(
+          fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+        );
       }
 
+      // Execute all submissions
+      await Promise.all(submissions);
+
       toast.success(t("contact.form.success_title") || "Inquiry Sent!", {
-        description: t("contact.form.success_desc") || "We have received your message and saved it to our database.",
+        description: t("contact.form.success_desc") || "We have received your message.",
       });
 
       form.reset();
     } catch (error) {
-      console.error("Supabase Error:", error);
+      console.error("Submission Error:", error);
       toast.error("Error sending message", {
         description: "Please check your internet connection or try again later.",
       });
