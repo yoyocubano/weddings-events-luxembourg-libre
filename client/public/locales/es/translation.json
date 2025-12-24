@@ -1,55 +1,57 @@
 {
     "hero": {
-        "title_start": "Capturando Sus",
-        "title_highlight": "Momentos Perfectos",
-        "subtitle": "Disfrute de su día especial mientras nosotros capturamos cada emoción. Fotografía y videografía profesional en Luxemburgo para recuerdos eternos.",
-        "view_work": "Ver Galería",
-        "get_quote": "Planificar Mi Boda",
-        "award_winning": "Tu Confianza",
-        "studio": "Nuestro Mejor Premio"
+        "title_start": "Tu Historia de Amor,",
+        "title_highlight": "Inmortalizada.",
+        "subtitle": "Disfruta de tu día especial mientras capturamos los momentos que importan. Fotografía y video elegantes y sin estrés en Luxemburgo.",
+        "view_work": "Ver Bodas Reales",
+        "get_quote": "Solicitar Presupuesto",
+        "award_winning": "Confianza de",
+        "studio": "500+ Parejas"
     },
     "why_choose": {
-        "title": "Por Qué Elegirnos",
-        "subtitle": "Combinamos pasión, experiencia y un toque personal para hacer su evento inolvidable.",
+        "title": "Una Experiencia Sin Estrés",
+        "subtitle": "No solo tomamos fotos; aseguramos que tu día fluya sin esfuerzo para que puedas celebrar.",
         "team": {
-            "title": "Equipo Galardonado",
-            "desc": "Excelencia reconocida en fotografía y videografía."
+            "title": "Tranquilidad",
+            "desc": "Con un equipo premiado, relájate sabiendo que cada detalle es capturado por expertos."
         },
         "service": {
-            "title": "Servicio Apasionado",
-            "desc": "Dedicados a capturar cada emoción con el corazón."
+            "title": "Emoción Auténtica",
+            "desc": "Sin poses incómodas. Capturamos las risas genuinas, las lágrimas y la alegría."
         },
         "local": {
-            "title": "Experiencia Local",
-            "desc": "Conocimiento profundo de los mejores lugares de Luxemburgo."
+            "title": "Joyas Ocultas",
+            "desc": "Como locales, conocemos los lugares más impresionantes y secretos de Luxemburgo."
         }
     },
-    "services": {
-        "title": "Nuestros Servicios",
-        "subtitle": "Soluciones integrales de fotografía y videografía adaptadas a sus necesidades",
-        "wedding": {
-            "title": "Fotografía de Bodas",
-            "desc": "Capture cada momento precioso de su día especial con nuestros servicios expertos de fotografía de bodas."
+    "testimonials": {
+        "title": "Historias de Éxito",
+        "subtitle": "No solo confíes en nuestra palabra. Escucha a las parejas que nos confiaron sus recuerdos.",
+        "1": {
+            "text": "¡Nos hicieron sentir muy cómodos! Las fotos son impresionantes y ni notamos las cámaras.",
+            "author": "Sophie & Marc",
+            "location": "Luxemburgo Ciudad"
         },
-        "video": {
-            "title": "Videografía de Eventos",
-            "desc": "Producción de video profesional que cuenta su historia de una manera cinematográfica y atractiva."
+        "2": {
+            "text": "Profesionales, amables, y el video hizo llorar a todos. La mejor inversión de nuestra boda.",
+            "author": "Elena & Thomas",
+            "location": "Esch-sur-Alzette"
         },
-        "full": {
-            "title": "Cobertura Completa",
-            "desc": "Cobertura total combinando fotografía y videografía para una colección de recuerdos completa."
-        },
-        "view_all": "Ver Todos los Servicios"
+        "3": {
+            "text": "Nos preocupaba posar, pero lo hicieron divertido. Los resultados son naturales y hermosos.",
+            "author": "Claire & Louis",
+            "location": "Mondorf-les-Bains"
+        }
     },
     "featured": {
-        "title": "Trabajos Destacados",
-        "subtitle": "Un vistazo a nuestro portafolio de hermosas bodas y eventos",
+        "title": "Historias Reales",
+        "subtitle": "Un vistazo a las hermosas bodas que hemos tenido el honor de capturar.",
         "view_full": "Ver Portafolio Completo"
     },
     "cta": {
-        "title": "¿Listo para Capturar Su Historia?",
-        "subtitle": "Hablemos de su próximo evento y creemos algo hermoso juntos",
-        "button": "Contáctenos"
+        "title": "Las fechas para 2025 se llenan rápido",
+        "subtitle": "No arriesgues tu fecha. Hablemos de tu boda y asegura tu tranquilidad hoy.",
+        "button": "Verificar Disponibilidad"
     },
     "nav": {
         "home": "Inicio",
