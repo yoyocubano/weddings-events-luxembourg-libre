@@ -15,14 +15,14 @@ export default function Home() {
       title: t("portfolio.projects.chateau.title"),
       description: t("portfolio.projects.chateau.desc"),
       location: t("portfolio.projects.chateau.location"),
-      coverImageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=600&fit=crop",
+      coverImageUrl: "/renovation-placeholder.png",
     },
     {
       id: 2,
       title: t("portfolio.projects.city.title"),
       description: t("portfolio.projects.city.desc"),
       location: t("portfolio.projects.city.location"),
-      coverImageUrl: "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=800&h=600&fit=crop",
+      coverImageUrl: "/renovation-placeholder.png",
     },
   ];
 
@@ -44,6 +44,13 @@ export default function Home() {
               <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
                 {t('hero.subtitle')}
               </p>
+
+              {/* Team Credits / SEO Text */}
+              <div className="text-sm font-medium text-muted-foreground/80 space-y-1">
+                <p>Planeamos tu boda</p>
+                <p>Fotógrafo: Joan | Cinematógrafo: Abel | Marketing y Redes: Yusmel</p>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
                 <Link href="/contact">
                   <Button size="lg" className="text-base font-semibold shadow-lg hover:shadow-xl transition-all">
@@ -61,8 +68,8 @@ export default function Home() {
             <div className="relative animate-fade-in">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1000&fit=crop"
-                  alt="Wedding photography"
+                  src="/renovation-placeholder.png"
+                  alt="Wedding photography - Under Renovation"
                   className="w-full h-full object-cover"
                 />
               </div>
