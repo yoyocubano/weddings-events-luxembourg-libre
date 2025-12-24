@@ -232,9 +232,11 @@
 
   /* PREMIUM LOGO STYLING */
   .logo-premium {
-    max-height: 80px;
+    max-height: 100px;
     width: auto;
     transition: transform 0.3s ease;
+    mix-blend-mode: multiply;
+    /* Removes white background on light themes */
   }
 
   .logo-premium:hover {
