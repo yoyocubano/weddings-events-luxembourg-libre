@@ -21,7 +21,7 @@ export default function Footer() {
                     className="h-12 w-auto object-contain transition-all duration-300"
                   />
                   <span className="mt-1 font-sans text-[10px] text-[#9F8F6A] tracking-[0.2em] uppercase text-left group-hover:text-primary transition-colors">
-                    Weddings & Events
+                    {t('brand.tagline')}
                   </span>
                 </div>
               </a>

@@ -1,0 +1,24 @@
+<svg width="300" height="150" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .brand-name { 
+      font-family: 'Bodoni MT', 'Didot', 'Times New Roman', serif; 
+      font-weight: bold; 
+      font-size: 80px; 
+      fill: #F5F5F0; /* Off-White/Cream */
+      text-anchor: middle;
+      letter-spacing: 5px;
+    }
+    .tagline { 
+      font-family: 'Helvetica Neue', 'Arial', sans-serif; 
+      font-size: 14px; 
+      fill: #9F8F6A; /* Champagne - kept same */
+      text-anchor: middle;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+  </style>
+  
+  <text x="150" y="80" class="brand-name">WEL</text>
+  
+  <text x="150" y="115" class="tagline">WEDDINGS & EVENTS</text>
+</svg>

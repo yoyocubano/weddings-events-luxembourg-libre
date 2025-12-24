@@ -23,7 +23,7 @@ export default function Home() {
       title: t("portfolio.projects.city.title"),
       description: t("portfolio.projects.city.desc"),
       location: t("portfolio.projects.city.location"),
-      coverImageUrl: "/table-details-gold.png",
+      coverImageUrl: "/city-engagement.png",
     },
   ];
 
@@ -39,7 +39,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <img
             src="/hero-chateau-sunset.png"
-            alt="Luxury Wedding in Luxembourg Chateau"
+            alt="Luxury Event in Luxembourg Chateau"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/40" />

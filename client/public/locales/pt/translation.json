@@ -1,8 +1,8 @@
 {
     "hero": {
         "title_start": "Eternizando Seus",
-        "title_highlight": "Momentos Perfeitos",
-        "subtitle": "Serviços profissionais de fotografia e videografia para casamentos e eventos em todo o Luxemburgo. Transformamos o seu dia especial em memórias intemporais.",
+        "title_highlight": "Eventos Perfeitos",
+        "subtitle": "Serviços profissionais de fotografia e videografia para eventos e casamentos em todo o Luxemburgo. Transformamos a sua ocasião em memórias intemporais.",
         "view_work": "Ver Galeria",
         "get_quote": "Vamos Planejar Seu Evento",
         "award_winning": "Sua Confiança",
@@ -28,8 +28,8 @@
         "title": "Nossos Serviços",
         "subtitle": "Soluções completas de fotografia e videografia adaptadas às suas necessidades",
         "wedding": {
-            "title": "Fotografia de Casamento",
-            "desc": "Capture cada momento precioso do seu dia especial com os nossos serviços especializados de fotografia de casamento."
+            "title": "Fotografia de Eventos e Casamentos",
+            "desc": "Capture cada momento precioso do seu evento com os nossos serviços especializados."
         },
         "video": {
             "title": "Videografia de Eventos",
@@ -178,23 +178,33 @@
     "areas": {
         "title": "Áreas de Serviço em Luxemburgo",
         "subtitle": "Fornecemos serviços de fotografia e videografia em todo o Luxemburgo e regiões vizinhas",
-        "primary": "Principais Áreas de Atuação:"
+        "primary": "Principais Áreas de Atuação:",
+        "list": "Cidade do Luxemburgo, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz e municípios vizinhos"
+    },
+    "brand": {
+        "name": "WEL Weddings & Events Luxembourg",
+        "tagline": "Casamentos e Eventos"
+    },
+    "auth": {
+        "sign_in": "Entrar",
+        "sign_in_desc": "O acesso a este painel requer autenticação. Continue para iniciar o fluxo de login.",
+        "sign_out": "Sair",
+        "sign_in_title": "Faça login para continuar"
+    },
+    "common": {
+        "whatsapp": "WhatsApp",
+        "navigation": "Navegação",
+        "previous": "Anterior",
+        "next": "Próximo"
+    },
+    "error": {
+        "unexpected": "Ocorreu um erro inesperado."
+    },
+    "footer": {
+        "quick_links": "Links Rápidos",
+        "contact": "Contato",
+        "follow_us": "Siga-nos",
+        "rights": "Todos os direitos reservados.",
+        "text": "Capturando seus momentos mais preciosos com elegância e arte em Luxemburgo."
     }
-},
-"brand": {
-    "name": "WEL Weddings & Events Luxembourg"
-},
-"common": {
-    "whatsapp": "WhatsApp"
-},
-"error": {
-    "unexpected": "Ocorreu um erro inesperado."
-},
-"footer": {
-    "quick_links": "Links Rápidos",
-    "contact": "Contato",
-    "follow_us": "Siga-nos",
-    "rights": "Todos os direitos reservados.",
-    "text": "Capturando seus momentos mais preciosos com elegância e arte em Luxemburgo."
-}
 }

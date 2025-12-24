@@ -1,9 +1,9 @@
 {
     "hero": {
-        "title": "Organise Your Perfect Wedding in Luxembourg",
-        "subtitle": "Luxury Photography and Video for Your Special Day",
-        "description": "We capture every unique moment of your wedding with artistic elegance. Over 10 years creating unforgettable memories.",
-        "team_credits": "We plan your wedding | Photographer: Joan | Cinematographer: Abel | Marketing & Socials: Yusmel | Coordinator: Rebeca",
+        "title": "Organise Your Perfect Event in Luxembourg",
+        "subtitle": "Luxury Photography and Video for Special Moments",
+        "description": "We capture every unique moment of your event with artistic elegance. Over 10 years creating unforgettable memories.",
+        "team_credits": "We plan your event | Photographer: Joan | Cinematographer: Abel | Marketing & Socials: Yusmel | Coordinator: Rebeca",
         "cta_primary": "Reserve your peace of mind",
         "cta_secondary": "Speak with a planner",
         "get_quote": "Let's Plan Your Event",
@@ -13,7 +13,7 @@
     },
     "why_choose": {
         "title": "A Stress-Free Experience",
-        "subtitle": "We don’t just take photos; we ensure your day flows effortlessly so you can focus on celebrating.",
+        "subtitle": "We don’t just take photos; we ensure your event flows effortlessly so you can focus on celebrating.",
         "team": {
             "title": "Peace of Mind",
             "desc": "With an award-winning team, you can relax knowing every detail is being captured by experts."
@@ -28,11 +28,11 @@
         }
     },
     "testimonials": {
-        "title": "What our couples say",
+        "title": "What our clients say",
         "subtitle": "Our greatest satisfaction is seeing the happiness of our clients reliving their most precious moments.",
         "badge": "Testimonials",
         "stats": {
-            "weddings": "Weddings Captured",
+            "weddings": "Events Captured",
             "clients": "Happy Clients",
             "rating": "Average Rating"
         },
@@ -59,12 +59,12 @@
         "title": "Events, Well Crafted",
         "subtitle": "Bespoke solutions for every occasion.",
         "wedding": {
-            "title": "Wedding Photography",
+            "title": "Event & Wedding Photography",
             "desc": "Capturing the soul of your celebration with a timeless, elegant style."
         },
         "video": {
             "title": "Cinematic Video",
-            "desc": "Relive the movement, sounds, and vows of your day with a high-end cinematic film."
+            "desc": "Relive the movement, sounds, and highlights of your day with a high-end cinematic film."
         },
         "full": {
             "title": "Full Coverage",
@@ -97,7 +97,7 @@
         "view_photos": "View {{count}} photos",
         "no_projects": "No projects found in this category yet.",
         "categories": {
-            "weddings": "Weddings",
+            "weddings": "Weddings & Events",
             "engagements": "Engagements",
             "events": "Events"
         },
@@ -319,14 +319,25 @@
         "areas": {
             "title": "Service Areas in Luxembourg",
             "subtitle": "We provide photography and videography services throughout Luxembourg and surrounding regions",
-            "primary": "Primary Service Areas:"
+            "primary": "Primary Service Areas:",
+            "list": "Luxembourg City, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz, and surrounding municipalities"
         }
     },
     "brand": {
-        "name": "WEL Weddings & Events Luxembourg"
+        "name": "WEL Weddings & Events Luxembourg",
+        "tagline": "Weddings & Events"
+    },
+    "auth": {
+        "sign_in": "Sign in",
+        "sign_in_desc": "Access to this dashboard requires authentication. Continue to launch the login flow.",
+        "sign_out": "Sign out",
+        "sign_in_title": "Sign in to continue"
     },
     "common": {
-        "whatsapp": "WhatsApp"
+        "whatsapp": "WhatsApp",
+        "navigation": "Navigation",
+        "previous": "Previous",
+        "next": "Next"
     },
     "error": {
         "unexpected": "An unexpected error occurred."

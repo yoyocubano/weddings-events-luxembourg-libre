@@ -1,8 +1,8 @@
 {
     "hero": {
-        "title_start": "Mir halen Är",
-        "title_highlight": "Perfekt Momenter fest",
-        "subtitle": "Professionell Foto- a Videografie Servicer fir Hochzäiten an Eventer uechter Lëtzebuerg. Mir verwandelen Äre speziellen Dag an zäitlos Erënnerungen.",
+        "title_start": "Mir halen Äert",
+        "title_highlight": "Perfekt Event fest",
+        "subtitle": "Professionell Foto- a Videografie Servicer fir Eventer an Hochzäiten uechter Lëtzebuerg. Mir verwandelen Ären Ulass an zäitlos Erënnerungen.",
         "view_work": "Galerie Kucken",
         "get_quote": "Loosst eis Äert Event plangen",
         "award_winning": "Äert Vertrauen",
@@ -28,8 +28,8 @@
         "title": "Eis Servicer",
         "subtitle": "Ëmfangräich Foto- a Videoléisungen ugepasst un Är Besoinen",
         "wedding": {
-            "title": "Hochzäitsfotografie",
-            "desc": "Halt all wäertvolle Moment vun Ärem speziellen Dag mat eise Hochzäitsfotografie-Experten fest."
+            "title": "Event an Hochzäitsfotografie",
+            "desc": "Halt all wäertvolle Moment vun Ärem Event mat eise Experten fest."
         },
         "video": {
             "title": "Event Videografie",
@@ -176,15 +176,26 @@
         "sending": "Gëtt geschéckt..."
     },
     "areas": {
-        "title": "Servicegebidder zu Lëtzebuerg",
-        "subtitle": "Mir bidden Fotografie- a Videografieservicer uechter Lëtzebuerg an Ëmgéigend un",
-        "primary": "Haaptservicegebidder:"
+        "title": "Service Beräicher zu Lëtzebuerg",
+        "subtitle": "Mir bidden Foto- a Videografie Servicer uechter Lëtzebuerg an Ëmgéigend un",
+        "primary": "Haaptservice Beräicher:",
+        "list": "Lëtzebuerg Stad, Esch-Uelzecht, Déifferdeng, Diddeleng, Ettelbréck, Dikrech, Wolz an Ëmgéigend Gemengen"
     },
     "brand": {
-        "name": "WEL Weddings & Events Luxembourg"
+        "name": "WEL Weddings & Events Luxembourg",
+        "tagline": "Hochzäiten & Eventer"
+    },
+    "auth": {
+        "sign_in": "Umellen",
+        "sign_in_desc": "Dësen Dashboard erfuerdert eng Authentifizéierung. Fuert weider fir de Login-Prozess ze starten.",
+        "sign_out": "Ofmellen",
+        "sign_in_title": "Mellt Iech un fir weiderzemaachen"
     },
     "common": {
-        "whatsapp": "WhatsApp"
+        "whatsapp": "WhatsApp",
+        "navigation": "Navigatioun",
+        "previous": "Zeréck",
+        "next": "Weider"
     },
     "error": {
         "unexpected": "En onerwaarte Feeler ass geschitt."

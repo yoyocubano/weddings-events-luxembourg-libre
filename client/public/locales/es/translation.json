@@ -1,9 +1,9 @@
 {
     "hero": {
-        "title": "Organiza Tu Boda Perfecta en Luxemburgo",
-        "subtitle": "Fotografía y Video de Lujo para Tu Día Especial",
-        "description": "Capturamos cada momento único de tu boda con elegancia artística. Más de 10 años creando recuerdos inolvidables.",
-        "team_credits": "Planeamos tu boda | Fotógrafo: Joan | Cinematógrafo: Abel | Marketing y Redes: Yusmel | Coordinadora: Rebeca",
+        "title": "Organiza Tu Evento Perfecto en Luxemburgo",
+        "subtitle": "Fotografía y Video de Lujo para Momentos Especiales",
+        "description": "Capturamos cada momento único de tu evento con elegancia artística. Más de 10 años creando recuerdos inolvidables.",
+        "team_credits": "Planeamos tu evento | Fotógrafo: Joan | Cinematógrafo: Abel | Marketing y Redes: Yusmel | Coordinadora: Rebeca",
         "cta_primary": "Reserva tu tranquilidad",
         "cta_secondary": "Hablar con un planner",
         "get_quote": "Preparemos Tu Evento",
@@ -13,7 +13,7 @@
     },
     "why_choose": {
         "title": "Una Experiencia Sin Estrés",
-        "subtitle": "No solo tomamos fotos; aseguramos que tu día fluya sin esfuerzo para que puedas celebrar.",
+        "subtitle": "No solo tomamos fotos; aseguramos que tu evento fluya sin esfuerzo para que puedas celebrar.",
         "team": {
             "title": "Tranquilidad",
             "desc": "Con un equipo premiado, relájate sabiendo que cada detalle es capturado por expertos."
@@ -28,11 +28,11 @@
         }
     },
     "testimonials": {
-        "title": "Lo que dicen nuestras parejas",
+        "title": "Lo que dicen nuestros clientes",
         "subtitle": "Nuestra mayor satisfacción es ver la felicidad de nuestros clientes reviviendo sus momentos más preciados.",
         "badge": "Testimonios",
         "stats": {
-            "weddings": "Bodas Capturadas",
+            "weddings": "Eventos Capturados",
             "clients": "Clientes Satisfechos",
             "rating": "Valoración Media"
         },
@@ -80,7 +80,7 @@
         "view_photos": "Ver {{count}} foto(s)",
         "no_projects": "Aún no se encontraron proyectos en esta categoría.",
         "categories": {
-            "weddings": "Bodas",
+            "weddings": "Bodas y Eventos",
             "engagements": "Compromisos",
             "events": "Eventos"
         },
@@ -170,12 +170,12 @@
         "title": "Eventos, Bien Hechos",
         "subtitle": "Soluciones a medida para cada ocasión.",
         "wedding": {
-            "title": "Fotografía de Boda",
+            "title": "Fotografía de Eventos y Bodas",
             "desc": "Capturando el alma de tu celebración con un estilo atemporal y elegante."
         },
         "video": {
             "title": "Video Cinematográfico",
-            "desc": "Revive el movimiento, los sonidos y los votos de tu día con una película de alta gama."
+            "desc": "Revive el movimiento, los sonidos y los mejores momentos de tu día con una película de alta gama."
         },
         "full": {
             "title": "Cobertura Completa",
@@ -319,14 +319,25 @@
         "areas": {
             "title": "Áreas de Servicio en Luxemburgo",
             "subtitle": "Brindamos servicios de fotografía y videografía en todo Luxemburgo y regiones circundantes",
-            "primary": "Áreas de Servicio Principales:"
+            "primary": "Áreas de Servicio Principales:",
+            "list": "Luxemburgo Ciudad, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz y municipios circundantes"
         }
     },
     "brand": {
-        "name": "WEL Weddings & Events Luxembourg"
+        "name": "WEL Weddings & Events Luxembourg",
+        "tagline": "Bodas y Eventos"
+    },
+    "auth": {
+        "sign_in": "Iniciar sesión",
+        "sign_in_desc": "El acceso a este panel requiere autenticación. Continúe para iniciar el flujo de inicio de sesión.",
+        "sign_out": "Cerrar sesión",
+        "sign_in_title": "Inicie sesión para continuar"
     },
     "common": {
-        "whatsapp": "WhatsApp"
+        "whatsapp": "WhatsApp",
+        "navigation": "Navegación",
+        "previous": "Anterior",
+        "next": "Siguiente"
     },
     "error": {
         "unexpected": "Ocurrió un error inesperado."

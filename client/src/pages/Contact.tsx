@@ -259,8 +259,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold mb-1">{t("contact.info.location")}</h3>
                       <p className="text-sm text-muted-foreground">
-                        Luxembourg City<br />
-                        Luxembourg
+                        {t("contact.info.location_val")}
                       </p>
                     </div>
                   </div>
@@ -476,14 +475,13 @@ export default function Contact() {
                           {t("contact.form.sending")}
                         </span>
                       ) : (
-                        // Changed CTA as requested
-                        "Enviar Consulta"
+                        t("contact.form.submit")
                       )}
                     </Button>
 
                     <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground pt-4 bg-muted/20 p-2 rounded mt-4">
                       <ShieldCheck className="w-4 h-4 text-green-600" />
-                      <span>Sus datos están seguros. Protected by <strong>SSL 256-bit encryption</strong>.</span>
+                      <span>{t("contact.form.privacy_note")} <strong>SSL 256-bit encryption</strong>.</span>
                     </div>
                   </form>
                 </CardContent>
@@ -518,7 +516,7 @@ export default function Contact() {
           </div>
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              <strong>{t("contact.areas.primary")}</strong> Luxembourg City, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz, and surrounding municipalities
+              <strong>{t("contact.areas.primary")}</strong> {t("contact.areas.list")}
             </p>
           </div>
         </div>

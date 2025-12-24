@@ -31,87 +31,86 @@ export default function Navigation() {
           {/* Logo */}
           {/* Logo */}
           {/* Logo */}
-          <Link href="/" className="flex flex-col items-center justify-center group h-full py-2">
-            <img
-              src="/logo-well-symbol.svg"
-              alt="WEL"
-              className="h-12 md:h-16 w-auto object-contain transition-all duration-300"
-            />
-            <span className="mt-1 font-sans text-[10px] md:text-xs text-[#9F8F6A] tracking-[0.2em] uppercase text-center">
-              Weddings & Events
-            </span>
-          </Link>
+          <img
+            src="/logo-well-symbol.svg"
+            alt="WEL"
+            className="h-12 md:h-16 w-auto object-contain transition-all duration-300"
+          />
+          <span className="mt-1 font-sans text-[10px] md:text-xs text-[#9F8F6A] tracking-[0.2em] uppercase text-center">
+            {t('brand.tagline')}
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={`text-sm font-medium transition-colors hover:text-primary ${isActive(link.href)
+                ? "text-primary"
+                : "text-foreground/80"
+                }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <LanguageSwitcher />
+          <Link href="/contact">
+            <Button variant="default" size="sm">
+              {t("hero.get_quote")}
+            </Button>
+          </Link>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="flex items-center gap-4 md:hidden">
+          <LanguageSwitcher />
+          <button
+            className="p-2 text-foreground hover:text-primary transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden py-4 border-t border-border animate-fade-in">
+          <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                className={`text-sm font-medium transition-colors hover:text-primary ${isActive(link.href)
+                className={`block py-2 text-base font-medium transition-colors hover:text-primary ${isActive(link.href)
                   ? "text-primary"
                   : "text-foreground/80"
                   }`}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <LanguageSwitcher />
             <Link href="/contact">
-              <Button variant="default" size="sm">
+              <Button
+                variant="default"
+                className="w-full"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {t("hero.get_quote")}
               </Button>
             </Link>
           </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 md:hidden">
-            <LanguageSwitcher />
-            <button
-              className="p-2 text-foreground hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block py-2 text-base font-medium transition-colors hover:text-primary ${isActive(link.href)
-                    ? "text-primary"
-                    : "text-foreground/80"
-                    }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link href="/contact">
-                <Button
-                  variant="default"
-                  className="w-full"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t("hero.get_quote")}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+      )}
+    </div>
+    </nav >
   );
 }

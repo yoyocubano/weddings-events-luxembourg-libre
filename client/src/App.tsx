@@ -12,6 +12,7 @@ import Services from "./pages/Services";
 import About from "./pages/About";
 import Protocol from "./pages/Protocol";
 import Contact from "./pages/Contact";
+import ImageInventory from "./pages/ImageInventory";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/about"} component={About} />
       <Route path={"/protocol"} component={Protocol} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/images"} component={ImageInventory} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

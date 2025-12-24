@@ -1,7 +1,7 @@
 {
     "hero": {
-        "title_start": "Fangen Sie Ihre",
-        "title_highlight": "Perfekten Momente ein",
+        "title_start": "Fangen Sie Ihr",
+        "title_highlight": "Perfektes Event ein",
         "subtitle": "Professionelle Foto- und Videografiedienstleistungen für Hochzeiten und Events in ganz Luxemburg. Wir verwandeln Ihren besonderen Tag in zeitlose Erinnerungen.",
         "view_work": "Galerie Ansehen",
         "get_quote": "Lassen Sie uns Ihr Event planen",
@@ -28,8 +28,8 @@
         "title": "Unsere Dienstleistungen",
         "subtitle": "Umfassende Foto- und Videografielösungen, zugeschnitten auf Ihre Bedürfnisse",
         "wedding": {
-            "title": "Hochzeitsfotografie",
-            "desc": "Halten Sie jeden kostbaren Moment Ihres besonderen Tages mit unseren erfahrenen Hochzeitsfotografen fest."
+            "title": "Event- und Hochzeitsfotografie",
+            "desc": "Halten Sie jeden kostbaren Moment Ihres besonderen Anlasses mit unseren erfahrenen Fotografen fest."
         },
         "video": {
             "title": "Event-Videografie",
@@ -178,23 +178,33 @@
     "areas": {
         "title": "Servicegebiete in Luxemburg",
         "subtitle": "Wir bieten Fotografie- und Videografiedienstleistungen in ganz Luxemburg und Umgebung an",
-        "primary": "Hauptservicegebiete:"
+        "primary": "Hauptservicegebiete:",
+        "list": "Luxemburg Stadt, Esch-sur-Alzette, Differdingen, Düdelingen, Ettelbrück, Diekirch, Wiltz und umliegende Gemeinden"
+    },
+    "brand": {
+        "name": "WEL Weddings & Events Luxembourg",
+        "tagline": "Hochzeiten & Events"
+    },
+    "auth": {
+        "sign_in": "Anmelden",
+        "sign_in_desc": "Der Zugriff auf dieses Dashboard erfordert eine Authentifizierung. Fahren Sie fort, um den Anmeldevorgang zu starten.",
+        "sign_out": "Abmelden",
+        "sign_in_title": "Melden Sie sich an, um fortzufahren"
+    },
+    "common": {
+        "whatsapp": "WhatsApp",
+        "navigation": "Navigation",
+        "previous": "Zurück",
+        "next": "Weiter"
+    },
+    "error": {
+        "unexpected": "Ein unerwarteter Fehler ist aufgetreten."
+    },
+    "footer": {
+        "quick_links": "Schnelllinks",
+        "contact": "Kontakt",
+        "follow_us": "Folgen Sie uns",
+        "rights": "Alle Rechte vorbehalten.",
+        "text": "Wir halten Ihre kostbarsten Momente mit Eleganz und Kunstfertigkeit in Luxemburg fest."
     }
-},
-"brand": {
-    "name": "WEL Weddings & Events Luxembourg"
-},
-"common": {
-    "whatsapp": "WhatsApp"
-},
-"error": {
-    "unexpected": "Ein unerwarteter Fehler ist aufgetreten."
-},
-"footer": {
-    "quick_links": "Schnelllinks",
-    "contact": "Kontakt",
-    "follow_us": "Folgen Sie uns",
-    "rights": "Alle Rechte vorbehalten.",
-    "text": "Wir halten Ihre kostbarsten Momente mit Eleganz und Kunstfertigkeit in Luxemburg fest."
-}
 }

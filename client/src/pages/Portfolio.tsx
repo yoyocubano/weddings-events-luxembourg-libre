@@ -37,9 +37,9 @@ export default function Portfolio() {
       title: t("portfolio.projects.city.title"),
       description: t("portfolio.projects.city.desc"),
       location: t("portfolio.projects.city.location"),
-      coverImageUrl: "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=800&h=600&fit=crop",
+      coverImageUrl: "/city-engagement.png",
       imageUrls: [
-        "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=800&h=600&fit=crop",
+        "/city-engagement.png",
       ],
       categoryId: 2,
     },
@@ -171,13 +171,19 @@ export default function Portfolio() {
               </button>
 
               <div className="relative aspect-video">
-                <img
-                  src={JSON.parse(selectedProject.imageUrls)[currentImageIndex]}
-                  alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-contain"
-                />
+                {Array.isArray(selectedProject.imageUrls) && selectedProject.imageUrls[currentImageIndex] ? (
+                  <img
+                    src={selectedProject.imageUrls[currentImageIndex]}
+                    alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-white/50">
+                    Image not available
+                  </div>
+                )}
 
-                {JSON.parse(selectedProject.imageUrls).length > 1 && (
+                {Array.isArray(selectedProject.imageUrls) && selectedProject.imageUrls.length > 1 && (
                   <>
                     <button
                       onClick={prevImage}
@@ -208,7 +214,7 @@ export default function Portfolio() {
                   <p className="text-white/80">{selectedProject.description}</p>
                 )}
                 <p className="text-white/60 text-sm mt-4">
-                  Image {currentImageIndex + 1} of {JSON.parse(selectedProject.imageUrls).length}
+                  Image {currentImageIndex + 1} of {Array.isArray(selectedProject.imageUrls) ? selectedProject.imageUrls.length : 0}
                 </p>
               </div>
             </div>

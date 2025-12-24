@@ -1,9 +1,9 @@
 {
     "hero": {
-        "title": "Organisez Votre Mariage Parfait au Luxembourg",
-        "subtitle": "Photographie et Vidéo de Luxe pour Votre Jour Spécial",
-        "description": "Nous capturons chaque moment unique de votre mariage avec une élégance artistique. Plus de 10 ans créant des souvenirs inoubliables.",
-        "team_credits": "Nous planifions votre mariage | Photographe : Joan | Cinéaste : Abel | Marketing & Réseaux : Yusmel | Coordinatrice : Rebeca",
+        "title": "Organisez Votre Événement Parfait au Luxembourg",
+        "subtitle": "Photographie et Vidéo de Luxe pour Vos Moments Spéciaux",
+        "description": "Nous capturons chaque moment unique de votre événement avec une élégance artistique. Plus de 10 ans créant des souvenirs inoubliables.",
+        "team_credits": "Nous planifions votre événement | Photographe : Joan | Cinéaste : Abel | Marketing & Réseaux : Yusmel | Coordinatrice : Rebeca",
         "cta_primary": "Réservez votre sérénité",
         "cta_secondary": "Parler à un organisateur",
         "get_quote": "Planifions Votre Événement",
@@ -13,7 +13,7 @@
     },
     "why_choose": {
         "title": "Une Expérience Sans Stress",
-        "subtitle": "Nous ne prenons pas que des photos ; nous assurons que votre journée se déroule sans effort.",
+        "subtitle": "Nous ne prenons pas que des photos ; nous assurons que votre événement se déroule sans effort.",
         "team": {
             "title": "Tranquillité d'Esprit",
             "desc": "Avec une équipe primée, détendez-vous en sachant que chaque détail est capturé par des experts."
@@ -28,11 +28,11 @@
         }
     },
     "testimonials": {
-        "title": "Ce que disent nos couples",
+        "title": "Ce que disent nos clients",
         "subtitle": "Notre plus grande satisfaction est de voir le bonheur de nos clients revivre leurs moments les plus précieux.",
         "badge": "Témoignages",
         "stats": {
-            "weddings": "Mariages Capturés",
+            "weddings": "Événements Capturés",
             "clients": "Clients Heureux",
             "rating": "Note Moyenne"
         },
@@ -59,7 +59,7 @@
         "title": "Événements, Bien Faits",
         "subtitle": "Des solutions sur mesure pour chaque occasion.",
         "wedding": {
-            "title": "Photographie de Mariage",
+            "title": "Photographie d'Événements et Mariages",
             "desc": "Capturez chaque moment précieux de votre journée spéciale avec nos services experts."
         },
         "video": {
@@ -97,7 +97,7 @@
         "view_photos": "Voir {{count}} photos",
         "no_projects": "Aucun projet trouvé dans cette catégorie pour le moment.",
         "categories": {
-            "weddings": "Mariages",
+            "weddings": "Mariages et Événements",
             "engagements": "Fiançailles",
             "events": "Événements"
         },
@@ -319,14 +319,25 @@
         "areas": {
             "title": "Zones de Service au Luxembourg",
             "subtitle": "Nous fournissons des services partout au Luxembourg et dans les régions avoisinantes",
-            "primary": "Zones Principales :"
+            "primary": "Zones Principales :",
+            "list": "Ville de Luxembourg, Esch-sur-Alzette, Differdange, Dudelange, Ettelbruck, Diekirch, Wiltz et les communes environnantes"
         }
     },
     "brand": {
-        "name": "WEL Mariages & Événements Luxembourg"
+        "name": "WEL Mariages & Événements Luxembourg",
+        "tagline": "Mariages et Événements"
+    },
+    "auth": {
+        "sign_in": "Se connecter",
+        "sign_in_desc": "L'accès à ce tableau de bord nécessite une authentification. Continuez pour lancer le flux de connexion.",
+        "sign_out": "Se déconnecter",
+        "sign_in_title": "Connectez-vous pour continuer"
     },
     "common": {
-        "whatsapp": "WhatsApp"
+        "whatsapp": "WhatsApp",
+        "navigation": "Navigation",
+        "previous": "Précédent",
+        "next": "Suivant"
     },
     "error": {
         "unexpected": "Une erreur inattendue s'est produite."
