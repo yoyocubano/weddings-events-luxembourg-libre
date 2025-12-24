@@ -15,11 +15,9 @@ export default function Footer() {
             <Link href="/">
               <a className="block group">
                 <div className="flex flex-col items-start justify-center">
-                  <img
-                    src="/logo-well-symbol.svg"
-                    alt="WE"
-                    className="h-12 w-auto object-contain transition-all duration-300"
-                  />
+                  <span className="font-serif text-4xl md:text-5xl font-bold tracking-tighter text-[#9F8F6A] transition-all duration-300 group-hover:opacity-80">
+                    WE
+                  </span>
                   <span className="mt-1 font-sans text-[10px] text-[#9F8F6A] tracking-[0.2em] uppercase text-left group-hover:text-primary transition-colors">
                     {t('brand.tagline')}
                   </span>

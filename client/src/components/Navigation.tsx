@@ -28,13 +28,13 @@ export default function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container">
         <div className="flex items-center justify-between h-28">
-          <Link href="/" className="flex flex-col items-center group cursor-pointer">
-            <img
-              src="/logo-well-symbol.svg"
-              alt="WE"
-              className="h-12 md:h-16 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
-            />
-            <span className="mt-1 font-sans text-[10px] md:text-xs text-[#9F8F6A] tracking-[0.2em] uppercase text-center">
+          <Link href="/" className="flex flex-col items-center group cursor-pointer lg:pb-0">
+            <div className="relative flex items-center justify-center">
+              <span className="font-serif text-5xl md:text-6xl font-bold tracking-tighter text-[#9F8F6A] transition-all duration-300 group-hover:opacity-80">
+                WE
+              </span>
+            </div>
+            <span className="mt-1 font-sans text-[10px] md:text-xs text-[#9F8F6A] tracking-[0.2em] uppercase text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-y-2 group-hover:translate-y-0">
               {t('brand.tagline')}
             </span>
           </Link>
