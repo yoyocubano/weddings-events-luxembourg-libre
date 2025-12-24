@@ -8,6 +8,22 @@
         "award_winning": "Votre Confiance",
         "studio": "Notre Meilleure Récompense"
     },
+    "why_choose": {
+        "title": "Pourquoi Nous Choisir",
+        "subtitle": "Nous allions passion, expertise et une touche personnelle pour rendre votre événement inoubliable.",
+        "team": {
+            "title": "Équipe Primée",
+            "desc": "Excellence reconnue en photographie et vidéographie."
+        },
+        "service": {
+            "title": "Service Passionné",
+            "desc": "Dédiés à capturer chaque émotion avec cœur."
+        },
+        "local": {
+            "title": "Expertise Locale",
+            "desc": "Connaissance approfondie des meilleurs lieux au Luxembourg."
+        }
+    },
     "services": {
         "title": "Nos Services",
         "subtitle": "Solutions complètes de photographie et vidéographie adaptées à vos besoins",
@@ -29,22 +45,6 @@
         "title": "Travaux en Vedette",
         "subtitle": "Un aperçu de notre portfolio de magnifiques mariages et événements",
         "view_full": "Voir le Portfolio Complet"
-    },
-    "why_choose": {
-        "title": "Pourquoi Nous Choisir",
-        "subtitle": "Expérience, qualité et dévouement à capturer vos moments parfaits",
-        "team": {
-            "title": "Équipe Primée",
-            "desc": "Professionnels reconnus avec des années d'expérience dans la photographie de luxe"
-        },
-        "service": {
-            "title": "Service Personnalisé",
-            "desc": "Forfaits sur mesure et attention dédiée à chaque détail de votre événement"
-        },
-        "local": {
-            "title": "Experts du Luxembourg",
-            "desc": "Connaissance approfondie des meilleurs lieux et endroits à travers le Luxembourg"
-        }
     },
     "cta": {
         "title": "Prêt à Capturer Votre Histoire ?",

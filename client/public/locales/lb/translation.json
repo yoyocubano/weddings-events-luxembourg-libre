@@ -8,6 +8,22 @@
         "award_winning": "Äert Vertrauen",
         "studio": "Eis Bescht Auszeechnung"
     },
+    "why_choose": {
+        "title": "Firwat Mir",
+        "subtitle": "Mir verbannen Leidenschaft, Expertise an eng perséinlech Note fir Äert Event onvergiesslech ze maachen.",
+        "team": {
+            "title": "Präisgekréint Team",
+            "desc": "Unerkannt Exzellenz an der Foto- a Videografie."
+        },
+        "service": {
+            "title": "Leidenschaftleche Service",
+            "desc": "Mat Häerz dobäi, fir all Emotioun festzehalen."
+        },
+        "local": {
+            "title": "Lokal Expertise",
+            "desc": "Déift Wëssen iwwer déi bescht Plazen zu Lëtzebuerg."
+        }
+    },
     "services": {
         "title": "Eis Servicer",
         "subtitle": "Ëmfangräich Foto- a Videoléisungen ugepasst un Är Besoinen",
@@ -29,22 +45,6 @@
         "title": "Ausgewielt Aarbechten",
         "subtitle": "En Abléck an eise Portfolio vu schéine Hochzäiten an Eventer",
         "view_full": "De ganze Portfolio kucken"
-    },
-    "why_choose": {
-        "title": "Firwat Mir?",
-        "subtitle": "Erfarung, Qualitéit an Engagement fir Är perfekt Momenter festzehalen",
-        "team": {
-            "title": "Ausgezeechent Team",
-            "desc": "Unerkannt Profien mat jorelaanger Erfarung an der Luxus-Eventfotografie"
-        },
-        "service": {
-            "title": "Perséinleche Service",
-            "desc": "Moossgeschneidert Packagen an engagéiert Opmierksamkeet fir all Detail vun Ärem Event"
-        },
-        "local": {
-            "title": "Lëtzebuerg Experten",
-            "desc": "Déif Kenntnisser vun de beschte Plazen a Locatiounen uechter Lëtzebuerg"
-        }
     },
     "cta": {
         "title": "Bereet Är Geschicht festzehalen?",

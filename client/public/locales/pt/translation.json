@@ -8,6 +8,22 @@
         "award_winning": "Sua Confiança",
         "studio": "Nosso Melhor Prêmio"
     },
+    "why_choose": {
+        "title": "Por Que Nos Escolher",
+        "subtitle": "Combinamos paixão, experiência e um toque pessoal para tornar seu evento inesquecível.",
+        "team": {
+            "title": "Equipe Premiada",
+            "desc": "Excelência reconhecida em fotografia e videografia."
+        },
+        "service": {
+            "title": "Serviço Apaixonado",
+            "desc": "Dedicados a capturar cada emoção com o coração."
+        },
+        "local": {
+            "title": "Experiência Local",
+            "desc": "Conhecimento profundo dos melhores locais de Luxemburgo."
+        }
+    },
     "services": {
         "title": "Nossos Serviços",
         "subtitle": "Soluções completas de fotografia e videografia adaptadas às suas necessidades",
@@ -29,22 +45,6 @@
         "title": "Trabalhos em Destaque",
         "subtitle": "Um vislumbre do nosso portfólio de belos casamentos e eventos",
         "view_full": "Ver Portfólio Completo"
-    },
-    "why_choose": {
-        "title": "Por Que Nós?",
-        "subtitle": "Experiência, qualidade e dedicação para capturar seus momentos perfeitos",
-        "team": {
-            "title": "Equipe Premiada",
-            "desc": "Profissionais reconhecidos com anos de experiência em fotografia de eventos de luxo"
-        },
-        "service": {
-            "title": "Atendimento Personalizado",
-            "desc": "Pacotes sob medida e atenção dedicada a cada detalhe do seu evento"
-        },
-        "local": {
-            "title": "Experts em Luxemburgo",
-            "desc": "Conhecimento profundo dos melhores locais e lugares em todo o Luxemburgo"
-        }
     },
     "cta": {
         "title": "Pronto para Capturar Sua História?",
