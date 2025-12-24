@@ -68,28 +68,52 @@ export default function Contact() {
       return;
     }
 
+    setIsSubmitting(true);
+
+    // 1. Prepare Data Payload (Defined BEFORE usage)
+    const payload = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone || null,
+      event_type: data.eventType,
+      event_date: data.eventDate || null,
+      location: data.location || null,
+      budget: data.budget || null,
+      guest_count: data.guestCount ? parseInt(data.guestCount) : null,
+      service_interest: data.serviceInterest || null,
+      message: data.message || null
+    };
+
     // Environment variables
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
     try {
-      // Create an array of promises to handle submissions
+      // Create an array of promises
       const submissions = [];
 
-      // 1. Primary: Netlify Function (Supabase + Resend)
-      // This is the robust path configured with the user's new API keys
-      submissions.push(
-        fetch("/.netlify/functions/submit-inquiry", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        }).then(res => {
-          if (!res.ok) throw new Error("Netlify Function Failed");
-          return res;
-        })
-      );
+      // 2. Client-Side Supabase Insert (Direct)
+      // Replaces Netlify Function due to credit limits
+      if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+        // Initialize client dynamically to avoid global scope issues if vars are missing
+        const { createClient } = await import("@supabase/supabase-js");
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // 2. Secondary: Google Sheets (Optional/Backup)
-      // If the user has configured the script URL, we send here too.
+        submissions.push(
+          supabase
+            .from("inquiries")
+            .insert([payload])
+            .then(({ error }) => {
+              if (error) throw error;
+              return "Supabase Success";
+            })
+        );
+      } else {
+        console.warn("Supabase credentials missing (VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY)");
+      }
+
+      // 3. Secondary: Google Sheets (Optional/Backup)
       if (GOOGLE_SCRIPT_URL) {
         submissions.push(
           fetch(GOOGLE_SCRIPT_URL, {
@@ -102,7 +126,11 @@ export default function Contact() {
       }
 
       // Execute all submissions
-      await Promise.all(submissions);
+      if (submissions.length === 0) {
+        console.warn("No submission endpoints configured.");
+      } else {
+        await Promise.all(submissions);
+      }
 
       toast.success(t("contact.form.success_title") || "Inquiry Sent!", {
         description: t("contact.form.success_desc") || "We have received your message.",

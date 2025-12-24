@@ -42,103 +42,150 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root {
-  --primary: oklch(0.35 0.08 40); /* Deep burgundy/wine */
-  --primary-foreground: oklch(0.98 0.01 85);
-  --sidebar-primary: oklch(0.35 0.08 40);
-  --sidebar-primary-foreground: oklch(0.98 0.01 85);
-  --chart-1: oklch(0.75 0.10 60);
-  --chart-2: oklch(0.65 0.12 55);
-  --chart-3: oklch(0.55 0.10 50);
-  --chart-4: oklch(0.45 0.08 45);
-  --chart-5: oklch(0.35 0.08 40);
-  --radius: 0.5rem;
-  --background: oklch(0.98 0.01 85); /* Soft cream background */
-  --foreground: oklch(0.20 0.01 85);
-  --card: oklch(1 0 0); /* Pure white cards */
-  --card-foreground: oklch(0.20 0.01 85);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.20 0.01 85);
-  --secondary: oklch(0.92 0.02 85); /* Soft champagne */
-  --secondary-foreground: oklch(0.20 0.01 85);
-  --muted: oklch(0.95 0.01 85);
-  --muted-foreground: oklch(0.45 0.01 85);
-  --accent: oklch(0.75 0.10 60); /* Elegant gold */
-  --accent-foreground: oklch(0.20 0.01 85);
-  --destructive: oklch(0.55 0.20 25);
-  --destructive-foreground: oklch(0.98 0.01 85);
-  --border: oklch(0.90 0.01 85);
-  --input: oklch(0.90 0.01 85);
-  --ring: oklch(0.35 0.08 40);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.20 0.01 85);
-  --sidebar-accent: oklch(0.95 0.01 85);
-  --sidebar-accent-foreground: oklch(0.20 0.01 85);
-  --sidebar-border: oklch(0.90 0.01 85);
-  --sidebar-ring: oklch(0.35 0.08 40);
-}
-
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
-}
-
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  :root {
+    /* Concept B: Modern Elegant Palette */
+
+    /* Primary Text / Foreground: Soft Black (#1E1E1E) */
+    --foreground: #1E1E1E;
+    --primary: #1E1E1E;
+    --primary-foreground: #FAF8F6;
+
+    /* Background: Light Champagne (#FAF8F6) */
+    --background: #FAF8F6;
+
+    /* Accent: Soft Champagne/Gold (#9F8F6A) */
+    --accent: #9F8F6A;
+    --accent-foreground: #FFFFFF;
+
+    /* Secondary: Subtle variation for cards/sections */
+    --secondary: #EBE9E4;
+    /* Derived from #FAF8F6 darkened slightly */
+    --secondary-foreground: #1E1E1E;
+
+    /* Cards: White or very light champagne? User said "Fondo claro: #FAF8F6". 
+       Let's keep cards white for clean contrast or matching bg. 
+       "Modern elegant" usually implies clean layers. Let's stick to White for Cards to let them pop gently. */
+    --card: #FFFFFF;
+    --card-foreground: #1E1E1E;
+
+    --popover: #FFFFFF;
+    --popover-foreground: #1E1E1E;
+
+    --muted: #F0EFEA;
+    --muted-foreground: #66605B;
+
+    --destructive: oklch(0.55 0.20 25);
+    --destructive-foreground: oklch(0.98 0.01 85);
+
+    --border: #E5E0D8;
+    --input: #E5E0D8;
+    --ring: #9F8F6A;
+    /* Accent ring */
+
+    --radius: 0.25rem;
+    /* Elegant sharp corners */
+
+    --chart-1: oklch(0.75 0.10 60);
+    --chart-2: oklch(0.65 0.12 55);
+    --chart-3: oklch(0.55 0.10 50);
+    --chart-4: oklch(0.45 0.08 45);
+    --chart-5: oklch(0.35 0.08 40);
+
+    --sidebar: #FAF8F6;
+    --sidebar-foreground: #1E1E1E;
+    --sidebar-primary: #1E1E1E;
+    --sidebar-primary-foreground: #FAF8F6;
+    --sidebar-accent: #EBE9E4;
+    --sidebar-accent-foreground: #1E1E1E;
+    --sidebar-border: #E5E0D8;
+    --sidebar-ring: #9F8F6A;
   }
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+
+  .dark {
+    /* Dark Mode: Luxury Dark (Deep Warm Grey/Black) */
+    --background: #121212;
+    /* Deep soft black */
+    --foreground: #EAE6DF;
+    /* Soft off-white */
+
+    --card: #1C1C1C;
+    --card-foreground: #EAE6DF;
+
+    --popover: #1C1C1C;
+    --popover-foreground: #EAE6DF;
+
+    --primary: oklch(0.35 0.08 40);
+    --primary-foreground: oklch(0.98 0.01 85);
+
+    --secondary: #2A2A2A;
+    --secondary-foreground: #EAE6DF;
+
+    --muted: #2A2A2A;
+    --muted-foreground: #999590;
+
+    --accent: #C2A46D;
+    /* Gold stands out well in dark */
+    --accent-foreground: #FFFFFF;
+
+    --destructive: oklch(0.60 0.20 25);
+    --destructive-foreground: oklch(0.98 0.01 85);
+
+    --border: #333333;
+    --input: #333333;
+    --ring: #C2A46D;
+
+    --chart-1: var(--color-blue-300);
+    --chart-2: var(--color-blue-500);
+    --chart-3: var(--color-blue-600);
+    --chart-4: var(--color-blue-700);
+    --chart-5: var(--color-blue-800);
+
+    --sidebar: #121212;
+    --sidebar-foreground: #EAE6DF;
+    --sidebar-primary: oklch(0.35 0.08 40);
+    --sidebar-primary-foreground: oklch(0.98 0.01 85);
+    --sidebar-accent: #2A2A2A;
+    --sidebar-accent-foreground: #EAE6DF;
+    --sidebar-border: #333333;
+    --sidebar-ring: #C2A46D;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-  }
-  button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
-  }
+}
+
+* {
+  @apply border-border outline-ring/50;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[type="button"]:not(:disabled),
+[type="submit"]:not(:disabled),
+[type="reset"]:not(:disabled),
+a[href],
+select:not(:disabled),
+input[type="checkbox"]:not(:disabled),
+input[type="radio"]:not(:disabled) {
+  @apply cursor-pointer;
+}
 }
 
 @layer components {
+
   /**
    * Custom container utility that centers content and adds responsive padding.
    *
@@ -156,7 +203,8 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
+    /* 16px - mobile padding */
     padding-right: 1rem;
   }
 
@@ -167,16 +215,19 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
+      /* 24px - tablet padding */
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
+      /* 32px - desktop padding */
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
+      /* Standard content width */
     }
   }
 }

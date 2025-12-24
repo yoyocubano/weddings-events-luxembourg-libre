@@ -28,9 +28,14 @@ export default function Navigation() {
       <div className="container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 text-xl font-serif font-semibold text-foreground hover:text-primary transition-colors">
-            <Camera className="w-6 h-6 text-primary" />
-            <span>{t("brand.name")}</span>
+          {/* Concept B Logo: Modern Elegant (Inter) */}
+          <Link href="/" className="flex flex-col items-start group">
+            <span className="text-xl md:text-2xl font-sans font-medium tracking-wide text-foreground group-hover:text-primary transition-colors leading-none">
+              Weddings & Events
+            </span>
+            <span className="text-[0.65rem] md:text-xs font-sans font-normal tracking-[0.15em] text-accent uppercase mt-1">
+              Luxembourg
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
