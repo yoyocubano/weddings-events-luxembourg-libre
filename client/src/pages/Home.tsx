@@ -44,15 +44,15 @@ export default function Home() {
               <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
                 {t('hero.subtitle')}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/portfolio">
-                  <Button size="lg" variant="default" className="text-base">
-                    {t('hero.view_work')}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+                <Link href="/contact">
+                  <Button size="lg" className="text-base font-semibold shadow-lg hover:shadow-xl transition-all">
+                    {t('hero.get_quote')}
                   </Button>
                 </Link>
-                <Link href="/contact">
-                  <Button size="lg" variant="outline" className="text-base bg-transparent">
-                    {t('hero.get_quote')}
+                <Link href="/portfolio">
+                  <Button size="lg" variant="outline" className="text-base bg-transparent border-foreground/20 hover:bg-background/50">
+                    {t('hero.view_work')}
                   </Button>
                 </Link>
               </div>
@@ -78,6 +78,49 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof / Why Choose Us */}
+      <section className="py-16 bg-muted/30">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              {t('why_choose.title')}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t('why_choose.subtitle')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="bg-background border-none shadow-sm">
+              <CardContent className="p-6 text-center pt-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Award className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{t('why_choose.team.title')}</h3>
+                <p className="text-muted-foreground">{t('why_choose.team.desc')}</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background border-none shadow-sm">
+              <CardContent className="p-6 text-center pt-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{t('why_choose.service.title')}</h3>
+                <p className="text-muted-foreground">{t('why_choose.service.desc')}</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background border-none shadow-sm">
+              <CardContent className="p-6 text-center pt-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{t('why_choose.local.title')}</h3>
+                <p className="text-muted-foreground">{t('why_choose.local.desc')}</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
