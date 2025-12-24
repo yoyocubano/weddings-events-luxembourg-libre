@@ -41,7 +41,7 @@ export default function Protocol() {
                 </div>
             </section>
 
-            {/* Section 1: Timeline */}
+            {/* 1. Timeline Section */}
             <section className="py-20 bg-card border-y border-border">
                 <div className="container max-w-5xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">
@@ -72,7 +72,7 @@ export default function Protocol() {
                         </div>
 
                         <div className="bg-background p-8 rounded-xl shadow-sm border border-border">
-                            <h3 className="text-xl font-bold font-serif mb-6 text-center">The Vendor Priority Triad</h3>
+                            <h3 className="text-xl font-bold font-serif mb-6 text-center">{t('protocol_page.timeline.triad.title')}</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-center gap-4">
                                     <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-serif font-bold">1</div>
@@ -99,16 +99,16 @@ export default function Protocol() {
             <section className="py-20 bg-[#F5F2EA]">
                 <div className="container max-w-5xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-serif text-center mb-16">
-                        2. The Caregiver Checklists <span className="block text-lg font-sans text-muted-foreground mt-2 tracking-wide uppercase">What Others Forget</span>
+                        {t('protocol_page.caregiver.title')} <span className="block text-lg font-sans text-muted-foreground mt-2 tracking-wide uppercase">{t('protocol_page.caregiver.subtitle')}</span>
                     </h2>
 
                     <div className="grid md:grid-cols-3 gap-8">
                         <Card className="bg-card border-none shadow-md hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-8 text-center pt-10">
                                 <CloudRain className="w-10 h-10 text-primary mx-auto mb-6" />
-                                <h3 className="text-xl font-semibold mb-4">The Rain Plan</h3>
+                                <h3 className="text-xl font-semibold mb-4">{t('protocol_page.caregiver.rain.title')}</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Luxembourg Reality: Never assume sun. We design for rain so that if it happens, it feels intentional (e.g., clear marquees, cozy indoor lighting).
+                                    {t('protocol_page.caregiver.rain.desc')}
                                 </p>
                             </CardContent>
                         </Card>
@@ -116,9 +116,9 @@ export default function Protocol() {
                         <Card className="bg-card border-none shadow-md hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-8 text-center pt-10">
                                 <MapPin className="w-10 h-10 text-primary mx-auto mb-6" />
-                                <h3 className="text-xl font-semibold mb-4">Kirchberg-Moselle Gap</h3>
+                                <h3 className="text-xl font-semibold mb-4">{t('protocol_page.caregiver.gap.title')}</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">
-                                    If your ceremony is in the city and reception in the country, provide shuttles. It allows guests to indulge and ensures everyone arrives on <em>your</em> timeline.
+                                    {t('protocol_page.caregiver.gap.desc')}
                                 </p>
                             </CardContent>
                         </Card>
@@ -126,9 +126,9 @@ export default function Protocol() {
                         <Card className="bg-card border-none shadow-md hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-8 text-center pt-10">
                                 <Heart className="w-10 h-10 text-primary mx-auto mb-6" />
-                                <h3 className="text-xl font-semibold mb-4">Dietary Dignity</h3>
+                                <h3 className="text-xl font-semibold mb-4">{t('protocol_page.caregiver.diet.title')}</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Vegetarian/Vegan options should be as visually stunning as the main menu. A guest treated with care is a guest who raves about your event.
+                                    {t('protocol_page.caregiver.diet.desc')}
                                 </p>
                             </CardContent>
                         </Card>
@@ -140,32 +140,32 @@ export default function Protocol() {
             <section className="py-20 bg-background">
                 <div className="container max-w-4xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-serif text-center mb-12">
-                        3. Budgeting for Peace of Mind
+                        {t('protocol_page.budget.title')}
                     </h2>
                     <div className="overflow-hidden rounded-xl border border-border shadow-sm">
                         <table className="w-full text-left">
                             <thead className="bg-muted/50">
                                 <tr>
-                                    <th className="p-4 md:p-6 font-serif text-lg">Investment</th>
-                                    <th className="p-4 md:p-6 font-serif text-lg">Impact</th>
-                                    <th className="p-4 md:p-6 font-serif text-lg">WE Insight</th>
+                                    <th className="p-4 md:p-6 font-serif text-lg">{t('protocol_page.budget.headers.investment')}</th>
+                                    <th className="p-4 md:p-6 font-serif text-lg">{t('protocol_page.budget.headers.impact')}</th>
+                                    <th className="p-4 md:p-6 font-serif text-lg">{t('protocol_page.budget.headers.insight')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
                                 <tr className="bg-card/50">
-                                    <td className="p-4 md:p-6 font-semibold">Coordination</td>
-                                    <td className="p-4 md:p-6 text-primary font-bold">High</td>
-                                    <td className="p-4 md:p-6 text-muted-foreground">Buying a coordinator is buying your own presence. Be a guest at your own event.</td>
+                                    <td className="p-4 md:p-6 font-semibold">{t('protocol_page.budget.rows.coord.item')}</td>
+                                    <td className="p-4 md:p-6 text-primary font-bold">{t('protocol_page.budget.rows.coord.impact')}</td>
+                                    <td className="p-4 md:p-6 text-muted-foreground">{t('protocol_page.budget.rows.coord.desc')}</td>
                                 </tr>
                                 <tr>
-                                    <td className="p-4 md:p-6 font-semibold">Lighting</td>
-                                    <td className="p-4 md:p-6 text-primary font-bold">High</td>
-                                    <td className="p-4 md:p-6 text-muted-foreground">Lighting transforms a room more effectively than flowers, for half the cost.</td>
+                                    <td className="p-4 md:p-6 font-semibold">{t('protocol_page.budget.rows.light.item')}</td>
+                                    <td className="p-4 md:p-6 text-primary font-bold">{t('protocol_page.budget.rows.light.impact')}</td>
+                                    <td className="p-4 md:p-6 text-muted-foreground">{t('protocol_page.budget.rows.light.desc')}</td>
                                 </tr>
                                 <tr className="bg-card/50">
-                                    <td className="p-4 md:p-6 font-semibold">Favors</td>
-                                    <td className="p-4 md:p-6 text-muted-foreground font-medium">Low</td>
-                                    <td className="p-4 md:p-6 text-muted-foreground">Guests forget "stuff". They remember how they <em>felt</em> (Music, Food, Flow).</td>
+                                    <td className="p-4 md:p-6 font-semibold">{t('protocol_page.budget.rows.favors.item')}</td>
+                                    <td className="p-4 md:p-6 text-muted-foreground font-medium">{t('protocol_page.budget.rows.favors.impact')}</td>
+                                    <td className="p-4 md:p-6 text-muted-foreground">{t('protocol_page.budget.rows.favors.desc')}</td>
                                 </tr>
                             </tbody>
                         </table>
