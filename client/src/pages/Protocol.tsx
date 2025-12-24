@@ -176,14 +176,14 @@ export default function Protocol() {
             {/* CTA */}
             <section className="py-24 bg-primary text-primary-foreground text-center px-6">
                 <div className="container max-w-3xl mx-auto space-y-8">
-                    <h2 className="text-3xl md:text-5xl font-serif font-bold">Start Your Journey Well</h2>
+                    <h2 className="text-3xl md:text-5xl font-serif font-bold">{t('protocol_page.cta.title')}</h2>
                     <p className="text-lg md:text-xl opacity-90 font-light">
-                        This protocol is the map. But a map is not a guide. To execute a vision of this magnitude requires a partner who watches the horizon while you enjoy the view.
+                        {t('protocol_page.cta.text')}
                     </p>
                     <div className="pt-4">
                         <Link href="/contact">
                             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 h-auto">
-                                Book Your Complimentary Consultation
+                                {t('protocol_page.cta.button')}
                             </Button>
                         </Link>
                     </div>
