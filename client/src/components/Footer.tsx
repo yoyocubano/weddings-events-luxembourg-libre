@@ -155,6 +155,7 @@ export default function Footer() {
             <p>© {currentYear} {t("brand.name")}. {t("footer.rights")}</p>
           </div>
         </div>
+      </div>
     </footer>
   );
 }
