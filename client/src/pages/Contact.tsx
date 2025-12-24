@@ -70,15 +70,10 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    // Environment Variables
-    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-    const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-    if (!SUPABASE_URL || !SUPABASE_KEY) {
-      toast.error("Configuration Error", { description: "Missing Supabase credentials." });
-      setIsSubmitting(false);
-      return;
-    }
+    // Environment variables verification
+    // if (!import.meta.env.VITE_SUPABASE_URL) {
+    //   console.warn("Missing Supabase URL");
+    // }
 
     const payload = {
       name: data.name,
@@ -94,13 +89,11 @@ export default function Contact() {
     };
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/inquiries`, {
+      // Use Netlify Function instead of direct Supabase call
+      const response = await fetch("/.netlify/functions/submit-inquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`,
-          "Prefer": "return=minimal"
         },
         body: JSON.stringify(payload)
       });
