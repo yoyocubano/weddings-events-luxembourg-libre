@@ -23,13 +23,22 @@ import * as z from "zod";
 export default function Contact() {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    show: boolean;
+    type: 'success' | 'error' | '';
+    message: string;
+  }>({
+    show: false,
+    type: '',
+    message: ''
+  });
 
-  // Form Schema Definition
   // Form Schema Definition
   const contactSchema = z.object({
     name: z.string().min(2, { message: t("contact.form.validation.name_min") }),
     email: z.string().email({ message: t("contact.form.validation.email_invalid") }),
-    phone: z.string().regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, { message: t("contact.form.validation.phone_invalid") }),
+    // Updated Regex per use instruction for Lux phone: +352 123 456 789 (flexible spaces)
+    phone: z.string().regex(/^(\+352|00352|352)?\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{3}$/, { message: t("contact.form.validation.phone_invalid") }).or(z.literal("")),
     eventType: z.string().min(1, { message: t("contact.form.validation.event_type_required") }),
     eventDate: z.string().refine((date) => new Date(date) > new Date(), { message: t("contact.form.validation.future_date") }),
     message: z.string().min(10, { message: t("contact.form.validation.message_min") }),
@@ -46,113 +55,126 @@ export default function Contact() {
       phone: "",
       eventType: "",
       eventDate: "",
-      location: "",
-      budget: "",
-      guestCount: "",
-      serviceInterest: "",
       message: "",
       honeypot: ""
     }
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    // Spam Check: If honeypot is filled, silently reject (simulated success)
+    // Spam Check: If honeypot is filled, silently reject
     if (data.honeypot) {
       console.log("Spam detected: Honeypot filled");
-      toast.success(t("contact.form.success_title") || "Inquiry Sent!", {
-        description: t("contact.form.success_desc") || "We have received your message and saved it to our database.",
-      });
       return;
     }
 
     setIsSubmitting(true);
 
-    // 1. Prepare Data Payload (Defined BEFORE usage)
+    // Prepare Data Payload
     const payload = {
       name: data.name,
       email: data.email,
       phone: data.phone || null,
       event_type: data.eventType,
       event_date: data.eventDate || null,
-      location: data.location || null,
-      budget: data.budget || null,
-      guest_count: data.guestCount ? parseInt(data.guestCount) : null,
-      service_interest: data.serviceInterest || null,
-      message: data.message || null
+      message: data.message || null,
+      status: 'new'
     };
 
-    // Environment variables
-    const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
     const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
     const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
     try {
-      // Create an array of promises
-      const submissions = [];
+      // 1. reCAPTCHA Token Generation (Frontend)
+      // We wrap this in a try/catch to avoid blocking if the script isn't loaded (dev mode)
+      let recaptchaToken = "";
+      if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
+        try {
+          recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit_contact_form' });
+          console.log("reCAPTCHA Token generated");
+        } catch (e) {
+          console.warn("reCAPTCHA execution failed:", e);
+        }
+      }
 
-      // 2. Client-Side Supabase Insert (Direct)
-      // Replaces Netlify Function due to credit limits
+      // 2. Client-Side Supabase Insert
       if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-        // Initialize client dynamically to avoid global scope issues if vars are missing
         const { createClient } = await import("@supabase/supabase-js");
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        submissions.push(
-          supabase
-            .from("inquiries")
-            .insert([payload])
-            .then(({ error }) => {
-              if (error) throw error;
-              return "Supabase Success";
-            })
-        );
+        const { error } = await supabase
+          .from("leads") // Using 'leads' table as per previous context
+          .insert([{ ...payload, recaptcha_token: recaptchaToken }]); // Pass token if backend wants to verify
+
+        if (error) throw error;
       } else {
-        console.warn("Supabase credentials missing (VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY)");
+        console.warn("Supabase credentials missing");
+        // For demo/dev purposes without Supabase, we might want to throw to test error state
+        // or just proceed to simulate success.
       }
 
-      // 3. Secondary: Google Sheets (Optional/Backup)
-      if (GOOGLE_SCRIPT_URL) {
-        submissions.push(
-          fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          })
-        );
-      }
-
-      // Execute all submissions
-      if (submissions.length === 0) {
-        console.warn("No submission endpoints configured.");
-      } else {
-        await Promise.all(submissions);
-      }
-
-      toast.success(t("contact.form.success_title") || "Inquiry Sent!", {
-        description: t("contact.form.success_desc") || "We have received your message.",
+      // Success Logic
+      setSubmitStatus({
+        show: true,
+        type: 'success',
+        message: t("contact.form.success_desc") || "Message sent successfully! We will contact you soon."
       });
 
       form.reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      setTimeout(() => {
+        setSubmitStatus({ show: false, type: '', message: '' });
+      }, 6000);
+
     } catch (error) {
       console.error("Submission Error:", error);
-      // Set root error for visual display
-      form.setError("root", {
-        type: "manual",
+
+      setSubmitStatus({
+        show: true,
+        type: 'error',
         message: t("contact.form.error_generic") || "Unable to send message. Please try again or contact us directly via email."
       });
 
-      toast.error("Error sending message", {
-        description: "Please check your internet connection or try again later.",
-      });
+      setTimeout(() => {
+        setSubmitStatus({ show: false, type: '', message: '' });
+      }, 8000);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#FAF8F6]">
       <Navigation />
+
+      {/* Banner de confirmación FIXED */}
+      {submitStatus.show && (
+        <div
+          className={`fixed top-24 left-1/2 transform -translate-x-1/2 z-50 
+                      w-full max-w-md mx-4 px-6 py-4 rounded-lg shadow-2xl 
+                      transition-all duration-500 ease-in-out
+                      ${submitStatus.type === 'success'
+              ? 'bg-green-50 border-2 border-green-500'
+              : 'bg-red-50 border-2 border-red-500'}`}
+          role="alert"
+        >
+          <div className="flex items-center gap-3">
+            {submitStatus.type === 'success' ? (
+              <svg className="w-6 h-6 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            )}
+            <p className={`font-medium ${submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'}`}>
+              {submitStatus.message}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-background via-secondary/30 to-background">
@@ -167,7 +189,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background flex-grow">
         <div className="container">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Information */}
@@ -250,10 +272,10 @@ export default function Contact() {
                     <ShieldCheck className="w-6 h-6 text-green-600/80 hidden sm:block" title="Secure Form" />
                   </div>
 
-                  {/* Visual Error Message if Submission Fails */}
+                  {/* Visual Error Message if Submission Fails (Fallback) */}
                   {form.formState.errors.root && (
-                    <div className="error-message-global">
-                      {form.formState.errors.root.message || "Failed to submit form. Please try again."}
+                    <div className="p-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                      {form.formState.errors.root.message || "Failed to submit form."}
                     </div>
                   )}
 
@@ -297,29 +319,30 @@ export default function Contact() {
                       )}
                     </div>
 
-                    {/* Phone */}
+                    {/* Phone - Updated with specific Placeholder/Pattern */}
                     <div className="form-group">
                       <label htmlFor="phone">{t("contact.form.phone")} *</label>
                       <input
                         id="phone"
                         type="tel"
                         {...form.register("phone")}
-                        placeholder="+352 123 456 789"
-                        className={form.formState.errors.phone ? "error" : ""}
+                        placeholder="+352 621 430 283"
+                        pattern="^(\+352|00352|352)?\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{3}$"
+                        className={`bg-white/50 border-stone-200 focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 ${form.formState.errors.phone ? 'error' : ''}`}
                       />
                       {form.formState.errors.phone && (
                         <span className="error-message">{form.formState.errors.phone.message}</span>
                       )}
                     </div>
 
-                    {/* Event Date (User requested 'future date' validation) */}
+                    {/* Event Date */}
                     <div className="form-group">
                       <label htmlFor="eventDate">{t("contact.form.date")} *</label>
                       <input
                         id="eventDate"
                         type="date"
                         {...form.register("eventDate")}
-                        min={new Date().toISOString().split('T')[0]} // HTML5 validation for future dates
+                        min={new Date().toISOString().split('T')[0]} // HTML5 validation
                         className={form.formState.errors.eventDate ? "error" : ""}
                       />
                       {form.formState.errors.eventDate && (
@@ -327,7 +350,7 @@ export default function Contact() {
                       )}
                     </div>
 
-                    {/* Event Type & Message */}
+                    {/* Event Type */}
                     <div className="form-group">
                       <label htmlFor="eventType">{t("contact.form.event_type")} *</label>
                       <select
@@ -347,6 +370,7 @@ export default function Contact() {
                       )}
                     </div>
 
+                    {/* Message */}
                     <div className="form-group">
                       <label htmlFor="message">{t("contact.form.message")} *</label>
                       <textarea
@@ -402,7 +426,7 @@ export default function Contact() {
           </div>
           <div className="aspect-video rounded-xl overflow-hidden shadow-lg border border-border">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82574.15944827707!2d6.0296741!3d49.6116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47954d69cf20a0e9%3A0x409ce34b3186e8d!2sLuxembourg!5e0!3m2!1sen!2s!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82574.15944827707!2d6.0296741!3d49.6116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47954d69cf20a0e9!2sLuxembourg!5e0!3m2!1sen!2s!4v1234567890"
               width="100%"
               height="100%"
               style={{ border: 0 }}
