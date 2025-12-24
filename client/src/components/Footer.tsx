@@ -16,8 +16,8 @@ export default function Footer() {
               <Link href="/">
                 <a className="block">
                   <img
-                    src="/logo-well.png"
-                    alt="WELL Weddings & Events"
+                    src="/logo-wel.png"
+                    alt="WEL Weddings & Events Luxembourg"
                     className="h-10 w-auto object-contain"
                   />
                 </a>
@@ -68,7 +68,7 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-muted-foreground">
                   <Mail className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
-                  <span>info@weddingslux.com</span>
+                  <span>info@welweddingslux.com</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-muted-foreground">
                   <Mail className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
@@ -90,7 +90,7 @@ export default function Footer() {
               <h3 className="font-semibold mb-4">{t("footer.follow_us")}</h3>
               <div className="flex gap-4 flex-wrap">
                 <a
-                  href="https://instagram.com/wellweddingslux"
+                  href="https://instagram.com/welweddingslux"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -99,7 +99,7 @@ export default function Footer() {
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://facebook.com/wellweddingslux"
+                  href="https://facebook.com/welweddingslux"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -108,7 +108,7 @@ export default function Footer() {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://youtube.com/@wellweddingslux"
+                  href="https://youtube.com/@welweddingslux"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -117,7 +117,7 @@ export default function Footer() {
                   <Youtube className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://tiktok.com/@wellweddingslux"
+                  href="https://tiktok.com/@welweddingslux"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -139,7 +139,7 @@ export default function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com/company/wellweddingslux"
+                  href="https://linkedin.com/company/welweddingslux"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"

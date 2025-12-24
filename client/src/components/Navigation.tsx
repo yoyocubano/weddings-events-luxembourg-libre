@@ -31,8 +31,8 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <img
-              src="/logo-well.png"
-              alt="WELL Weddings & Events"
+              src="/logo-wel.png"
+              alt="WEL Weddings & Events Luxembourg"
               className="h-12 w-auto object-contain transition-opacity hover:opacity-90"
             />
           </Link>
