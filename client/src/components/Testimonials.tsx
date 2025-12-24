@@ -69,78 +69,61 @@ export default function Testimonials() {
                 {/* Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     {testimonials.map((testimonial) => (
-                        <Card key={testimonial.id} className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white overflow-hidden">
-                            <CardContent className="p-8 relative">
-                                <Quote className="absolute top-6 right-6 w-10 h-10 text-primary/10" />
+                        <a
+                            key={testimonial.id}
+                            href={testimonial.id === 1 ? "https://www.trustpilot.com/review/weddingseventslux.com" : "https://g.page/r/weddingseventslux/review"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block group"
+                        >
+                            <Card className="h-full border-none shadow-lg group-hover:shadow-2xl group-hover:-translate-y-1 transition-all duration-300 bg-white overflow-hidden cursor-pointer relative">
+                                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300" />
+                                <CardContent className="p-8 relative">
+                                    <Quote className="absolute top-6 right-6 w-10 h-10 text-primary/10 group-hover:text-primary/20 transition-colors" />
 
-                                {/* Rating */}
-                                <div className="flex gap-1 mb-6">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-                                    ))}
-                                </div>
-
-                                {/* Content */}
-                                <p className="text-gray-700 italic mb-8 leading-relaxed">
-                                    "{testimonial.content}"
-                                </p>
-
-                                {/* Author */}
-                                <div className="flex items-center gap-4">
-                                    <img
-                                        src={testimonial.image}
-                                        alt={testimonial.name}
-                                        className="w-12 h-12 rounded-full object-cover border-2 border-primary/20"
-                                    />
-                                    <div>
-                                        <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                                        <p className="text-sm text-primary font-medium">{testimonial.role}</p>
+                                    {/* Rating */}
+                                    <div className="flex gap-1 mb-6">
+                                        {[...Array(testimonial.rating)].map((_, i) => (
+                                            <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                                        ))}
                                     </div>
-                                </div>
-                            </CardContent>
-                        </Card>
+
+                                    {/* Content */}
+                                    <p className="text-gray-700 italic mb-8 leading-relaxed group-hover:text-gray-900 transition-colors">
+                                        "{testimonial.content}"
+                                    </p>
+
+                                    {/* Author */}
+                                    <div className="flex items-center gap-4">
+                                        <img
+                                            src={testimonial.image}
+                                            alt={testimonial.name}
+                                            className="w-12 h-12 rounded-full object-cover border-2 border-primary/20 group-hover:border-primary transition-colors"
+                                        />
+                                        <div>
+                                            <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                                            <p className="text-sm text-primary font-medium">{testimonial.role}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Link Hint */}
+                                    <div className="absolute bottom-4 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-1">
+                                        {t("common.read_review", "Read Review")} <CheckCircle className="w-3 h-3" />
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </a>
                     ))}
                 </div>
 
-                {/* Trust Badges / Client Logos (Visual Placeholder) */}
                 {/* Trust Badges / Client Logos */}
-                <div className="text-center mb-16">
+                <div className="text-center">
                     <p className="text-sm text-gray-500 uppercase tracking-widest mb-8">{t("testimonials.badge")}</p>
                     <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
                         <div className="text-xl font-serif font-bold text-gray-400">VOGUE</div>
                         <div className="text-xl font-serif font-bold text-gray-400">BRIDES</div>
                         <div className="text-xl font-serif font-bold text-gray-400">MyWed</div>
                         <div className="text-xl font-serif font-bold text-gray-400">Fearless</div>
-                    </div>
-                </div>
-
-                {/* External Reviews Call to Action */}
-                <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-stone-100 text-center max-w-4xl mx-auto">
-                    <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
-                        {t("testimonials.leave_review_title", "Votre avis compte pour nous")}
-                    </h3>
-                    <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                        {t("testimonials.leave_review_desc", "Aidez les futurs couples à nous trouver en partageant votre expérience.")}
-                    </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <a
-                            href="https://www.trustpilot.com/review/weddingseventslux.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#00b67a] text-white rounded-lg font-medium hover:bg-[#009c69] transition-colors"
-                        >
-                            <Star className="w-5 h-5 fill-current" />
-                            Review on TrustPilot
-                        </a>
-                        <a
-                            href="https://g.page/r/weddingseventslux/review"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#4285F4] text-white rounded-lg font-medium hover:bg-[#3367D6] transition-colors"
-                        >
-                            <Star className="w-5 h-5 fill-current" />
-                            Review on Google
-                        </a>
                     </div>
                 </div>
             </div>
