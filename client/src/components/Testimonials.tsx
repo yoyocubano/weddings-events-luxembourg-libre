@@ -103,14 +103,44 @@ export default function Testimonials() {
                 </div>
 
                 {/* Trust Badges / Client Logos (Visual Placeholder) */}
-                <div className="text-center">
-                    <p className="text-sm text-gray-500 uppercase tracking-widest mb-8">Reconocidos En</p>
+                {/* Trust Badges / Client Logos */}
+                <div className="text-center mb-16">
+                    <p className="text-sm text-gray-500 uppercase tracking-widest mb-8">{t("testimonials.badge")}</p>
                     <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                        {/* Logos placeholders - using text for now as generic placeholders */}
                         <div className="text-xl font-serif font-bold text-gray-400">VOGUE</div>
                         <div className="text-xl font-serif font-bold text-gray-400">BRIDES</div>
                         <div className="text-xl font-serif font-bold text-gray-400">MyWed</div>
                         <div className="text-xl font-serif font-bold text-gray-400">Fearless</div>
+                    </div>
+                </div>
+
+                {/* External Reviews Call to Action */}
+                <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-stone-100 text-center max-w-4xl mx-auto">
+                    <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                        {t("testimonials.leave_review_title", "Votre avis compte pour nous")}
+                    </h3>
+                    <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+                        {t("testimonials.leave_review_desc", "Aidez les futurs couples à nous trouver en partageant votre expérience.")}
+                    </p>
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        <a
+                            href="https://www.trustpilot.com/review/weddingseventslux.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#00b67a] text-white rounded-lg font-medium hover:bg-[#009c69] transition-colors"
+                        >
+                            <Star className="w-5 h-5 fill-current" />
+                            Review on TrustPilot
+                        </a>
+                        <a
+                            href="https://g.page/r/weddingseventslux/review"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#4285F4] text-white rounded-lg font-medium hover:bg-[#3367D6] transition-colors"
+                        >
+                            <Star className="w-5 h-5 fill-current" />
+                            Review on Google
+                        </a>
                     </div>
                 </div>
             </div>

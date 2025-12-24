@@ -179,22 +179,21 @@
         "title": "Servicegebidder zu Lëtzebuerg",
         "subtitle": "Mir bidden Fotografie- a Videografieservicer uechter Lëtzebuerg an Ëmgéigend un",
         "primary": "Haaptservicegebidder:"
+    },
+    "brand": {
+        "name": "WEL Weddings & Events Luxembourg"
+    },
+    "common": {
+        "whatsapp": "WhatsApp"
+    },
+    "error": {
+        "unexpected": "En onerwaarte Feeler ass geschitt."
+    },
+    "footer": {
+        "quick_links": "Séier Links",
+        "contact": "Kontakt",
+        "follow_us": "Follegt eis",
+        "rights": "All Rechter virbehalen.",
+        "text": "Mir halen Är wäertvollst Momenter mat Eleganz a Konscht zu Lëtzebuerg fest."
     }
-},
-"brand": {
-    "name": "WEL Weddings & Events Luxembourg"
-},
-"common": {
-    "whatsapp": "WhatsApp"
-},
-"error": {
-    "unexpected": "En onerwaarte Feeler ass geschitt."
-},
-"footer": {
-    "quick_links": "Séier Links",
-    "contact": "Kontakt",
-    "follow_us": "Follegt eis",
-    "rights": "All Rechter virbehalen.",
-    "text": "Mir halen Är wäertvollst Momenter mat Eleganz a Konscht zu Lëtzebuerg fest."
-}
 }
