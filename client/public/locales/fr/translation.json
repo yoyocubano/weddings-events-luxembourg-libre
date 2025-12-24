@@ -106,6 +106,82 @@
         "protocol": "Le Protocole",
         "contact": "Contact"
     },
+    "protocol_page": {
+        "hero": {
+            "eyebrow": "Le Standard WE",
+            "title": "Le Protocole Mariages & Événements Luxembourg",
+            "subtitle": "\"Un Guide pour une Planification Sans Effort\""
+        },
+        "intro": {
+            "p1": "You are embarking on a journey that should be defined by joy, not anxiety. In Luxembourg's dynamic event landscape, the difference between a chaotic gathering and a transcendent experience lies not in the budget, but in the {{strong}}precision of the planning{{/strong}}.",
+            "p2": "At WE, we believe that {{em}}peace of mind{{/em}} is the ultimate luxury. This protocol is distilled from over a decade of experience, designed to give you the foresight of a professional. Read it, use it, and reclaim your calm."
+        },
+        "timeline": {
+            "title": "1. Chronologie & Étiquette",
+            "subtitle": "Le Conseil du Sage",
+            "foundation": {
+                "title": "12-18 Mois à l'Avance : La Fondation",
+                "desc": "In Luxembourg, premium locations (chateaux, Moselle estates) are booked well in advance. Do not secure dates before securing the space."
+            },
+            "guests": {
+                "title": "La Liste des Invités",
+                "desc": "Define your numbers now. A \"Sage\" knows that 150 guests require a different logistical beast than 80."
+            },
+            "triad": {
+                "title": "La Triade des Priorités",
+                "1": "Traiteur",
+                "2": "Photographie",
+                "3": "Ambiance (Musique/Lumières)",
+                "insight": "\"Who\" matters more than \"How Much\". A vendor who knows the venue's restrictions is worth their weight in gold."
+            }
+        },
+        "caregiver": {
+            "title": "2. Les Check-lists du Gardien",
+            "subtitle": "Ce que les Autres Oublient",
+            "rain": {
+                "title": "Le Plan Pluie",
+                "desc": "Luxembourg Reality: Never assume sun. We design for rain so that if it happens, it feels intentional (e.g., clear marquees, cozy indoor lighting)."
+            },
+            "gap": {
+                "title": "Distance Kirchberg-Moselle",
+                "desc": "If your ceremony is in the city and reception in the country, provide shuttles. It allows guests to indulge and ensures everyone arrives on {{em}}your{{/em}} timeline."
+            },
+            "diet": {
+                "title": "Dignité Alimentaire",
+                "desc": "Vegetarian/Vegan options should be as visually stunning as the main menu. A guest treated with care is a guest who raves about your event."
+            }
+        },
+        "budget": {
+            "title": "3. Budgétiser pour la Sérénité",
+            "headers": {
+                "investment": "Investissement",
+                "impact": "Impact",
+                "insight": "Conseil WE"
+            },
+            "rows": {
+                "coord": {
+                    "item": "Coordination",
+                    "impact": "Élevé",
+                    "desc": "Buying a coordinator is buying your own presence. Be a guest at your own event."
+                },
+                "light": {
+                    "item": "Éclairage",
+                    "impact": "Élevé",
+                    "desc": "Lighting transforms a room more effectively than flowers, for half the cost."
+                },
+                "favors": {
+                    "item": "Cadeaux Invités",
+                    "impact": "Faible",
+                    "desc": "Guests forget \"stuff\". They remember how they {{em}}felt{{/em}} (Music, Food, Flow)."
+                }
+            }
+        },
+        "cta": {
+            "title": "Commencez Bien Votre Voyage",
+            "text": "This protocol is the map. But a map is not a guide. To execute a vision of this magnitude requires a partner who watches the horizon while you enjoy the view.",
+            "button": "Réservez Votre Consultation Gratuite"
+        }
+    },
     "portfolio": {
         "title": "Notre Portfolio",
         "subtitle": "Explorez notre collection de magnifiques mariages et événements capturés au Luxembourg",
