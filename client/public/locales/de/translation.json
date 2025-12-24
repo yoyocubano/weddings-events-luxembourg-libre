@@ -82,26 +82,26 @@
             "subtitle": "\"Ein Leitfaden für mühelose Planung\""
         },
         "intro": {
-            "p1": "You are embarking on a journey that should be defined by joy, not anxiety. In Luxembourg's dynamic event landscape, the difference between a chaotic gathering and a transcendent experience lies not in the budget, but in the {{strong}}precision of the planning{{/strong}}.",
-            "p2": "At WE, we believe that {{em}}peace of mind{{/em}} is the ultimate luxury. This protocol is distilled from over a decade of experience, designed to give you the foresight of a professional. Read it, use it, and reclaim your calm."
+            "p1": "Sie begeben sich auf eine Reise, die von Freude und nicht von Angst geprägt sein sollte. In der dynamischen Eventlandschaft Luxemburgs liegt der Unterschied zwischen einer chaotischen Versammlung und einem transzendenten Erlebnis nicht im Budget, sondern in der {{strong}}Präzision der Planung{{/strong}}.",
+            "p2": "Bei WE glauben wir, dass {{em}}Seelenfrieden{{/em}} der ultimative Luxus ist. Dieses Protokoll ist das Destillat aus über einem Jahrzehnt Erfahrung, entworfen, um Ihnen die Voraussicht eines Profis zu geben. Lesen Sie es, nutzen Sie es und finden Sie Ihre Ruhe wieder."
         },
         "timeline": {
             "title": "1. Zeitplan & Etikette",
             "subtitle": "Der Rat der Weisen",
             "foundation": {
                 "title": "12-18 Monate im Voraus: Das Fundament",
-                "desc": "In Luxembourg, premium locations (chateaux, Moselle estates) are booked well in advance. Do not secure dates before securing the space."
+                "desc": "In Luxemburg sind Premium-Locations (Schlösser, Weingüter an der Mosel) lange im Voraus ausgebucht. Sichern Sie keine Termine, bevor Sie nicht den Raum gesichert haben."
             },
             "guests": {
                 "title": "Die Gästeliste",
-                "desc": "Define your numbers now. A \"Sage\" knows that 150 guests require a different logistical beast than 80."
+                "desc": "Definieren Sie jetzt Ihre Zahlen. Ein \"Weiser\" weiß, dass 150 Gäste eine ganz andere Logistik erfordern als 80."
             },
             "triad": {
                 "title": "Die Prioritäten-Triade",
                 "1": "Catering",
                 "2": "Fotografie",
                 "3": "Atmosphäre (Musik/Licht)",
-                "insight": "\"Who\" matters more than \"How Much\". A vendor who knows the venue's restrictions is worth their weight in gold."
+                "insight": "\"Wer\" ist wichtiger als \"Wie viel\". Ein Dienstleister, der die Einschränkungen des Veranstaltungsortes kennt, ist Gold wert."
             }
         },
         "caregiver": {
@@ -109,15 +109,15 @@
             "subtitle": "Was andere vergessen",
             "rain": {
                 "title": "Der Regenplan",
-                "desc": "Luxembourg Reality: Never assume sun. We design for rain so that if it happens, it feels intentional (e.g., clear marquees, cozy indoor lighting)."
+                "desc": "Luxemburger Realität: Gehen Sie nie von Sonne aus. Wir planen für Regen, damit es sich, falls er eintritt, gewollt anfühlt (z.B. transparente Zelte, gemütliche Innenbeleuchtung)."
             },
             "gap": {
                 "title": "Kirchberg-Mosel Distanz",
-                "desc": "If your ceremony is in the city and reception in the country, provide shuttles. It allows guests to indulge and ensures everyone arrives on {{em}}your{{/em}} timeline."
+                "desc": "Wenn Ihre Zeremonie in der Stadt und der Empfang auf dem Land ist, stellen Sie Shuttles bereit. Es ermöglicht Gästen zu genießen und sichert, dass alle nach {{em}}Ihrem{{/em}} Zeitplan ankommen."
             },
             "diet": {
                 "title": "Ernährungs-Würde",
-                "desc": "Vegetarian/Vegan options should be as visually stunning as the main menu. A guest treated with care is a guest who raves about your event."
+                "desc": "Vegetarische/Vegane Optionen sollten genauso visuell beeindruckend sein wie das Hauptmenü. Ein Gast, der mit Sorgfalt behandelt wird, ist ein Gast, der von Ihrem Event schwärmt."
             }
         },
         "budget": {
@@ -131,23 +131,23 @@
                 "coord": {
                     "item": "Koordination",
                     "impact": "Hoch",
-                    "desc": "Buying a coordinator is buying your own presence. Be a guest at your own event."
+                    "desc": "Einen Koordinator zu engagieren, bedeutet, Ihre eigene Präsenz zu kaufen. Seien Sie Gast auf Ihrem eigenen Event."
                 },
                 "light": {
                     "item": "Beleuchtung",
                     "impact": "Hoch",
-                    "desc": "Lighting transforms a room more effectively than flowers, for half the cost."
+                    "desc": "Beleuchtung verwandelt einen Raum effektiver als Blumen, für die Hälfte der Kosten."
                 },
                 "favors": {
                     "item": "Gastgeschenke",
                     "impact": "Niedrig",
-                    "desc": "Guests forget \"stuff\". They remember how they {{em}}felt{{/em}} (Music, Food, Flow)."
+                    "desc": "Gäste vergessen \"Dinge\". Sie erinnern sich daran, wie sie sich {{em}}gefühlt{{/em}} haben (Musik, Essen, Ablauf)."
                 }
             }
         },
         "cta": {
             "title": "Beginnen Sie Ihre Reise Richtig",
-            "text": "This protocol is the map. But a map is not a guide. To execute a vision of this magnitude requires a partner who watches the horizon while you enjoy the view.",
+            "text": "Dieses Protokoll ist die Karte. Aber eine Karte ist kein Führer. Um eine Vision dieser Größenordnung umzusetzen, braucht es einen Partner, der den Horizont beobachtet, während Sie die Aussicht genießen.",
             "button": "Kostenlose Beratung Buchen"
         }
     },

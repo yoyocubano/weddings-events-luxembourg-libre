@@ -113,26 +113,26 @@
             "subtitle": "\"Un Guide pour une Planification Sans Effort\""
         },
         "intro": {
-            "p1": "You are embarking on a journey that should be defined by joy, not anxiety. In Luxembourg's dynamic event landscape, the difference between a chaotic gathering and a transcendent experience lies not in the budget, but in the {{strong}}precision of the planning{{/strong}}.",
-            "p2": "At WE, we believe that {{em}}peace of mind{{/em}} is the ultimate luxury. This protocol is distilled from over a decade of experience, designed to give you the foresight of a professional. Read it, use it, and reclaim your calm."
+            "p1": "Vous embarquez pour un voyage qui devrait être défini par la joie, et non l'anxiété. Dans le paysage événementiel dynamique du Luxembourg, la différence entre un rassemblement chaotique et une expérience transcendante ne réside pas dans le budget, mais dans la {{strong}}précision de la planification{{/strong}}.",
+            "p2": "Chez WE, nous croyons que la {{em}}tranquillité d'esprit{{/em}} est le luxe ultime. Ce protocole est le fruit de plus d'une décennie d'expérience, conçu pour vous donner la prévoyance d'un professionnel. Lisez-le, utilisez-le et retrouvez votre calme."
         },
         "timeline": {
             "title": "1. Chronologie & Étiquette",
             "subtitle": "Le Conseil du Sage",
             "foundation": {
                 "title": "12-18 Mois à l'Avance : La Fondation",
-                "desc": "In Luxembourg, premium locations (chateaux, Moselle estates) are booked well in advance. Do not secure dates before securing the space."
+                "desc": "Au Luxembourg, les lieux premium (châteaux, domaines de la Moselle) sont réservés très longtemps à l'avance. Ne fixez pas de dates avant d'avoir sécurisé le lieu."
             },
             "guests": {
                 "title": "La Liste des Invités",
-                "desc": "Define your numbers now. A \"Sage\" knows that 150 guests require a different logistical beast than 80."
+                "desc": "Définissez vos nombres maintenant. Un \"Sage\" sait que 150 invités nécessitent une logistique bien différente de 80."
             },
             "triad": {
                 "title": "La Triade des Priorités",
                 "1": "Traiteur",
                 "2": "Photographie",
                 "3": "Ambiance (Musique/Lumières)",
-                "insight": "\"Who\" matters more than \"How Much\". A vendor who knows the venue's restrictions is worth their weight in gold."
+                "insight": "\"Qui\" importe plus que \"Combien\". Un prestataire qui connaît les contraintes du lieu vaut son pesant d'or."
             }
         },
         "caregiver": {
@@ -140,15 +140,15 @@
             "subtitle": "Ce que les Autres Oublient",
             "rain": {
                 "title": "Le Plan Pluie",
-                "desc": "Luxembourg Reality: Never assume sun. We design for rain so that if it happens, it feels intentional (e.g., clear marquees, cozy indoor lighting)."
+                "desc": "Réalité luxembourgeoise : Ne présumez jamais du soleil. Nous concevons pour la pluie afin que, si elle arrive, cela semble intentionnel (ex : chapiteaux transparents, éclairage intérieur chaleureux)."
             },
             "gap": {
                 "title": "Distance Kirchberg-Moselle",
-                "desc": "If your ceremony is in the city and reception in the country, provide shuttles. It allows guests to indulge and ensures everyone arrives on {{em}}your{{/em}} timeline."
+                "desc": "Si votre cérémonie est en ville et la réception à la campagne, prévoyez des navettes. Cela permet aux invités de profiter et garantit que tout le monde arrive selon {{em}}votre{{/em}} emploi du temps."
             },
             "diet": {
                 "title": "Dignité Alimentaire",
-                "desc": "Vegetarian/Vegan options should be as visually stunning as the main menu. A guest treated with care is a guest who raves about your event."
+                "desc": "Les options végétariennes/végétaliennes doivent être aussi visuellement époustouflantes que le menu principal. Un invité traité avec soin est un invité qui ne tarit pas d'éloges sur votre événement."
             }
         },
         "budget": {
@@ -162,23 +162,23 @@
                 "coord": {
                     "item": "Coordination",
                     "impact": "Élevé",
-                    "desc": "Buying a coordinator is buying your own presence. Be a guest at your own event."
+                    "desc": "Acheter un coordinateur, c'est acheter votre propre présence. Soyez invité à votre propre événement."
                 },
                 "light": {
                     "item": "Éclairage",
                     "impact": "Élevé",
-                    "desc": "Lighting transforms a room more effectively than flowers, for half the cost."
+                    "desc": "L'éclairage transforme une pièce plus efficacement que les fleurs, pour la moitié du coût."
                 },
                 "favors": {
                     "item": "Cadeaux Invités",
                     "impact": "Faible",
-                    "desc": "Guests forget \"stuff\". They remember how they {{em}}felt{{/em}} (Music, Food, Flow)."
+                    "desc": "Les invités oublient les \"choses\". Ils se souviennent de ce qu'ils ont {{em}}ressenti{{/em}} (Musique, Nourriture, Fluidité)."
                 }
             }
         },
         "cta": {
             "title": "Commencez Bien Votre Voyage",
-            "text": "This protocol is the map. But a map is not a guide. To execute a vision of this magnitude requires a partner who watches the horizon while you enjoy the view.",
+            "text": "Ce protocole est la carte. Mais une carte n'est pas un guide. Exécuter une vision de cette ampleur nécessite un partenaire qui surveille l'horizon pendant que vous profitez de la vue.",
             "button": "Réservez Votre Consultation Gratuite"
         }
     },
