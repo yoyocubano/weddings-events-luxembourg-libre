@@ -13,11 +13,21 @@ interface Message {
 }
 
 export default function ChatWidget() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([
-        { role: "assistant", content: "Hello! I am Rebeca, your Event Coordinator. How can I help you plan your perfect event?" }
-    ]);
+    const [messages, setMessages] = useState<Message[]>([]);
+
+    // Initialize or update greeting when language changes
+    useEffect(() => {
+        // Only reset if empty or if it's the very first message
+        if (messages.length === 0) {
+            setMessages([{ role: "assistant", content: t("chat.greeting") }]);
+        } else if (messages.length === 1 && messages[0].role === "assistant") {
+            // Update the initial greeting in real-time if the user hasn't chatted yet
+            setMessages([{ role: "assistant", content: t("chat.greeting") }]);
+        }
+    }, [t, messages.length]);
+
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -48,7 +58,10 @@ export default function ChatWidget() {
             const response = await fetch("/.netlify/functions/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ messages: apiMessages }),
+                body: JSON.stringify({
+                    messages: apiMessages,
+                    language: i18n.language || "en" // Send current language
+                }),
             });
 
             if (!response.ok) {
@@ -56,7 +69,7 @@ export default function ChatWidget() {
             }
 
             const data = await response.json();
-            const assistantText = data.content || data.role === "assistant" ? data.content : "I apologize, I am having trouble connecting right now.";
+            const assistantText = data.content || data.role === "assistant" ? data.content : t("chat.connecting");
 
             setMessages((prev) => [...prev, { role: "assistant", content: assistantText }]);
 

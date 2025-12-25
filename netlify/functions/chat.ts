@@ -45,21 +45,21 @@ export const handler: Handler = async (event) => {
     }
 
     try {
-        const { messages } = JSON.parse(event.body || "{}");
+        const { messages, language } = JSON.parse(event.body || "{}");
 
         if (!messages || !Array.isArray(messages)) {
             return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid request body" }) };
         }
 
-        // Convert chat history to Gemini format
-        // Gemini 1.0 Pro doesn't support "system" role in the messages array directly in the same way as OpenAI/Anthropic
-        // We prepend the system prompt to the first user message or keep it as context.
+        // Determine language name for the prompt
+        let langName = "English";
+        if (language && language.startsWith("es")) langName = "Spanish";
+        else if (language && language.startsWith("fr")) langName = "French";
+        else if (language && language.startsWith("de")) langName = "German";
+        else if (language && language.startsWith("pt")) langName = "Portuguese";
+        else if (language && language.startsWith("lb")) langName = "Luxembourgish";
 
-        // Simplification for stateless REST API:
-        // We will combine the system prompt + conversation history into a formatted prompt.
-        // Or use the v1beta 'generateContent' strictly.
-
-        let fullPrompt = SYSTEM_PROMPT + "\n\nConversation History:\n";
+        let fullPrompt = SYSTEM_PROMPT + `\n\nIMPORTANT: The user is currently browsing the website in ${langName}. You MUST reply in ${langName}.\n\nConversation History:\n`;
         messages.forEach((msg: any) => {
             fullPrompt += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}\n`;
         });

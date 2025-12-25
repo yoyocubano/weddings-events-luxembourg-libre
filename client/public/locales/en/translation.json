@@ -465,6 +465,14 @@
         "previous": "Previous",
         "next": "Next"
     },
+    "chat": {
+        "greeting": "Hello! I am Rebeca, your Event Coordinator. How can I help you plan your perfect event?",
+        "title": "Rebeca AI",
+        "subtitle": "Event Coordinator",
+        "placeholder": "Ask about our services...",
+        "error": "Sorry, I am offline at the moment. Please try again later.",
+        "connecting": "I apologize, I am having trouble connecting right now."
+    },
     "error": {
         "unexpected": "An unexpected error occurred."
     },
