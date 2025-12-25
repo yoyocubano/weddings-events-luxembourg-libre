@@ -147,9 +147,9 @@ export default function ChatWidget() {
                         }`}
                 >
                     <ReactMarkdown
-                        className="prose prose-sm dark:prose-invert max-w-none break-words"
+                        className="prose prose-sm dark:prose-invert max-w-none break-words whitespace-pre-wrap"
                         components={{
-                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0 break-words" {...props} />,
                             ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
                             ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2" {...props} />,
                             li: ({ node, ...props }) => <li className="mb-1" {...props} />,
