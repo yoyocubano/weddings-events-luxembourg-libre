@@ -61,6 +61,13 @@ export default function Footer() {
                   </a>
                 </Link>
               </li>
+              <li>
+                <Link href="/privacy">
+                  <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    {t("footer.legal")}
+                  </a>
+                </Link>
+              </li>
             </ul>
           </div>
 

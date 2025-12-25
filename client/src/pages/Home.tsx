@@ -41,6 +41,8 @@ export default function Home() {
             src="/hero-chateau-sunset.png"
             alt="Luxury Event in Luxembourg Chateau"
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
@@ -161,6 +163,7 @@ export default function Home() {
                       <img
                         src={project.coverImageUrl}
                         alt={project.title}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>

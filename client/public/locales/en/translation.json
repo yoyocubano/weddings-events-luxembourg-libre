@@ -227,6 +227,16 @@
                 "title": "Rooftop Birthday & Reveal",
                 "desc": "Intimate celebrations with friends and family.",
                 "location": "Clausen, Luxembourg"
+            },
+            "sbk": {
+                "title": "SBK International Night",
+                "desc": "A vibrant night of Salsa, Bachata, and Kizomba capturing the passion of the dance community.",
+                "location": "Luxembourg City"
+            },
+            "winter": {
+                "title": "Winter Wonderland Wedding",
+                "desc": "A magical snowy celebration with cozy details and romantic atmosphere.",
+                "location": "Mullerthal, Luxembourg"
             }
         }
     },
@@ -469,6 +479,19 @@
         "contact": "Contact",
         "follow_us": "Follow Us",
         "rights": "All rights reserved.",
-        "text": "Capturing your most precious moments with elegance and artistry in Luxembourg."
+        "text": "Capturing your most precious moments with elegance and artistry in Luxembourg.",
+        "legal": "Privacy Policy & Legal Notice"
+    },
+    "legal": {
+        "title": "Privacy Policy & Legal Notice",
+        "controller_title": "Data Controller",
+        "controller_text": "WE Weddings & Events Luxembourg is the controller of your personal data. We are committed to protecting your privacy in accordance with the GDPR.",
+        "data_title": "Data Collection",
+        "data_text": "We collect information you provide directly to us via our contact forms (Name, Email, Phone, Event Details) for the sole purpose of responding to your inquiry and providing our services.",
+        "purpose_title": "Purpose of Processing",
+        "purpose_text": "Your data is used to manage bookings, communicate regarding your event, and issue invoices. We do not sell your data to third parties.",
+        "rights_title": "Your Rights",
+        "rights_text": "You have the right to access, rectify, or request deletion of your data at any time by contacting us at info@welweddingslux.com.",
+        "disclaimer": "This website is provided for informational purposes. While we strive for accuracy, we cannot guarantee the completeness of the information."
     }
 }

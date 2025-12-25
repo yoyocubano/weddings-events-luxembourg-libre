@@ -1,4 +1,5 @@
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import ChatWidget from "@/components/ChatWidget";
 import { Toaster } from "@/components/ui/sonner";
 import "@/lib/i18n";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,8 +14,12 @@ import About from "./pages/About";
 import Protocol from "./pages/Protocol";
 import Contact from "./pages/Contact";
 import ImageInventory from "./pages/ImageInventory";
+import Privacy from "./pages/Privacy";
+
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 function Router() {
+  usePageTitle();
   return (
     <Switch>
       <Route path={"/"} component={Home} />
@@ -24,6 +29,7 @@ function Router() {
       <Route path={"/protocol"} component={Protocol} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/images"} component={ImageInventory} />
+      <Route path={"/privacy"} component={Privacy} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
@@ -41,6 +47,7 @@ function App() {
           <Toaster />
           <Router />
           <WhatsAppButton />
+          <ChatWidget />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
