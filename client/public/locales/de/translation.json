@@ -330,6 +330,14 @@
         "previous": "Zurück",
         "next": "Weiter"
     },
+    "chat": {
+        "greeting": "Hallo! Ich bin Rebeca, Ihre Veranstaltungskoordinatorin. Wie kann ich helfen?",
+        "title": "Rebeca KI",
+        "subtitle": "Veranstaltungskoordinatorin",
+        "placeholder": "Fragen Sie uns...",
+        "error": "Entschuldigung, ich bin offline.",
+        "connecting": "Verbindungsprobleme."
+    },
     "error": {
         "unexpected": "Ein unerwarteter Fehler ist aufgetreten."
     },

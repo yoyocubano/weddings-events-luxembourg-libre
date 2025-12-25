@@ -330,6 +330,14 @@
         "previous": "Zeréck",
         "next": "Weider"
     },
+    "chat": {
+        "greeting": "Moien! Ech sinn d'Rebeca, är Event-Koordinatrice. Wéi kann ech hëllefen?",
+        "title": "Rebeca AI",
+        "subtitle": "Event-Koordinatrice",
+        "placeholder": "Frot eis...",
+        "error": "Pardon, ech sinn offline.",
+        "connecting": "Verbindungsproblemer."
+    },
     "error": {
         "unexpected": "En onerwaarte Feeler ass geschitt."
     },

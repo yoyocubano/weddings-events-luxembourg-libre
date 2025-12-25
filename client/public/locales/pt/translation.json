@@ -330,6 +330,14 @@
         "previous": "Anterior",
         "next": "Próximo"
     },
+    "chat": {
+        "greeting": "Olá! Sou a Rebeca, a sua Coordenadora de Eventos. Como posso ajudar?",
+        "title": "Rebeca IA",
+        "subtitle": "Coordenadora de Eventos",
+        "placeholder": "Pergunte sobre os serviços...",
+        "error": "Desculpe, estou offline.",
+        "connecting": "Problemas de conexão."
+    },
     "error": {
         "unexpected": "Ocorreu um erro inesperado."
     },

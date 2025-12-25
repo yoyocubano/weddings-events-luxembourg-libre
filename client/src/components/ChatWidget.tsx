@@ -90,8 +90,8 @@ export default function ChatWidget() {
                     {/* Header */}
                     <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center">
                         <div>
-                            <h3 className="font-serif font-bold">Rebeca AI</h3>
-                            <p className="text-xs opacity-90">Event Coordinator</p>
+                            <h3 className="font-serif font-bold">{t("chat.title")}</h3>
+                            <p className="text-xs opacity-90">{t("chat.subtitle")}</p>
                         </div>
                         <Button
                             variant="ghost"
