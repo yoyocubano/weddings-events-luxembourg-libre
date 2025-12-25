@@ -32,6 +32,7 @@ export default function ChatWidget() {
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    // Auto-scroll on new messages
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -48,39 +49,118 @@ export default function ChatWidget() {
         setIsLoading(true);
 
         try {
-            // Prepare message history for API (limit context if needed)
-            const apiMessages = [...messages, userMsg].filter(m => m.content).map(m => ({
+            const apiMessages = [...messages, userMsg].filter(m => m.content && !m.content.startsWith('[[SUBMIT')).map(m => ({
                 role: m.role,
                 content: m.content
             }));
 
-            // Call Netlify Function
             const response = await fetch("/.netlify/functions/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     messages: apiMessages,
-                    language: i18n.language || "en" // Send current language
+                    language: i18n.language || "en"
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
+            if (!response.ok) throw new Error("Network response was not ok");
 
             const data = await response.json();
             const assistantText = data.content || data.role === "assistant" ? data.content : t("chat.connecting");
 
             setMessages((prev) => [...prev, { role: "assistant", content: assistantText }]);
 
-        } catch (error) {
-            console.error("Chat error details:", error);
-            // Optionally, we could show the specific error in the UI for debugging:
-            // const errorMessage = error instanceof Error ? error.message : "Connection failed";
-            setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I am offline at the moment. Please try again later." }]);
+        } catch (error: any) {
+            console.error("Chat error:", error);
+            setMessages((prev) => [...prev, { role: "assistant", content: t("chat.error") }]);
         } finally {
             setIsLoading(false);
         }
+    };
+
+    // Inquiry Draft Handling
+    const handleConfirmInquiry = async (dataStr: string) => {
+        setIsLoading(true);
+        try {
+            const data = JSON.parse(dataStr);
+            const { submitInquiry } = await import("@/lib/api");
+            const res = await submitInquiry({
+                name: data.name,
+                email: data.email || "provided-in-chat@example.com", // Fallback if AI didn't catch email
+                eventType: data.eventType || "other",
+                message: "From Chat: " + (data.message || "No details")
+            });
+
+            if (res.success) {
+                setMessages(prev => [...prev, { role: "assistant", content: "✅ Inquiry sent successfully! We will contact you soon." }]);
+            } else {
+                setMessages(prev => [...prev, { role: "assistant", content: "❌ Failed to send. Please try the contact form." }]);
+            }
+        } catch (e) {
+            setMessages(prev => [...prev, { role: "assistant", content: "❌ Error processing inquiry." }]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const renderMessage = (msg: Message, idx: number) => {
+        const isInquiry = msg.content.includes("[[SUBMIT_INQUIRY:");
+
+        if (isInquiry && msg.role === 'assistant') {
+            const match = msg.content.match(/\[\[SUBMIT_INQUIRY: (.*?)\]\]/);
+            if (match) {
+                const jsonStr = match[1];
+                let inquiries = {};
+                try { inquiries = JSON.parse(jsonStr); } catch (e) { }
+
+                return (
+                    <div key={idx} className="flex justify-start">
+                        <div className="bg-secondary/20 p-4 rounded-lg mb-2 text-sm border border-primary/20 max-w-[85%]">
+                            <p className="font-bold mb-2 text-primary">Confirm Inquiry Details?</p>
+                            <pre className="text-xs bg-white/50 p-2 rounded mb-2 overflow-x-auto">
+                                {JSON.stringify(inquiries, null, 2)}
+                            </pre>
+                            <Button
+                                size="sm"
+                                onClick={() => handleConfirmInquiry(jsonStr)}
+                                disabled={isLoading}
+                                className="w-full"
+                            >
+                                {isLoading ? "Sending..." : "Confirm & Send"}
+                            </Button>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        return (
+            <div
+                key={idx}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"
+                    }`}
+            >
+                <div
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden ${msg.role === "user"
+                        ? "bg-primary text-primary-foreground rounded-br-none"
+                        : "bg-muted text-foreground rounded-bl-none border border-border"
+                        }`}
+                >
+                    <ReactMarkdown
+                        className="prose prose-sm dark:prose-invert max-w-none break-words"
+                        components={{
+                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2" {...props} />,
+                            li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                            strong: ({ node, ...props }) => <span className="font-bold text-primary/90" {...props} />
+                        }}
+                    >
+                        {msg.content}
+                    </ReactMarkdown>
+                </div>
+            </div>
+        );
     };
 
     return (
@@ -106,69 +186,47 @@ export default function ChatWidget() {
                     {/* Messages */}
                     <ScrollArea className="flex-1 p-4" ref={scrollRef}>
                         <div className="flex flex-col gap-4">
-                            {messages.map((msg, idx) => (
-                                <div
-                                    key={idx}
-                                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"
-                                        }`}
-                                >
-                                    <div
-                                        className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden ${msg.role === "user"
-                                            ? "bg-primary text-primary-foreground rounded-br-none"
-                                            : "bg-muted text-foreground rounded-bl-none border border-border"
-                                            }`}
-                                    >
-                                        <ReactMarkdown
-                                            className="prose prose-sm dark:prose-invert max-w-none break-words"
-                                            components={{
-                                                p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
-                                                ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
-                                                ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2" {...props} />,
-                                                li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-                                                strong: ({ node, ...props }) => <span className="font-bold text-primary/90" {...props} />
-                                            }}
-                                        >
-                                            {msg.content}
-                                        </ReactMarkdown>
-                                    </div>
-                                </div>
-                            ))}
-                            {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="bg-muted text-muted-foreground rounded-2xl rounded-bl-none px-4 py-3 text-sm flex items-center gap-2">
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                        Typing...
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </ScrollArea>
-
-                    {/* Input */}
-                    <div className="p-4 border-t border-border bg-background rounded-b-lg">
-                        <form onSubmit={handleSubmit} className="flex gap-2">
-                            <Input
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="Ask about our services..."
-                                className="flex-1"
-                                disabled={isLoading}
-                            />
-                            <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim()}>
-                                <Send className="w-4 h-4" />
-                            </Button>
-                        </form>
+                        </ReactMarkdown>
                     </div>
-                </Card>
+                </div>
+            ))}
+            {isLoading && (
+                <div className="flex justify-start">
+                    <div className="bg-muted text-muted-foreground rounded-2xl rounded-bl-none px-4 py-3 text-sm flex items-center gap-2">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Typing...
+                    </div>
+                </div>
             )}
-
-            <Button
-                onClick={() => setIsOpen(!isOpen)}
-                size="lg"
-                className="h-14 w-14 rounded-full shadow-xl bg-primary text-primary-foreground hover:scale-105 transition-transform"
-            >
-                {isOpen ? <X className="w-8 h-8" /> : <MessageCircle className="w-8 h-8" />}
-            </Button>
         </div>
+                    </ScrollArea >
+
+        {/* Input */ }
+        < div className = "p-4 border-t border-border bg-background rounded-b-lg" >
+            <form onSubmit={handleSubmit} className="flex gap-2">
+                <Input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Ask about our services..."
+                    className="flex-1"
+                    disabled={isLoading}
+                />
+                <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim()}>
+                    <Send className="w-4 h-4" />
+                </Button>
+            </form>
+                    </div >
+                </Card >
+            )
+}
+
+<Button
+    onClick={() => setIsOpen(!isOpen)}
+    size="lg"
+    className="h-14 w-14 rounded-full shadow-xl bg-primary text-primary-foreground hover:scale-105 transition-transform"
+>
+    {isOpen ? <X className="w-8 h-8" /> : <MessageCircle className="w-8 h-8" />}
+</Button>
+        </div >
     );
 }
