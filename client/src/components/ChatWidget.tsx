@@ -15,7 +15,7 @@ export default function ChatWidget() {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
-        { role: "assistant", content: "Hello! I am your WE Concierge. How can I help you plan your perfect event?" }
+        { role: "assistant", content: "Hello! I am Rebeca, your Event Coordinator. How can I help you plan your perfect event?" }
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -74,8 +74,8 @@ export default function ChatWidget() {
                     {/* Header */}
                     <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center">
                         <div>
-                            <h3 className="font-serif font-bold">WE Concierge</h3>
-                            <p className="text-xs opacity-90">Virtual Assistant</p>
+                            <h3 className="font-serif font-bold">Rebeca AI</h3>
+                            <p className="text-xs opacity-90">Event Coordinator</p>
                         </div>
                         <Button
                             variant="ghost"
