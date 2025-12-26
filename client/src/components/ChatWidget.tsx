@@ -57,10 +57,16 @@ export default function ChatWidget() {
     const scrollToBottom = (instant = false) => {
         // Only scroll if we are allowed to (user is at bottom OR we force instance scroll)
         if (!userScrolledRef.current || instant) {
+            // Método 1: scrollIntoView del elemento final
             messagesEndRef.current?.scrollIntoView({
                 behavior: instant ? 'auto' : 'smooth',
                 block: 'end'
             });
+            
+            // Método 2: Fallback usando scrollTop (más confiable)
+            if (messagesContainerRef.current) {
+                messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+            }
         }
     };
 
@@ -73,6 +79,15 @@ export default function ChatWidget() {
         }, 100);
         return () => clearTimeout(timer);
     }, [messages, isLoading, isOpen]);
+
+    // Force scroll when chat opens
+    useEffect(() => {
+        if (isOpen) {
+            setTimeout(() => {
+                scrollToBottom(true); // Instant scroll on open
+            }, 200);
+        }
+    }, [isOpen]);
 
     // Scroll Handler to detect user intent
     const handleScroll = () => {
