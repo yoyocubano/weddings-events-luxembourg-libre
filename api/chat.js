@@ -1,7 +1,6 @@
 
-
-
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+// DEEPSEEK CONFIG
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 
 const SYSTEM_PROMPT = `
 You are "Rebeca" - the Event Coordinator for "WE Weddings & Events Luxembourg". 
@@ -32,9 +31,9 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    if (!GOOGLE_API_KEY) {
-        console.error("Missing GOOGLE_API_KEY");
-        return res.status(500).json({ error: "Server configuration error: Missing Google API Key" });
+    if (!DEEPSEEK_API_KEY) {
+        console.error("Missing DEEPSEEK_API_KEY");
+        return res.status(500).json({ error: "Server configuration error: Missing DeepSeek API Key" });
     }
 
     try {
@@ -52,72 +51,43 @@ export default async function handler(req, res) {
         else if (language && language.startsWith("lb")) langName = "Luxembourgish";
 
         // Enhanced System Instruction
-        let fullPrompt = SYSTEM_PROMPT + `\n\n*** CRITICAL INSTRUCTION ***\nThe user is speaking in ${langName} (Browsing Language: ${language}).\nYOU MUST REPLY IN ${langName} ONLY.\nDo not switch languages unless explicitly asked.\n**************************\n\nConversation History:\n`;
-        messages.forEach((msg) => {
-            fullPrompt += `${msg.role === 'user' ? 'User' : 'Assistant'} (${langName}): ${msg.content}\n`;
+        const systemMessage = {
+            role: "system",
+            content: SYSTEM_PROMPT + `\n\n*** CRITICAL INSTRUCTION ***\nThe user is speaking in ${langName} (Browsing Language: ${language}).\nYOU MUST REPLY IN ${langName} ONLY.\nDo not switch languages unless explicitly asked.`
+        };
+
+        // Construct DeepSeek/OpenAI compatible history
+        // DeepSeek expects "system", "user", "assistant" roles. 
+        // Our incoming "messages" are usually { role: "user" | "assistant", content: "..." }
+        const conversationHistory = [systemMessage, ...messages];
+
+        console.log(`[Rebeca AI] Calling DeepSeek. Language: ${langName}`);
+
+        const response = await fetch("https://api.deepseek.com/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "deepseek-chat",
+                messages: conversationHistory,
+                temperature: 0.7,
+                max_tokens: 500
+            })
         });
-        fullPrompt += `Assistant (${langName}):`;
 
-        const modelsToTry = [
-            "gemini-1.5-flash-latest",
-            "gemini-1.5-flash",
-            "gemini-1.5-flash-001",
-            "gemini-1.5-flash-002",
-            "gemini-1.5-pro",
-            "gemini-1.5-pro-001",
-            "gemini-1.5-pro-002",
-            "gemini-pro"
-        ];
-
-        let generatedText = null;
-        let lastError = null;
-
-        for (const model of modelsToTry) {
-            try {
-                const response = await fetch(
-                    `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${GOOGLE_API_KEY}`,
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: fullPrompt }] }]
-                        }),
-                    }
-                );
-
-                if (!response.ok) {
-                    const errorStatus = response.status;
-                    const errorText = await response.text();
-                    console.warn(`⚠️ Model ${model} failed with status ${errorStatus}: ${errorText}`);
-
-                    if (errorStatus === 429 || errorStatus === 503) {
-                        continue;
-                    }
-                    throw new Error(`Google API Error: ${errorStatus} - ${errorText}`);
-                }
-
-                const data = await response.json();
-                generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                if (generatedText) {
-                    break;
-                }
-
-            } catch (e) {
-                console.error(`❌ Error with ${model}:`, e.message);
-                lastError = e;
-            }
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`DeepSeek API Error: ${response.status} - ${errorText}`);
+            throw new Error(`DeepSeek API Error: ${response.status}`);
         }
 
+        const data = await response.json();
+        const generatedText = data.choices?.[0]?.message?.content;
+
         if (!generatedText) {
-            console.error("🔥 ALL MODELS FAILED.");
-            return res.status(200).json({
-                role: "assistant",
-                content: language?.startsWith("es")
-                    ? "⚠️ **Sistema Saturado:** Mis servidores neuronales están al máximo de capacidad. Por favor intenta de nuevo en 30 segundos."
-                    : "⚠️ **System Overload:** All my AI models are currently busy. Please try again in 30 seconds.",
-                isOverloaded: true
-            });
+            throw new Error("No content returned from DeepSeek");
         }
 
         return res.status(200).json({
@@ -128,9 +98,14 @@ export default async function handler(req, res) {
 
     } catch (error) {
         console.error("🔥 FATAL SERVER ERROR:", error);
-        return res.status(500).json({
-            error: "Internal Server Error",
-            details: error.message || String(error)
+
+        // Return a polite fallback message if DeepSeek fails
+        return res.status(200).json({
+            role: "assistant",
+            content: language?.startsWith("es")
+                ? "⚠️ **Sistema Saturado:** Mis servidores neuronales están al máximo de capacidad. Por favor intenta de nuevo en 30 segundos."
+                : "⚠️ **System Overload:** All my AI models are currently busy. Please try again in 30 seconds.",
+            isOverloaded: true
         });
     }
 }
