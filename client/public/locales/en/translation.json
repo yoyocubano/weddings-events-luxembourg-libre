@@ -501,5 +501,10 @@
         "rights_title": "Your Rights",
         "rights_text": "You have the right to access, rectify, or request deletion of your data at any time by contacting us at info@welweddingslux.com.",
         "disclaimer": "This website is provided for informational purposes. While we strive for accuracy, we cannot guarantee the completeness of the information."
+    },
+    "inquiry": {
+        "confirm_details": "Confirm Details",
+        "send": "Confirm & Send Request",
+        "success": "Request sent successfully!"
     }
 }

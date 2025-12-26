@@ -1,73 +1,108 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 
+// --- Types ---
 interface Message {
     role: "user" | "assistant";
     content: string;
+    timestamp?: string;
 }
+
+// --- Theme Constants (Dark Luxury) ---
+const THEME = {
+    primary: "#D4AF37", // Gold
+    bg: "bg-[#0F0F0F]", // Deep Black
+    surface: "bg-[#141414]", // Slightly Lighter Black
+    userBubble: "bg-[#D4AF37] text-[#000000]", // Gold bubble, Black text
+    botBubble: "bg-[#2A2A2A] text-[#E5E5E5]", // Dark Gray bubble, White text
+};
 
 export default function ChatWidget() {
     const { t, i18n } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
-    const [sessionId, setSessionId] = useState("");
-
-    // Initialize Session ID
-    useEffect(() => {
-        setSessionId(Math.random().toString(36).substring(2, 15));
-    }, []);
-
-    // Initialize or update greeting when language changes
-    useEffect(() => {
-        // Only reset if empty or if it's the very first message
-        if (messages.length === 0) {
-            setMessages([{ role: "assistant", content: t("chat.greeting") }]);
-        } else if (messages.length === 1 && messages[0].role === "assistant") {
-            // Update the initial greeting in real-time if the user hasn't chatted yet
-            setMessages([{ role: "assistant", content: t("chat.greeting") }]);
-        }
-    }, [t, messages.length]);
-
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Auto-scroll on new messages
+    // Auto-scroll refs & state
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
+    const userScrolledRef = useRef(false);
+
+    // --- Effects ---
+
+    // Initial Greeting
     useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        if (messages.length === 0 && isOpen) {
+            setIsLoading(true);
+            const timer = setTimeout(() => {
+                setMessages([{
+                    role: "assistant",
+                    content: t("chat.greeting"),
+                    timestamp: getCurrentTime()
+                }]);
+                setIsLoading(false);
+            }, 800);
+            return () => clearTimeout(timer);
         }
-    }, [messages, isOpen]);
+    }, [isOpen, t]);
 
-    const lastMessageTime = useRef<number>(0);
+    // Smart Auto-Scroll (Antigravity Engine 2.0)
+    const scrollToBottom = (instant = false) => {
+        if (!messagesContainerRef.current) return;
+        const { scrollHeight, clientHeight } = messagesContainerRef.current;
+        messagesContainerRef.current.scrollTo({
+            top: scrollHeight - clientHeight,
+            behavior: instant ? 'auto' : 'smooth'
+        });
+    };
 
+    // Scroll effect when messages change
+    useEffect(() => {
+        // Only auto-scroll if user hasn't scrolled up manually
+        if (!userScrolledRef.current || messages[messages.length - 1]?.role === 'user') {
+            // Use RAF for smoothness guarantees
+            requestAnimationFrame(() => scrollToBottom());
+        }
+    }, [messages, isLoading, isOpen]);
+
+    // Scroll Handler to detect user intent
+    const handleScroll = () => {
+        if (!messagesContainerRef.current) return;
+        const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+        userScrolledRef.current = !isNearBottom;
+    };
+
+    // --- Helpers ---
+    const getCurrentTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // --- Handlers ---
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Rate Limiting: Prevent more than 1 message every 2 seconds
-        const now = Date.now();
-        if (now - lastMessageTime.current < 2000) return;
-
         if (!inputValue.trim() || isLoading) return;
-        lastMessageTime.current = now;
 
-        const userMsg: Message = { role: "user", content: inputValue };
+        const userMsg: Message = {
+            role: "user",
+            content: inputValue,
+            timestamp: getCurrentTime()
+        };
+
         setMessages((prev) => [...prev, userMsg]);
         setInputValue("");
         setIsLoading(true);
 
         try {
-            const apiMessages = [...messages, userMsg].filter(m => m.content && !m.content.startsWith('[[SUBMIT')).map(m => ({
-                role: m.role,
-                content: m.content
-            }));
+            // Filter out system markers for API
+            const apiMessages = [...messages, userMsg]
+                .filter(m => !m.content.startsWith('[[SUBMIT'))
+                .map(m => ({ role: m.role, content: m.content }));
 
-            // Safety Timeout: 15 seconds max
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 15000);
 
@@ -80,49 +115,42 @@ export default function ChatWidget() {
                 }),
                 signal: controller.signal
             });
-
             clearTimeout(timeoutId);
 
-            if (!response.ok) {
-                if (response.status === 429 || response.status === 503) {
-                    const errorMsg = i18n.language?.startsWith("es")
-                        ? "⏳ Estoy recibiendo muchas consultas. Por favor, espera unos segundos."
-                        : "⏳ High traffic. Please wait a few seconds.";
-                    setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
-                    return;
-                }
-                throw new Error("Network response was not ok");
-            }
+            if (!response.ok) throw new Error("Network error");
 
             const data = await response.json();
-            const assistantText = data.content || (data.role === "assistant" ? data.content : t("chat.connecting"));
+            const assistantText = data.content || t("chat.connecting");
 
-            setMessages((prev) => [...prev, { role: "assistant", content: assistantText }]);
+            setMessages((prev) => [...prev, {
+                role: "assistant",
+                content: assistantText,
+                timestamp: getCurrentTime()
+            }]);
 
-        } catch (error: any) {
+        } catch (error) {
             console.error("Chat error:", error);
-            let errorMsg = t("chat.error");
-            if (error.name === 'AbortError') {
-                errorMsg = i18n.language?.startsWith("es") ? "La respuesta tarda demasiado. Intenta de nuevo." : "Response timed out. Please try again.";
-            }
-            setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
+            setMessages((prev) => [...prev, {
+                role: "assistant",
+                content: t("chat.error"),
+                timestamp: getCurrentTime()
+            }]);
         } finally {
             setIsLoading(false);
-            // Autofocus input
+            // Re-focus input on desktop, maybe skip for mobile to prevent keyboard flash
             setTimeout(() => {
                 const input = document.querySelector('input[name="chat-input"]') as HTMLInputElement;
-                if (input) input.focus();
+                if (input && window.matchMedia("(min-width: 768px)").matches) input.focus();
             }, 100);
         }
     };
 
-    // Inquiry Draft Handling
     const handleConfirmInquiry = async (dataStr: string) => {
         setIsLoading(true);
         try {
             const data = JSON.parse(dataStr);
             const { submitInquiry } = await import("@/lib/api");
-            const res = await submitInquiry({
+            await submitInquiry({
                 name: data.name,
                 email: data.email || "provided-in-chat@example.com",
                 eventType: data.eventType || "other",
@@ -130,171 +158,211 @@ export default function ChatWidget() {
                 phone: data.phone || null,
                 message: "From Chat: " + (data.message || "No details")
             });
-
-            if (res.success) {
-                setMessages(prev => [...prev, { role: "assistant", content: "✅ Inquiry sent successfully! We will contact you soon." }]);
-            } else {
-                setMessages(prev => [...prev, { role: "assistant", content: "❌ Failed to send. Please try the contact form." }]);
-            }
+            setMessages(prev => [...prev, {
+                role: "assistant",
+                content: "✅ " + t("inquiry.success", "Request sent!"),
+                timestamp: getCurrentTime()
+            }]);
         } catch (e) {
-            setMessages(prev => [...prev, { role: "assistant", content: "❌ Error processing inquiry." }]);
+            setMessages(prev => [...prev, {
+                role: "assistant",
+                content: "❌ " + t("chat.error", "Error sending request."),
+                timestamp: getCurrentTime()
+            }]);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const renderMessage = (msg: Message, idx: number) => {
-        const isInquiry = msg.content.includes("[[SUBMIT_INQUIRY:");
+    // --- Sub-components ---
 
-        if (isInquiry && msg.role === 'assistant') {
-            const match = msg.content.match(/\[\[SUBMIT_INQUIRY: (.*?)\]\]/);
-            if (match) {
-                const jsonStr = match[1];
-                let inquiries: any = {};
-                try { inquiries = JSON.parse(jsonStr); } catch (e) { }
+    const TypingIndicator = () => (
+        <div className="flex gap-1.5 p-4 bg-[#2A2A2A] rounded-[24px] rounded-tl-sm w-fit animate-in fade-in slide-in-from-left-2 items-center h-[42px] border border-white/5">
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+        </div>
+    );
 
-                return (
-                return (
-                    <div key={idx} className="flex justify-start w-full">
-                        <div className="bg-card text-card-foreground p-4 rounded-xl mb-4 text-sm border border-border shadow-md w-[85%]">
-                            <h4 className="font-semibold mb-3 flex items-center gap-2 text-primary">
-                                <span>📋</span> {t("inquiry.confirm_details", "Confirm Details")}
-                            </h4>
-
-                            <div className="space-y-2 mb-4">
-                                <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                    <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">{t("form.name", "Name")}:</span>
-                                    <span className="font-medium">{inquiries.name || "N/A"}</span>
-                                </div>
-
-                                {inquiries.email && (
-                                    <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                        <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">Email:</span>
-                                        <span className="break-all">{inquiries.email}</span>
-                                    </div>
-                                )}
-
-                                <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                    <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">{t("form.event_type", "Event")}:</span>
-                                    <span className="capitalize">{inquiries.eventType || "Wedding"}</span>
-                                </div>
-
-                                {inquiries.eventDate && (
-                                    <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                        <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">{t("form.date", "Date")}:</span>
-                                        <span>{inquiries.eventDate}</span>
-                                    </div>
-                                )}
-                            </div>
-
-                            <Button
-                                size="sm"
-                                onClick={() => handleConfirmInquiry(jsonStr)}
-                                disabled={isLoading}
-                                className="w-full font-semibold shadow-sm"
-                            >
-                                {isLoading ? (
-                                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("common.sending", "Sending...")}</>
-                                ) : (
-                                    <><Send className="w-4 h-4 mr-2" /> {t("inquiry.send", "Confirm & Send Request")}</>
-                                )}
-                            </Button>
-                        </div>
-                    </div>
-                );
-            }
-        }
+    const InquiryCard = ({ jsonStr }: { jsonStr: string }) => {
+        let inquiries: any = {};
+        try { inquiries = JSON.parse(jsonStr); } catch (e) { }
 
         return (
-            <div
-                key={idx}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-                <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden break-words ${msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-br-none"
-                        : "bg-muted text-foreground rounded-bl-none border border-border"
-                        }`}
-                >
-                    <ReactMarkdown
-                        className="prose prose-sm dark:prose-invert max-w-none break-words whitespace-pre-wrap"
-                        components={{
-                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0 break-words w-full" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2" {...props} />,
-                            li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-                            strong: ({ node, ...props }) => <span className="font-bold text-primary/90" {...props} />
-                        }}
+            <div className="flex gap-3 max-w-[90%] mb-4 animate-in slide-in-from-left-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shrink-0 shadow-lg border border-white/10 mt-auto">
+                    <span className="text-[10px] font-bold text-black font-sans">AI</span>
+                </div>
+                <div className="bg-[#1A1A1A] p-5 rounded-[20px] rounded-tl-sm border border-[#D4AF37]/30 shadow-2xl w-full">
+                    <h4 className="font-semibold mb-3 flex items-center gap-2 text-[#D4AF37] text-sm tracking-wide uppercase">
+                        <span>📋</span> {t("inquiry.confirm_details")}
+                    </h4>
+                    <div className="space-y-2 mb-5 text-gray-300 text-sm">
+                        <div className="flex justify-between border-b border-gray-800 pb-1">
+                            <span className="text-gray-500 text-xs uppercase tracking-wider">Name</span>
+                            <span>{inquiries.name || "N/A"}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-800 pb-1">
+                            <span className="text-gray-500 text-xs uppercase tracking-wider">Type</span>
+                            <span>{inquiries.eventType || "Event"}</span>
+                        </div>
+                    </div>
+                    <Button
+                        onClick={() => handleConfirmInquiry(jsonStr)}
+                        className="w-full bg-[#D4AF37] hover:bg-[#b5952f] text-black font-bold tracking-wide transition-all active:scale-95 h-10 rounded-xl"
                     >
-                        {msg.content}
-                    </ReactMarkdown>
+                        {t("inquiry.send")}
+                    </Button>
                 </div>
             </div>
         );
     };
 
     return (
-        <div className="fixed bottom-24 right-6 z-50 flex flex-col items-end gap-2 sm:bottom-6 sm:right-24">
+        <>
             {isOpen && (
-                <Card className="w-[300px] sm:w-[350px] h-[450px] sm:h-[500px] flex flex-col shadow-2xl border-primary/20 animate-in slide-in-from-bottom-5 fade-in duration-300 bg-background/95 backdrop-blur-sm">
-                    {/* Header */}
-                    <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center">
-                        <div>
-                            <h3 className="font-serif font-bold">{t("chat.title")}</h3>
-                            <p className="text-xs opacity-90">{t("chat.subtitle")}</p>
-                        </div>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="text-primary-foreground hover:bg-white/20 h-8 w-8"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <X className="w-5 h-5" />
-                        </Button>
-                    </div>
-
-                    {/* Messages */}
-                    <ScrollArea className="flex-1 p-4" ref={scrollRef}>
-                        <div className="flex flex-col gap-4">
-                            {messages.map((msg, idx) => renderMessage(msg, idx))}
-                            {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="bg-muted text-muted-foreground rounded-2xl rounded-bl-none px-4 py-3 text-sm flex items-center gap-2">
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                        Typing...
+                <div className="fixed bottom-[85px] right-6 sm:bottom-[100px] sm:right-24 z-[100] animate-in slide-in-from-bottom-5 fade-in duration-300 origin-bottom-right">
+                    <Card className={`w-[340px] sm:w-[380px] h-[650px] max-h-[80vh] flex flex-col shadow-2xl border border-[#D4AF37]/20 ${THEME.bg} overflow-hidden rounded-[26px]`}>
+                        {/* Header */}
+                        <div className="p-4 py-5 shrink-0 flex justify-between items-center border-b border-white/5 bg-[#141414]/90 backdrop-blur-sm">
+                            <div className="flex items-center gap-3">
+                                <div className="relative">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center border-2 border-[#141414] shadow-md">
+                                        <span className="text-sm font-bold text-black font-sans">AI</span>
                                     </div>
+                                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#141414] rounded-full"></span>
                                 </div>
-                            )}
-                        </div>
-                    </ScrollArea>
-
-                    {/* Input */}
-                    <div className="p-4 border-t border-border bg-background rounded-b-lg">
-                        <form onSubmit={handleSubmit} className="flex gap-2">
-                            <Input
-                                name="chat-input"
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="Ask about our services..."
-                                className="flex-1"
-                                disabled={isLoading}
-                                autoComplete="off"
-                            />
-                            <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim()}>
-                                <Send className="w-4 h-4" />
+                                <div>
+                                    <h3 className="font-sans font-bold text-white text-base tracking-tight">Rebeca AI</h3>
+                                    <p className="text-[11px] text-[#D4AF37] uppercase tracking-wider font-medium">Concierge</p>
+                                </div>
+                            </div>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full w-8 h-8 transition-colors"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <X className="w-5 h-5" />
                             </Button>
-                        </form>
-                    </div>
-                </Card>
+                        </div>
+
+                        {/* Messages Area - Core Engine */}
+                        <div
+                            className="chat-messages-area flex-1 overflow-y-auto p-4 bg-[#0F0F0F]"
+                            ref={messagesContainerRef}
+                            onScroll={handleScroll}
+                        >
+                            <div className="flex flex-col justify-end min-h-0 gap-1 pb-2">
+                                {messages.length === 0 && !isLoading && (
+                                    <div className="text-center text-gray-700 text-xs py-10 mt-auto uppercase tracking-widest opacity-50 select-none">
+                                        Start a conversation
+                                    </div>
+                                )}
+
+                                {messages.map((msg, idx) => {
+                                    const isUser = msg.role === "user";
+                                    const nextMsg = messages[idx + 1];
+                                    const isLastInGroup = !nextMsg || nextMsg.role !== msg.role;
+                                    const isInquiry = msg.content.includes("[[SUBMIT_INQUIRY:");
+
+                                    if (isInquiry && !isUser) return <InquiryCard key={idx} jsonStr={msg.content.match(/\[\[SUBMIT_INQUIRY: (.*?)\]\]/)?.[1] || "{}"} />;
+
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={`flex w-full animate-message-in ${isUser ? 'justify-end' : 'justify-start'} ${isLastInGroup ? 'mb-4' : 'mb-1'}`}
+                                        >
+                                            <div className={`flex gap-2 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+                                                {!isUser && (
+                                                    <div className={`w-8 h-8 shrink-0 flex items-end ${!isLastInGroup && 'invisible'}`}>
+                                                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shadow-md border border-white/5 select-none text-[10px] font-bold text-black font-sans">
+                                                            AI
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
+                                                    <div
+                                                        className={`px-4 py-3 text-[14.5px] leading-relaxed shadow-sm break-words border border-white/5
+                                                            ${isUser
+                                                                ? `${THEME.userBubble} rounded-[20px] rounded-br-[4px]`
+                                                                : `${THEME.botBubble} rounded-[20px] rounded-bl-[4px]`
+                                                            }
+                                                            ${!isLastInGroup && isUser ? 'rounded-br-[20px]' : ''} 
+                                                            ${!isLastInGroup && !isUser ? 'rounded-bl-[20px]' : ''}
+                                                        `}
+                                                        style={{
+                                                            wordBreak: 'break-word',
+                                                            overflowWrap: 'anywhere',
+                                                            hyphens: 'auto'
+                                                        }}
+                                                    >
+                                                        <ReactMarkdown className="prose prose-invert max-w-none">
+                                                            {msg.content}
+                                                        </ReactMarkdown>
+                                                    </div>
+                                                    {isLastInGroup && (
+                                                        <span className={`text-[10px] text-gray-600 mt-1 select-none ${isUser ? 'mr-1' : 'ml-1'}`}>
+                                                            {msg.timestamp}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+
+                                {isLoading && (
+                                    <div className="flex justify-start mb-4 animate-message-in mt-2">
+                                        <div className="flex gap-2 items-end">
+                                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shrink-0 border border-white/5 text-[10px] font-bold text-black font-sans">
+                                                AI
+                                            </div>
+                                            <TypingIndicator />
+                                        </div>
+                                    </div>
+                                )}
+                                <div ref={messagesEndRef} />
+                            </div>
+                        </div>
+
+                        {/* Input Area */}
+                        <div className="p-4 bg-[#141414] border-t border-white/10 shrink-0">
+                            <form onSubmit={handleSubmit} className="flex gap-2 relative items-center">
+                                <Input
+                                    name="chat-input"
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    placeholder={t("chat.placeholder", "Type a message...")}
+                                    className="flex-1 bg-[#222] border-none rounded-full px-5 h-12 text-white placeholder:text-gray-500 focus-visible:ring-1 focus-visible:ring-[#D4AF37]/50 transition-all font-light"
+                                    disabled={isLoading}
+                                    autoComplete="off"
+                                />
+                                <Button
+                                    type="submit"
+                                    size="icon"
+                                    className={`rounded-full h-11 w-11 shrink-0 transition-all active:scale-95 ${inputValue.trim() ? 'bg-[#D4AF37] hover:bg-[#b5952f] text-black shadow-lg shadow-[#D4AF37]/20' : 'bg-[#2A2A2A] text-gray-500'}`}
+                                    disabled={isLoading || !inputValue.trim()}
+                                >
+                                    <Send className="w-5 h-5 ml-0.5" />
+                                </Button>
+                            </form>
+                        </div>
+                    </Card>
+                </div>
             )}
 
-            <Button
-                onClick={() => setIsOpen(!isOpen)}
-                size="lg"
-                className="h-14 w-14 rounded-full chat-widget-fab"
-            >
-                {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
-            </Button>
-        </div>
+            {/* Launcher Button */}
+            <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[100] animate-in zoom-in duration-300">
+                <Button
+                    onClick={() => setIsOpen(!isOpen)}
+                    size="lg"
+                    className="h-16 w-16 rounded-full shadow-[0_4px_25px_rgba(212,175,55,0.3)] hover:scale-110 hover:shadow-[0_8px_35px_rgba(212,175,55,0.4)] transition-all duration-300 bg-gradient-to-tr from-[#D4AF37] to-[#b5952f] text-black border border-white/20"
+                >
+                    {isOpen ? <X className="w-7 h-7" /> : <MessageCircle className="w-8 h-8 stroke-[1.5]" />}
+                </Button>
+            </div>
+        </>
     );
 }

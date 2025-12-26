@@ -353,5 +353,21 @@
         "follow_us": "Follegt eis",
         "rights": "All Rechter virbehalen.",
         "text": "Mir halen Är wäertvollst Momenter mat Eleganz a Konscht zu Lëtzebuerg fest."
+    },
+    "inquiry": {
+        "confirm_details": "Detailer bestätegen",
+        "success": "Ufro erfollegräich geschéckt!"
+    },
+    "legal": {
+        "title": "Privacy Policy & Legal Notice",
+        "controller_title": "Data Controller",
+        "controller_text": "WE Weddings & Events Luxembourg is the controller of your personal data. We are committed to protecting your privacy in accordance with the GDPR.",
+        "data_title": "Data Collection",
+        "data_text": "We collect information you provide directly to us via our contact forms (Name, Email, Phone, Event Details) for the sole purpose of responding to your inquiry and providing our services.",
+        "purpose_title": "Purpose of Processing",
+        "purpose_text": "Your data is used to manage bookings, communicate regarding your event, and issue invoices. We do not sell your data to third parties.",
+        "rights_title": "Your Rights",
+        "rights_text": "You have the right to access, rectify, or request deletion of your data at any time by contacting us at info@welweddingslux.com.",
+        "disclaimer": "This website is provided for informational purposes. While we strive for accuracy, we cannot guarantee the completeness of the information."
     }
 }

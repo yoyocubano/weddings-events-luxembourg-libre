@@ -478,5 +478,22 @@
         "follow_us": "Síganos",
         "rights": "Todos los derechos reservados.",
         "text": "Capturando sus momentos más preciados con elegancia y arte en Luxemburgo."
+    },
+    "inquiry": {
+        "confirm_details": "Confirmar Detalles",
+        "send": "Confirmar y Enviar Solicitud",
+        "success": "¡Solicitud enviada con éxito!"
+    },
+    "legal": {
+        "title": "Política de Privacidad y Aviso Legal",
+        "controller_title": "Responsable de Datos",
+        "controller_text": "WE Weddings & Events Luxembourg es el controlador de sus datos personales. Estamos comprometidos a proteger su privacidad de acuerdo con el RGPD.",
+        "data_title": "Recopilación de Datos",
+        "data_text": "Recopilamos información que usted nos proporciona directamente a través de nuestros formularios de contacto (Nombre, Email, Teléfono, Detalles del Evento) con el único propósito de responder a su consulta y proporcionar nuestros servicios.",
+        "purpose_title": "Propósito del Procesamiento",
+        "purpose_text": "Sus datos se utilizan para gestionar reservas, comunicarse sobre su evento y emitir facturas. No vendemos sus datos a terceros.",
+        "rights_title": "Sus Derechos",
+        "rights_text": "Tiene derecho a acceder, rectificar o solicitar la eliminación de sus datos en cualquier momento contactándonos en info@welweddingslux.com.",
+        "disclaimer": "Este sitio web se proporciona con fines informativos. Aunque nos esforzamos por la precisión, no podemos garantizar la integridad de la información."
     }
 }

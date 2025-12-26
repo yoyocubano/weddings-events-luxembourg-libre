@@ -583,3 +583,96 @@
     padding-right: 1rem;
   }
 }
+
+/* ============================================
+   ANTIGRAVITY CHAT SCROLL SYSTEM (Dark Luxury)
+   ============================================ */
+
+/* Chat Messages Area - The Heart */
+.chat-messages-area {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Luxury Scrollbar */
+.chat-messages-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages-area::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px 0;
+}
+
+.chat-messages-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.chat-messages-area::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+  /* Gold on hover */
+}
+
+/* Firefox */
+.chat-messages-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-message-in {
+  animation: messageSlideIn 0.3s ease-out forwards;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333 #0F0F0F;
+}
+
+/* CRITICAL: CHAT MESSAGE CONTAINMENT FIX */
+.chat-messages-area * {
+  max-width: 100% !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.chat-messages-area p,
+.chat-messages-area div,
+.chat-messages-area span {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.chat-messages-area .prose {
+  max-width: 100% !important;
+  overflow-wrap: break-word;
+}
+
+/* Prevent images from breaking layout */
+.chat-messages-area img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Message bubbles must stay within bounds */
+.chat-messages-area>div {
+  max-width: 100% !important;
+  overflow: hidden;
+}

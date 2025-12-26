@@ -59,6 +59,8 @@ app.post('/.netlify/functions/chat', async (req, res) => {
             return res.status(400).json({ error: "Invalid request body" });
         }
 
+        console.log(`[Rebeca AI] Request received. Language: ${language}`); // DEBUG LOG
+
         let langName = "English";
         if (language && language.startsWith("es")) langName = "Spanish";
         else if (language && language.startsWith("fr")) langName = "French";
@@ -66,11 +68,14 @@ app.post('/.netlify/functions/chat', async (req, res) => {
         else if (language && language.startsWith("pt")) langName = "Portuguese";
         else if (language && language.startsWith("lb")) langName = "Luxembourgish";
 
-        let fullPrompt = SYSTEM_PROMPT + `\n\nIMPORTANT: The user is currently browsing the website in ${langName}. You MUST reply in ${langName}.\n\nConversation History:\n`;
+        console.log(`[Rebeca AI] Generating response in: ${langName}`); // DEBUG LOG
+
+        // Enhanced System Instruction
+        let fullPrompt = SYSTEM_PROMPT + `\n\n*** CRITICAL INSTRUCTION ***\nThe user is speaking in ${langName} (Browsing Language: ${language}).\nYOU MUST REPLY IN ${langName} ONLY.\nDo not switch languages unless explicitly asked.\n**************************\n\nConversation History:\n`;
         messages.forEach((msg) => {
-            fullPrompt += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}\n`;
+            fullPrompt += `${msg.role === 'user' ? 'User' : 'Assistant'} (${langName}): ${msg.content}\n`;
         });
-        fullPrompt += "Assistant:";
+        fullPrompt += `Assistant (${langName}):`;
 
         const response = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GOOGLE_API_KEY}`,
