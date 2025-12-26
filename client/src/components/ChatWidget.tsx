@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 
@@ -17,39 +16,94 @@ export default function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
     const [sessionId, setSessionId] = useState("");
+    const [inputValue, setInputValue] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Auto-scroll management - OPTIMIZED
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
+    const userIsScrollingRef = useRef(false);
+    const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const lastMessageTime = useRef<number>(0);
 
     // Initialize Session ID
     useEffect(() => {
         setSessionId(Math.random().toString(36).substring(2, 15));
     }, []);
 
-    // Initialize or update greeting when language changes
+    // Initialize greeting
     useEffect(() => {
-        // Only reset if empty or if it's the very first message
         if (messages.length === 0) {
             setMessages([{ role: "assistant", content: t("chat.greeting") }]);
         } else if (messages.length === 1 && messages[0].role === "assistant") {
-            // Update the initial greeting in real-time if the user hasn't chatted yet
             setMessages([{ role: "assistant", content: t("chat.greeting") }]);
         }
     }, [t, messages.length]);
 
-    const [inputValue, setInputValue] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const scrollRef = useRef<HTMLDivElement>(null);
+    // Check if user is near bottom (within 150px)
+    const isNearBottom = useCallback(() => {
+        if (!messagesContainerRef.current) return true;
+        const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+        return scrollHeight - scrollTop - clientHeight < 150;
+    }, []);
 
-    // Auto-scroll on new messages
-    useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    // Intelligent scroll to bottom - OPTIMIZED
+    const scrollToBottom = useCallback((force = false) => {
+        if (!messagesContainerRef.current) return;
+        
+        // Don't auto-scroll if user is manually scrolling (unless forced)
+        if (userIsScrollingRef.current && !force) return;
+
+        requestAnimationFrame(() => {
+            if (messagesContainerRef.current) {
+                messagesContainerRef.current.scrollTo({
+                    top: messagesContainerRef.current.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }, []);
+
+    // Detect user manual scroll - OPTIMIZED
+    const handleScroll = useCallback(() => {
+        if (!messagesContainerRef.current) return;
+
+        // Clear previous timeout
+        if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
         }
-    }, [messages, isOpen]);
 
-    const lastMessageTime = useRef<number>(0);
+        // If near bottom, user is not manually scrolling
+        if (isNearBottom()) {
+            userIsScrollingRef.current = false;
+        } else {
+            userIsScrollingRef.current = true;
+            
+            // After 2 seconds of no scroll, resume auto-scroll
+            scrollTimeoutRef.current = setTimeout(() => {
+                userIsScrollingRef.current = false;
+            }, 2000);
+        }
+    }, [isNearBottom]);
+
+    // Auto-scroll on new messages - OPTIMIZED
+    useEffect(() => {
+        if (isOpen && messages.length > 0) {
+            setTimeout(() => scrollToBottom(), 100);
+        }
+    }, [messages, isLoading, isOpen, scrollToBottom]);
+
+    // Cleanup
+    useEffect(() => {
+        return () => {
+            if (scrollTimeoutRef.current) {
+                clearTimeout(scrollTimeoutRef.current);
+            }
+        };
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Rate Limiting: Prevent more than 1 message every 2 seconds
         const now = Date.now();
         if (now - lastMessageTime.current < 2000) return;
 
@@ -62,12 +116,10 @@ export default function ChatWidget() {
         setIsLoading(true);
 
         try {
-            const apiMessages = [...messages, userMsg].filter(m => m.content && !m.content.startsWith('[[SUBMIT')).map(m => ({
-                role: m.role,
-                content: m.content
-            }));
+            const apiMessages = [...messages, userMsg]
+                .filter(m => m.content && !m.content.startsWith('[[SUBMIT'))
+                .map(m => ({ role: m.role, content: m.content }));
 
-            // Safety Timeout: 15 seconds max
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 15000);
 
@@ -95,7 +147,7 @@ export default function ChatWidget() {
             }
 
             const data = await response.json();
-            const assistantText = data.content || (data.role === "assistant" ? data.content : t("chat.connecting"));
+            const assistantText = data.content || data.text || t("chat.connecting");
 
             setMessages((prev) => [...prev, { role: "assistant", content: assistantText }]);
 
@@ -103,12 +155,13 @@ export default function ChatWidget() {
             console.error("Chat error:", error);
             let errorMsg = t("chat.error");
             if (error.name === 'AbortError') {
-                errorMsg = i18n.language?.startsWith("es") ? "La respuesta tarda demasiado. Intenta de nuevo." : "Response timed out. Please try again.";
+                errorMsg = i18n.language?.startsWith("es") 
+                    ? "La respuesta tarda demasiado. Intenta de nuevo." 
+                    : "Response timed out. Please try again.";
             }
             setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
         } finally {
             setIsLoading(false);
-            // Autofocus input
             setTimeout(() => {
                 const input = document.querySelector('input[name="chat-input"]') as HTMLInputElement;
                 if (input) input.focus();
@@ -116,7 +169,6 @@ export default function ChatWidget() {
         }
     };
 
-    // Inquiry Draft Handling
     const handleConfirmInquiry = async (dataStr: string) => {
         setIsLoading(true);
         try {
@@ -132,12 +184,21 @@ export default function ChatWidget() {
             });
 
             if (res.success) {
-                setMessages(prev => [...prev, { role: "assistant", content: "✅ Inquiry sent successfully! We will contact you soon." }]);
+                setMessages(prev => [...prev, { 
+                    role: "assistant", 
+                    content: "✅ Inquiry sent successfully! We will contact you soon." 
+                }]);
             } else {
-                setMessages(prev => [...prev, { role: "assistant", content: "❌ Failed to send. Please try the contact form." }]);
+                setMessages(prev => [...prev, { 
+                    role: "assistant", 
+                    content: "❌ Failed to send. Please try the contact form." 
+                }]);
             }
         } catch (e) {
-            setMessages(prev => [...prev, { role: "assistant", content: "❌ Error processing inquiry." }]);
+            setMessages(prev => [...prev, { 
+                role: "assistant", 
+                content: "❌ Error processing inquiry." 
+            }]);
         } finally {
             setIsLoading(false);
         }
@@ -151,11 +212,14 @@ export default function ChatWidget() {
             if (match) {
                 const jsonStr = match[1];
                 let inquiries: any = {};
-                try { inquiries = JSON.parse(jsonStr); } catch (e) { }
+                try { 
+                    inquiries = JSON.parse(jsonStr); 
+                } catch (e) { 
+                    console.error('Error parsing inquiry JSON:', e);
+                }
 
                 return (
-                return (
-                    <div key={idx} className="flex justify-start w-full">
+                    <div key={idx} className="flex justify-start w-full animate-message-in">
                         <div className="bg-card text-card-foreground p-4 rounded-xl mb-4 text-sm border border-border shadow-md w-[85%]">
                             <h4 className="font-semibold mb-3 flex items-center gap-2 text-primary">
                                 <span>📋</span> {t("inquiry.confirm_details", "Confirm Details")}
@@ -163,25 +227,33 @@ export default function ChatWidget() {
 
                             <div className="space-y-2 mb-4">
                                 <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                    <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">{t("form.name", "Name")}:</span>
+                                    <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">
+                                        {t("form.name", "Name")}:
+                                    </span>
                                     <span className="font-medium">{inquiries.name || "N/A"}</span>
                                 </div>
 
                                 {inquiries.email && (
                                     <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                        <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">Email:</span>
+                                        <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">
+                                            Email:
+                                        </span>
                                         <span className="break-all">{inquiries.email}</span>
                                     </div>
                                 )}
 
                                 <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                    <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">{t("form.event_type", "Event")}:</span>
+                                    <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">
+                                        {t("form.event_type", "Event")}:
+                                    </span>
                                     <span className="capitalize">{inquiries.eventType || "Wedding"}</span>
                                 </div>
 
                                 {inquiries.eventDate && (
                                     <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-                                        <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">{t("form.date", "Date")}:</span>
+                                        <span className="text-muted-foreground text-xs uppercase tracking-wider font-medium mt-0.5">
+                                            {t("form.date", "Date")}:
+                                        </span>
                                         <span>{inquiries.eventDate}</span>
                                     </div>
                                 )}
@@ -194,9 +266,15 @@ export default function ChatWidget() {
                                 className="w-full font-semibold shadow-sm"
                             >
                                 {isLoading ? (
-                                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("common.sending", "Sending...")}</>
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" /> 
+                                        {t("common.sending", "Sending...")}
+                                    </>
                                 ) : (
-                                    <><Send className="w-4 h-4 mr-2" /> {t("inquiry.send", "Confirm & Send Request")}</>
+                                    <>
+                                        <Send className="w-4 h-4 mr-2" /> 
+                                        {t("inquiry.send", "Confirm & Send Request")}
+                                    </>
                                 )}
                             </Button>
                         </div>
@@ -208,22 +286,33 @@ export default function ChatWidget() {
         return (
             <div
                 key={idx}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-message-in`}
             >
                 <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden break-words ${msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-br-none"
-                        : "bg-muted text-foreground rounded-bl-none border border-border"
-                        }`}
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden break-words ${
+                        msg.role === "user"
+                            ? "bg-primary text-primary-foreground rounded-br-none"
+                            : "bg-muted text-foreground rounded-bl-none border border-border"
+                    }`}
                 >
                     <ReactMarkdown
                         className="prose prose-sm dark:prose-invert max-w-none break-words whitespace-pre-wrap"
                         components={{
-                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0 break-words w-full" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2" {...props} />,
-                            li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-                            strong: ({ node, ...props }) => <span className="font-bold text-primary/90" {...props} />
+                            p: ({ node, ...props }) => (
+                                <p className="mb-2 last:mb-0 break-words w-full" {...props} />
+                            ),
+                            ul: ({ node, ...props }) => (
+                                <ul className="list-disc pl-4 mb-2" {...props} />
+                            ),
+                            ol: ({ node, ...props }) => (
+                                <ol className="list-decimal pl-4 mb-2" {...props} />
+                            ),
+                            li: ({ node, ...props }) => (
+                                <li className="mb-1" {...props} />
+                            ),
+                            strong: ({ node, ...props }) => (
+                                <span className="font-bold text-primary/90" {...props} />
+                            )
                         }}
                     >
                         {msg.content}
@@ -238,7 +327,7 @@ export default function ChatWidget() {
             {isOpen && (
                 <Card className="w-[300px] sm:w-[350px] h-[450px] sm:h-[500px] flex flex-col shadow-2xl border-primary/20 animate-in slide-in-from-bottom-5 fade-in duration-300 bg-background/95 backdrop-blur-sm">
                     {/* Header */}
-                    <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center">
+                    <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center shrink-0">
                         <div>
                             <h3 className="font-serif font-bold">{t("chat.title")}</h3>
                             <p className="text-xs opacity-90">{t("chat.subtitle")}</p>
@@ -253,34 +342,50 @@ export default function ChatWidget() {
                         </Button>
                     </div>
 
-                    {/* Messages */}
-                    <ScrollArea className="flex-1 p-4" ref={scrollRef}>
-                        <div className="flex flex-col gap-4">
+                    {/* Messages - OPTIMIZED CORE */}
+                    <div 
+                        ref={messagesContainerRef}
+                        onScroll={handleScroll}
+                        className="flex-1 overflow-y-auto overflow-x-hidden p-4 chat-messages-area"
+                        style={{
+                            minHeight: 0,
+                            scrollBehavior: 'smooth',
+                            overscrollBehavior: 'contain'
+                        }}
+                    >
+                        <div className="flex flex-col min-h-full justify-end gap-4">
                             {messages.map((msg, idx) => renderMessage(msg, idx))}
+                            
                             {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="bg-muted text-muted-foreground rounded-2xl rounded-bl-none px-4 py-3 text-sm flex items-center gap-2">
+                                <div className="flex justify-start animate-message-in">
+                                    <div className="bg-muted text-muted-foreground rounded-2xl rounded-bl-none px-4 py-3 text-sm flex items-center gap-2 border border-border">
                                         <Loader2 className="w-4 h-4 animate-spin" />
                                         Typing...
                                     </div>
                                 </div>
                             )}
+                            
+                            <div ref={messagesEndRef} />
                         </div>
-                    </ScrollArea>
+                    </div>
 
                     {/* Input */}
-                    <div className="p-4 border-t border-border bg-background rounded-b-lg">
+                    <div className="p-4 border-t border-border bg-background rounded-b-lg shrink-0">
                         <form onSubmit={handleSubmit} className="flex gap-2">
                             <Input
                                 name="chat-input"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="Ask about our services..."
+                                placeholder={t("chat.placeholder", "Ask about our services...")}
                                 className="flex-1"
                                 disabled={isLoading}
                                 autoComplete="off"
                             />
-                            <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim()}>
+                            <Button 
+                                type="submit" 
+                                size="icon" 
+                                disabled={isLoading || !inputValue.trim()}
+                            >
                                 <Send className="w-4 h-4" />
                             </Button>
                         </form>
