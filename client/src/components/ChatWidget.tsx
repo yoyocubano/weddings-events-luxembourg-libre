@@ -52,11 +52,29 @@ export default function ChatWidget() {
         }
     }, [isOpen, t]);
 
+    // Freeze body scroll when open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed'; // Required for some mobile browsers
+            document.body.style.width = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        };
+    }, [isOpen]);
+
     // Smart Auto-Scroll (Antigravity Engine 2.0)
     // Smart Auto-Scroll (Antigravity Engine 2.0)
-    const scrollToBottom = (instant = false) => {
+    const scrollToBottom = (instant = false, force = false) => {
         // Only scroll if we are allowed to (user is at bottom OR we force instance scroll)
-        if (!userScrolledRef.current || instant) {
+        if (!userScrolledRef.current || instant || force) {
             // Método 1: scrollIntoView del elemento final
             messagesEndRef.current?.scrollIntoView({
                 behavior: instant ? 'auto' : 'smooth',
@@ -76,7 +94,7 @@ export default function ChatWidget() {
         // Auto-scroll on new messages if user isn't reviewing history
         // Use a timeout to ensure DOM render before scrolling
         const timer = setTimeout(() => {
-            requestAnimationFrame(() => scrollToBottom());
+            requestAnimationFrame(() => scrollToBottom(false, true)); // Force scroll on new message
         }, 100);
         return () => clearTimeout(timer);
     }, [messages, isLoading, isOpen]);
@@ -85,7 +103,7 @@ export default function ChatWidget() {
     useEffect(() => {
         if (isOpen) {
             setTimeout(() => {
-                scrollToBottom(true); // Instant scroll on open
+                scrollToBottom(true, true); // Instant force scroll on open
             }, 200);
         }
     }, [isOpen]);
@@ -94,9 +112,9 @@ export default function ChatWidget() {
     const handleScroll = () => {
         if (!messagesContainerRef.current) return;
         const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
-        // If user is within 150px of bottom, we consider them "at the bottom" -> Auto-scroll enabled
+        // If user is within 50px of bottom, we consider them "at the bottom" -> Auto-scroll enabled
         // Otherwise, they are "scrolling up" -> Auto-scroll disabled
-        const isNearBottom = scrollHeight - scrollTop - clientHeight < 150;
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 50;
         userScrolledRef.current = !isNearBottom;
     };
 
@@ -242,136 +260,158 @@ export default function ChatWidget() {
     return (
         <>
             {isOpen && (
-                <div className="fixed bottom-[85px] right-6 sm:bottom-[100px] sm:right-24 z-[100] animate-in slide-in-from-bottom-5 fade-in duration-300 origin-bottom-right">
-                    <Card className={`w-[340px] sm:w-[380px] h-[650px] max-h-[80vh] flex flex-col shadow-2xl border border-[#D4AF37]/20 ${THEME.bg} overflow-hidden rounded-[26px]`}>
-                        {/* Header */}
-                        <div className="p-4 py-5 shrink-0 flex justify-between items-center border-b border-white/5 bg-[#141414]/90 backdrop-blur-sm">
-                            <div className="flex items-center gap-3">
-                                <div className="relative">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center border-2 border-[#141414] shadow-md">
-                                        <span className="text-sm font-bold text-black font-sans">AI</span>
+                <>
+                    {/* Backdrop - Fondo oscuro con blur mas intenso */}
+                    <div
+                        className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99]"
+                        onClick={() => setIsOpen(false)} // Click cierra el chat
+                    />
+
+                    {/* Chat Widget Container - Mas grande */}
+                    <div className="fixed z-[100] animate-in slide-in-from-bottom-5 fade-in duration-300 inset-0 sm:inset-auto sm:bottom-[50%] sm:translate-y-[50%] sm:right-8 origin-bottom-right">
+                        <Card className={`w-full h-full sm:w-[500px] sm:h-[90vh] md:w-[550px] flex flex-col shadow-chat-pro border border-[#D4AF37]/20 ${THEME.bg} overflow-hidden rounded-none sm:rounded-[26px]`}>
+                            {/* Header */}
+                            <div className="p-4 py-5 shrink-0 flex justify-between items-center border-b border-white/5 bg-[#141414]/90 backdrop-blur-sm">
+                                <div className="flex items-center gap-3">
+                                    <div className="relative">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center border-2 border-[#141414] shadow-md">
+                                            <span className="text-sm font-bold text-black font-sans">AI</span>
+                                        </div>
+                                        <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#141414] rounded-full"></span>
                                     </div>
-                                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#141414] rounded-full"></span>
+                                    <div>
+                                        <h3 className="font-sans font-bold text-white text-base tracking-tight">Rebeca AI</h3>
+                                        <p className="text-[11px] text-[#D4AF37] uppercase tracking-wider font-medium">Concierge</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-sans font-bold text-white text-base tracking-tight">Rebeca AI</h3>
-                                    <p className="text-[11px] text-[#D4AF37] uppercase tracking-wider font-medium">Concierge</p>
-                                </div>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full w-8 h-8 transition-colors"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <X className="w-5 h-5" />
+                                </Button>
                             </div>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full w-8 h-8 transition-colors"
-                                onClick={() => setIsOpen(false)}
+
+                            {/* Messages Area - Core Engine */}
+                            {/* Messages Area - Core Engine */}
+                            <div
+                                className="chat-messages-area flex-1 overflow-y-auto overflow-x-hidden p-4 bg-[#0F0F0F]"
+                                ref={messagesContainerRef}
+                                onScroll={handleScroll}
                             >
-                                <X className="w-5 h-5" />
-                            </Button>
-                        </div>
+                                <div className="flex flex-col justify-end min-h-full pb-4">
+                                    <div className="flex flex-col gap-3"> {/* Increased gap */}
+                                        {messages.length === 0 && !isLoading && (
+                                            <div className="text-center text-gray-700 text-xs py-10 mt-auto uppercase tracking-widest opacity-50 select-none">
+                                                Start a conversation
+                                            </div>
+                                        )}
 
-                        {/* Messages Area - Core Engine */}
-                        <div
-                            className="chat-messages-area flex-1 overflow-y-auto p-4 bg-[#0F0F0F]"
-                            ref={messagesContainerRef}
-                            onScroll={handleScroll}
-                        >
-                            <div className="flex flex-col flex-grow justify-end min-h-full gap-4 pb-4">
-                                {messages.length === 0 && !isLoading && (
-                                    <div className="text-center text-gray-700 text-xs py-10 mt-auto uppercase tracking-widest opacity-50 select-none">
-                                        Start a conversation
-                                    </div>
-                                )}
+                                        {messages.map((msg, idx) => {
+                                            const isUser = msg.role === "user";
+                                            const nextMsg = messages[idx + 1];
+                                            const isLastInGroup = !nextMsg || nextMsg.role !== msg.role;
+                                            const isInquiry = msg.content.includes("[[SUBMIT_INQUIRY:");
 
-                                {messages.map((msg, idx) => {
-                                    const isUser = msg.role === "user";
-                                    const nextMsg = messages[idx + 1];
-                                    const isLastInGroup = !nextMsg || nextMsg.role !== msg.role;
-                                    const isInquiry = msg.content.includes("[[SUBMIT_INQUIRY:");
+                                            if (isInquiry && !isUser) return <InquiryCard key={idx} jsonStr={msg.content.match(/\[\[SUBMIT_INQUIRY: (.*?)\]\]/)?.[1] || "{}"} />;
 
-                                    if (isInquiry && !isUser) return <InquiryCard key={idx} jsonStr={msg.content.match(/\[\[SUBMIT_INQUIRY: (.*?)\]\]/)?.[1] || "{}"} />;
+                                            return (
+                                                <div
+                                                    key={idx}
+                                                    className={`flex w-full animate-message-in ${isUser ? 'justify-end' : 'justify-start'} ${isLastInGroup ? 'mb-6' : 'mb-2'}`}
+                                                >
+                                                    <div className={`flex gap-2 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+                                                        {!isUser && (
+                                                            <div className={`w-8 h-8 shrink-0 flex items-end ${!isLastInGroup && 'invisible'}`}>
+                                                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shadow-md border border-white/5 select-none text-[10px] font-bold text-black font-sans">
+                                                                    AI
+                                                                </div>
+                                                            </div>
+                                                        )}
 
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className={`flex w-full animate-message-in ${isUser ? 'justify-end' : 'justify-start'} ${isLastInGroup ? 'mb-4' : 'mb-1'}`}
-                                        >
-                                            <div className={`flex gap-2 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-                                                {!isUser && (
-                                                    <div className={`w-8 h-8 shrink-0 flex items-end ${!isLastInGroup && 'invisible'}`}>
-                                                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shadow-md border border-white/5 select-none text-[10px] font-bold text-black font-sans">
-                                                            AI
+                                                        <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
+                                                            <div
+                                                                className={`px-4 py-3 text-[14.5px] leading-relaxed shadow-sm break-words border border-white/5
+                                                                ${isUser
+                                                                        ? `${THEME.userBubble} rounded-[20px] rounded-br-[4px]`
+                                                                        : `${THEME.botBubble} rounded-[20px] rounded-bl-[4px]`
+                                                                    }
+                                                                ${!isLastInGroup && isUser ? 'rounded-br-[20px]' : ''} 
+                                                                ${!isLastInGroup && !isUser ? 'rounded-bl-[20px]' : ''}
+                                                            `}
+                                                                style={{
+                                                                    wordBreak: 'break-word',
+                                                                    overflowWrap: 'anywhere',
+                                                                    hyphens: 'auto'
+                                                                }}
+                                                            >
+                                                                <ReactMarkdown
+                                                                    className="prose prose-invert max-w-none"
+                                                                    components={{
+                                                                        a: ({ node, ...props }) => (
+                                                                            <a {...props} className="break-all underline" />
+                                                                        ),
+                                                                        p: ({ node, ...props }) => (
+                                                                            <p {...props} style={{ margin: 0, wordBreak: 'break-word' }} />
+                                                                        )
+                                                                    }}
+                                                                >
+                                                                    {msg.content}
+                                                                </ReactMarkdown>
+                                                            </div>
+                                                            {isLastInGroup && (
+                                                                <span className={`text-[10px] text-gray-600 mt-1 select-none ${isUser ? 'mr-1' : 'ml-1'}`}>
+                                                                    {msg.timestamp}
+                                                                </span>
+                                                            )}
                                                         </div>
                                                     </div>
-                                                )}
+                                                </div>
+                                            );
+                                        })}
 
-                                                <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
-                                                    <div
-                                                        className={`px-4 py-3 text-[14.5px] leading-relaxed shadow-sm break-words border border-white/5
-                                                            ${isUser
-                                                                ? `${THEME.userBubble} rounded-[20px] rounded-br-[4px]`
-                                                                : `${THEME.botBubble} rounded-[20px] rounded-bl-[4px]`
-                                                            }
-                                                            ${!isLastInGroup && isUser ? 'rounded-br-[20px]' : ''} 
-                                                            ${!isLastInGroup && !isUser ? 'rounded-bl-[20px]' : ''}
-                                                        `}
-                                                        style={{
-                                                            wordBreak: 'break-word',
-                                                            overflowWrap: 'anywhere',
-                                                            hyphens: 'auto'
-                                                        }}
-                                                    >
-                                                        <ReactMarkdown className="prose prose-invert max-w-none">
-                                                            {msg.content}
-                                                        </ReactMarkdown>
+                                        {isLoading && (
+                                            <div className="flex justify-start mb-4 animate-message-in mt-2">
+                                                <div className="flex gap-2 items-end">
+                                                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shrink-0 border border-white/5 text-[10px] font-bold text-black font-sans">
+                                                        AI
                                                     </div>
-                                                    {isLastInGroup && (
-                                                        <span className={`text-[10px] text-gray-600 mt-1 select-none ${isUser ? 'mr-1' : 'ml-1'}`}>
-                                                            {msg.timestamp}
-                                                        </span>
-                                                    )}
+                                                    <TypingIndicator />
                                                 </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
-
-                                {isLoading && (
-                                    <div className="flex justify-start mb-4 animate-message-in mt-2">
-                                        <div className="flex gap-2 items-end">
-                                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#8a7224] flex items-center justify-center shrink-0 border border-white/5 text-[10px] font-bold text-black font-sans">
-                                                AI
-                                            </div>
-                                            <TypingIndicator />
-                                        </div>
+                                        )}
                                     </div>
-                                )}
-                                <div ref={messagesEndRef} />
+                                    <div ref={messagesEndRef} />
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Input Area */}
-                        <div className="p-4 bg-[#141414] border-t border-white/10 shrink-0">
-                            <form onSubmit={handleSubmit} className="flex gap-2 relative items-center">
-                                <Input
-                                    name="chat-input"
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                    placeholder={t("chat.placeholder", "Type a message...")}
-                                    className="flex-1 bg-[#222] border-none rounded-full px-5 h-12 text-white placeholder:text-gray-500 focus-visible:ring-1 focus-visible:ring-[#D4AF37]/50 transition-all font-light"
-                                    disabled={isLoading}
-                                    autoComplete="off"
-                                />
-                                <Button
-                                    type="submit"
-                                    size="icon"
-                                    className={`rounded-full h-11 w-11 shrink-0 transition-all active:scale-95 ${inputValue.trim() ? 'bg-[#D4AF37] hover:bg-[#b5952f] text-black shadow-lg shadow-[#D4AF37]/20' : 'bg-[#2A2A2A] text-gray-500'}`}
-                                    disabled={isLoading || !inputValue.trim()}
-                                >
-                                    <Send className="w-5 h-5 ml-0.5" />
-                                </Button>
-                            </form>
-                        </div>
-                    </Card>
-                </div>
+                            {/* Input Area */}
+                            <div className="p-4 bg-[#141414] border-t border-white/10 shrink-0">
+                                <form onSubmit={handleSubmit} className="flex gap-2 relative items-center">
+                                    <Input
+                                        name="chat-input"
+                                        value={inputValue}
+                                        onChange={(e) => setInputValue(e.target.value)}
+                                        placeholder={t("chat.placeholder", "Type a message...")}
+                                        className="flex-1 bg-[#222] border-none rounded-full px-5 h-12 text-white placeholder:text-gray-500 focus-visible:ring-1 focus-visible:ring-[#D4AF37]/50 transition-all font-light"
+                                        disabled={isLoading}
+                                        autoComplete="off"
+                                    />
+                                    <Button
+                                        type="submit"
+                                        size="icon"
+                                        className={`rounded-full h-11 w-11 shrink-0 transition-all active:scale-95 ${inputValue.trim() ? 'bg-[#D4AF37] hover:bg-[#b5952f] text-black shadow-lg shadow-[#D4AF37]/20' : 'bg-[#2A2A2A] text-gray-500'}`}
+                                        disabled={isLoading || !inputValue.trim()}
+                                    >
+                                        <Send className="w-5 h-5 ml-0.5" />
+                                    </Button>
+                                </form>
+                            </div>
+                        </Card>
+                    </div>
+                </>
             )}
 
             {/* Launcher Button */}
