@@ -289,14 +289,24 @@ export default function ChatWidget() {
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-message-in`}
             >
                 <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden break-words ${
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm break-words overflow-wrap-anywhere ${
                         msg.role === "user"
                             ? "bg-primary text-primary-foreground rounded-br-none"
                             : "bg-muted text-foreground rounded-bl-none border border-border"
                     }`}
+                    style={{
+                        wordBreak: 'break-word',
+                        overflowWrap: 'anywhere',
+                        hyphens: 'auto'
+                    }}
                 >
                     <ReactMarkdown
-                        className="prose prose-sm dark:prose-invert max-w-none break-words whitespace-pre-wrap"
+                        className="prose prose-sm dark:prose-invert max-w-none"
+                        style={{
+                            wordBreak: 'break-word',
+                            overflowWrap: 'anywhere',
+                            maxWidth: '100%'
+                        }}
                         components={{
                             p: ({ node, ...props }) => (
                                 <p className="mb-2 last:mb-0 break-words w-full" {...props} />
@@ -325,7 +335,7 @@ export default function ChatWidget() {
     return (
         <div className="fixed bottom-24 right-6 z-50 flex flex-col items-end gap-2 sm:bottom-6 sm:right-24">
             {isOpen && (
-                <Card className="w-[300px] sm:w-[350px] h-[450px] sm:h-[500px] flex flex-col shadow-2xl border-primary/20 animate-in slide-in-from-bottom-5 fade-in duration-300 bg-background/95 backdrop-blur-sm">
+                <Card className="w-[340px] sm:w-[380px] h-[500px] sm:h-[550px] flex flex-col shadow-2xl border-primary/20 animate-in slide-in-from-bottom-5 fade-in duration-300 bg-background/95 backdrop-blur-sm overflow-hidden">
                     {/* Header */}
                     <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center shrink-0">
                         <div>

@@ -686,3 +686,57 @@
     padding-right: 1rem;
   }
 }
+
+/* ============================================
+   CRITICAL: CHAT MESSAGE CONTAINMENT FIX
+   ============================================ */
+
+/* Ensure chat messages never overflow their container */
+.chat-messages-area * {
+  max-width: 100% !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Specific fixes for long words and URLs */
+.chat-messages-area p,
+.chat-messages-area div,
+.chat-messages-area span {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Force ReactMarkdown content to respect boundaries */
+.chat-messages-area .prose {
+  max-width: 100% !important;
+  overflow-wrap: break-word;
+}
+
+.chat-messages-area .prose p,
+.chat-messages-area .prose li,
+.chat-messages-area .prose div {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+/* Prevent images from breaking layout */
+.chat-messages-area img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Ensure code blocks don't overflow */
+.chat-messages-area pre,
+.chat-messages-area code {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  word-break: break-all;
+}
+
+/* Message bubbles must stay within bounds */
+.chat-messages-area > div {
+  max-width: 100% !important;
+  overflow: hidden;
+}
