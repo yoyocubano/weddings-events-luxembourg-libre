@@ -55,24 +55,32 @@ export default function ChatWidget() {
     // Smart Auto-Scroll (Antigravity Engine 2.0)
     // Smart Auto-Scroll (Antigravity Engine 2.0)
     const scrollToBottom = (instant = false) => {
-        messagesEndRef.current?.scrollIntoView({
-            behavior: instant ? 'auto' : 'smooth',
-            block: 'end' // Ensures the bottom of the element aligns with the bottom of the container
-        });
+        // Only scroll if we are allowed to (user is at bottom OR we force instance scroll)
+        if (!userScrolledRef.current || instant) {
+            messagesEndRef.current?.scrollIntoView({
+                behavior: instant ? 'auto' : 'smooth',
+                block: 'end'
+            });
+        }
     };
 
     // Scroll effect when messages change
     useEffect(() => {
-        // Always auto-scroll on new messages or loading state change
-        // Added a small delay to ensure DOM is fully rendered
-        setTimeout(() => requestAnimationFrame(() => scrollToBottom()), 50);
+        // Auto-scroll on new messages if user isn't reviewing history
+        // Use a timeout to ensure DOM render before scrolling
+        const timer = setTimeout(() => {
+            requestAnimationFrame(() => scrollToBottom());
+        }, 100);
+        return () => clearTimeout(timer);
     }, [messages, isLoading, isOpen]);
 
     // Scroll Handler to detect user intent
     const handleScroll = () => {
         if (!messagesContainerRef.current) return;
         const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
-        const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+        // If user is within 150px of bottom, we consider them "at the bottom" -> Auto-scroll enabled
+        // Otherwise, they are "scrolling up" -> Auto-scroll disabled
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 150;
         userScrolledRef.current = !isNearBottom;
     };
 
