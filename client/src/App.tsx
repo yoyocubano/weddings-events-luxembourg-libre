@@ -60,7 +60,7 @@ function App() {
           <Toaster />
           <Router />
           <WhatsAppButton />
-          {/* <ChatWidget /> Disabled in favor of External Agent */}
+          <ChatWidget />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
