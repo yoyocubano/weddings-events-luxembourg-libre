@@ -75,7 +75,7 @@ export default async function handler(req, res) {
         for (const model of modelsToTry) {
             try {
                 const response = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GOOGLE_API_KEY}`,
+                    `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${GOOGLE_API_KEY}`,
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
