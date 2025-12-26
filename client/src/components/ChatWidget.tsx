@@ -329,14 +329,9 @@ export default function ChatWidget() {
 
                             {/* Messages Area - Core Engine (Strict Architecture) */}
                             <div
-                                className="chat-messages-area flex-1 overflow-y-auto overflow-x-hidden relative bg-[#0F0F0F] custom-scrollbar"
+                                className="chat-messages-area flex flex-col flex-1 overflow-y-auto overflow-x-hidden relative bg-[#0F0F0F] custom-scrollbar"
                                 ref={messagesContainerRef}
                                 onScroll={handleScroll}
-                                style={{
-                                    height: '100%', // Obliga al contenedor a tener un límite
-                                    display: 'flex',
-                                    flexDirection: 'column'
-                                }}
                             >
                                 {/* CONTENEDOR INTERNO (EL QUE CRECE) */}
                                 <div className="flex flex-col min-h-full p-4 w-full">
