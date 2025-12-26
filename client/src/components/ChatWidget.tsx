@@ -355,11 +355,14 @@ export default function ChatWidget() {
                                         if (isInquiry && !isUser) return <InquiryCard key={idx} jsonStr={msg.content.match(/\[\[SUBMIT_INQUIRY: (.*?)\]\]/)?.[1] || "{}"} />;
 
                                         return (
+                                            // "THE BRICK" - This is the structural container for each message row.
+                                            // It handles the vertical spacing and alignment.
                                             <div
                                                 key={idx}
-                                                className={`flex w-full animate-message-in ${isUser ? 'justify-end' : 'justify-start'} ${isSameAuthor ? 'mt-2' : 'mt-6'} bg-red-800`}
-                                            >
-                                                <div className={`flex gap-3 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+                                                className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} ${isSameAuthor ? 'mt-2' : 'mt-6'}`}>
+                                                
+                                                {/* This inner container handles the message bubble's appearance and animation. */}
+                                                <div className={`flex gap-3 max-w-[85%] animate-message-in ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
                                                     {!isUser && (
                                                         <div className={`w-8 h-8 shrink-0 flex items-start ${isSameAuthor ? 'h-0' : ''}`}>
                                                             {!isSameAuthor && (
