@@ -30,56 +30,27 @@ export async function submitInquiry(data: ContactFormData): Promise<SubmitResult
         event_type: data.eventType,
         event_date: data.eventDate || null,
         message: data.message || null,
-        status: 'new'
-    };
-
-    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-    let supabaseSuccess = false;
-    let supabaseError = null;
-
-    // 1. Supabase Insert
-    if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-        try {
-            const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            const { error } = await supabase
-                .from("inquiries")
-                .insert([payload]);
-
-            if (!error) supabaseSuccess = true;
-            else {
-                console.warn("Supabase insert failed:", error);
-                supabaseError = error;
-            }
-        } catch (e) {
-            console.warn("Supabase client error:", e);
-        }
-    }
-
-    // 2. Netlify Forms Submission (Fallback)
-    const encode = (data: any) => {
-        return Object.keys(data)
-            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-            .join("&");
+        location: null, // Add fields if needed
+        budget: null,
+        guest_count: null,
+        service_interest: null
     };
 
     try {
-        const res = await fetch("/", {
+        const res = await fetch("/api/submit-inquiry", {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({
-                "form-name": "contact",
-                ...payload,
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
         });
-        if (!res.ok) throw new Error("Netlify form failed");
-        console.log("Netlify Form submitted successfully");
+
+        if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error || "Server submission failed");
+        }
+
         return { success: true };
-    } catch (netlifyError) {
-        console.warn("Netlify Form submission failed:", netlifyError);
-        // Return success if at least Supabase worked
-        if (supabaseSuccess) return { success: true };
-        return { success: false, message: "Submission failed. Please try again or email us directly." };
+    } catch (e) {
+        console.warn("API Submission Error:", e);
+        return { success: false, message: "Submission failed. Please try again." };
     }
 }

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identidad de Marca - WE Weddings & Events</title>
+    <style>
+        :root {
+            /* Fuente Principal */
+            --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            /* Colores Base (Modern Elegant) */
+            --soft-black: #1E1E1E;
+            --light-champagne: #FAF8F6;
+            --soft-gold: #9F8F6A;
+            --pure-white: #FFFFFF;
+
+            /* Colores Chat (Dark Luxury) */
+            --lux-gold: #D4AF37;
+            --deep-black: #0F0F0F;
+            --surface-black: #141414;
+            --dark-graphite: #2A2A2A;
+            --platinum-grey: #E5E5E5;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--light-champagne);
+            color: var(--soft-black);
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--soft-gold);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--soft-black);
+        }
+
+        p.subtitle {
+            font-size: 1.2em;
+            color: var(--soft-gold);
+            font-weight: 500;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .color-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .color-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .swatch {
+            height: 120px;
+            width: 100%;
+        }
+
+        .info {
+            padding: 15px;
+        }
+
+        .hex {
+            font-family: monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .name {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .usage {
+            font-size: 0.8em;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Dark Theme Specifics */
+        .dark-theme-section {
+            background: var(--deep-black);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .dark-theme-section h2 {
+            color: var(--lux-gold);
+            border-bottom: 1px solid var(--lux-gold);
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía de Estilo y Colores</h1>
+            <p class="subtitle">WE Weddings & Events Luxembourg</p>
+        </header>
+
+        <!-- General Web Section -->
+        <section>
+            <h2>✨ Identidad Web (Modern Elegant)</h2>
+            <p style="margin-bottom: 20px; opacity: 0.8;">Utilizada en la estructura principal del sitio (Hero,
+                Servicios, Formularios).</p>
+
+            <div class="color-grid">
+                <!-- Soft Black -->
+                <div class="color-card">
+                    <div class="swatch" style="background-color: var(--soft-black);"></div>
+                    <div class="info">
+                        <span class="hex">#1E1E1E</span>
+                        <div class="name">Soft Black</div>
+                        <div class="usage">Texto Principal, Títulos</div>
+                    </div>
+                </div>
+
+                <!-- Light Champagne -->
+                <div class="color-card">
+                    <div class="swatch"
+                        style="background-color: var(--light-champagne); border-bottom: 1px solid #eee;"></div>
+                    <div class="info">
+                        <span class="hex">#FAF8F6</span>
+                        <div class="name">Light Champagne</div>
+                        <div class="usage">Fondo Principal</div>
+                    </div>
+                </div>
+
+                <!-- Soft Gold -->
+                <div class="color-card">
+                    <div class="swatch" style="background-color: var(--soft-gold);"></div>
+                    <div class="info">
+                        <span class="hex">#9F8F6A</span>
+                        <div class="name">Soft Gold / Beige</div>
+                        <div class="usage">Acentos, Bordes Sutiles</div>
+                    </div>
+                </div>
+
+                <!-- Pure White -->
+                <div class="color-card">
+                    <div class="swatch" style="background-color: var(--pure-white); border-bottom: 1px solid #eee;">
+                    </div>
+                    <div class="info">
+                        <span class="hex">#FFFFFF</span>
+                        <div class="name">Pure White</div>
+                        <div class="usage">Tarjetas, Fondos de Contenido</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dark Luxury Section -->
+        <section class="dark-theme-section">
+            <h2>🌑 Chat Widget (Dark Luxury)</h2>
+            <p style="margin-bottom: 20px; opacity: 0.8; color: #ccc;">Diseñado para la experiencia "Rebeca AI" con
+                estética OLED premium.</p>
+
+            <div class="color-grid">
+                <!-- Luxembourg Gold -->
+                <div class="color-card"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2);">
+                    <div class="swatch" style="background-color: var(--lux-gold);"></div>
+                    <div class="info">
+                        <span class="hex" style="color: var(--lux-gold);">#D4AF37</span>
+                        <div class="name" style="color: #ccc;">Luxembourgh Gold</div>
+                        <div class="usage" style="color: #888;">Botones, Burbujas Usuario</div>
+                    </div>
+                </div>
+
+                <!-- Deep Black -->
+                <div class="color-card"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="swatch" style="background-color: var(--deep-black); border: 1px solid #333;"></div>
+                    <div class="info">
+                        <span class="hex" style="color: white;">#0F0F0F</span>
+                        <div class="name" style="color: #ccc;">Deep Black</div>
+                        <div class="usage" style="color: #888;">Fondo del Chat</div>
+                    </div>
+                </div>
+
+                <!-- Dark Graphite -->
+                <div class="color-card"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="swatch" style="background-color: var(--dark-graphite);"></div>
+                    <div class="info">
+                        <span class="hex" style="color: white;">#2A2A2A</span>
+                        <div class="name" style="color: #ccc;">Dark Graphite</div>
+                        <div class="usage" style="color: #888;">Burbujas AI</div>
+                    </div>
+                </div>
+
+                <!-- Platinum Grey -->
+                <div class="color-card"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="swatch" style="background-color: var(--platinum-grey);"></div>
+                    <div class="info">
+                        <span class="hex" style="color: white;">#E5E5E5</span>
+                        <div class="name" style="color: #ccc;">Platinum Grey</div>
+                        <div class="usage" style="color: #888;">Texto Contraste</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; font-size: 0.8em; color: #888;">
+            Generado por Antigravity Agent &bull; 2025
+        </footer>
+    </div>
+</body>
+
+</html>

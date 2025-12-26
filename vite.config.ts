@@ -39,6 +39,7 @@ export default defineConfig({
     host: true,
     proxy: {
       "/.netlify/functions": "http://localhost:3000",
+      "/api": "http://localhost:3000",
     },
     allowedHosts: [
       ".manuspre.computer",

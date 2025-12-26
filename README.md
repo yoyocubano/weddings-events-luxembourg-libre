@@ -109,6 +109,31 @@ MIT
 - **Repositorio**: https://github.com/yoyocubano/weddings-events-luxembourg
 - **Demo**: [URL del sitio desplegado]
 
+## 🎨 Identidad de Marca y Colores
+
+El proyecto utiliza dos esquemas de color principales para distinguir la experiencia web general de la experiencia premium del chat.
+
+### 1. Web General (Modern Elegant)
+*Utilizada en Hero, Servicios y Formularios.*
+
+| Color | Hex | Uso Principal |
+| :--- | :--- | :--- |
+| **Soft Black** | `#1E1E1E` | Texto Principal, Títulos |
+| **Light Champagne** | `#FAF8F6` | Fondo Principal |
+| **Soft Gold** | `#9F8F6A` | Acentos, Bordes Sutiles |
+| **Pure White** | `#FFFFFF` | Tarjetas, Fondos de Contenido |
+
+### 2. Chat Widget (Dark Luxury)
+*Diseño exclusivo para "Rebeca AI" con estética OLED.*
+
+| Color | Hex | Uso Principal |
+| :--- | :--- | :--- |
+| **Luxembourg Gold** | `#D4AF37` | **Botones, Burbujas Usuario** |
+| **Deep Black** | `#0F0F0F` | Fondo del Chat |
+| **Surface Black** | `#141414` | Header, Inputs |
+| **Dark Graphite** | `#2A2A2A` | Burbujas AI |
+| **Platinum Grey** | `#E5E5E5` | Texto de Contraste |
+
 ---
 
 Desarrollado con ❤️ para capturar momentos perfectos en Luxemburgo

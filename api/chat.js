@@ -1,26 +1,8 @@
 
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
 import fetch from 'node-fetch';
-import { createClient } from '@supabase/supabase-js';
-import { Resend } from 'resend';
 
-dotenv.config();
-
-const app = express();
-const PORT = 3000;
-
-app.use(cors());
-app.use(express.json());
-
-// --- CONFIGURATION ---
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-// --- REBECA AI SYSTEM PROMPT ---
 const SYSTEM_PROMPT = `
 You are "Rebeca" - the Event Coordinator for "WE Weddings & Events Luxembourg". 
 You are calm, professional, and very knowledgeable.
@@ -45,9 +27,11 @@ You are calm, professional, and very knowledgeable.
 **TONE:** Warm, reassuring, "Luxury Service".
 `;
 
-// --- ROUTE: CHAT (Rebeca AI) ---
-// --- ROUTE: CHAT (Rebeca AI) ---
-const chatHandler = async (req, res) => {
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
     if (!GOOGLE_API_KEY) {
         console.error("Missing GOOGLE_API_KEY");
         return res.status(500).json({ error: "Server configuration error: Missing Google API Key" });
@@ -60,8 +44,6 @@ const chatHandler = async (req, res) => {
             return res.status(400).json({ error: "Invalid request body" });
         }
 
-        console.log(`[Rebeca AI] Request received. Language: ${language}`); // DEBUG LOG
-
         let langName = "English";
         if (language && language.startsWith("es")) langName = "Spanish";
         else if (language && language.startsWith("fr")) langName = "French";
@@ -69,19 +51,12 @@ const chatHandler = async (req, res) => {
         else if (language && language.startsWith("pt")) langName = "Portuguese";
         else if (language && language.startsWith("lb")) langName = "Luxembourgish";
 
-        console.log(`[Rebeca AI] Generating response in: ${langName}`); // DEBUG LOG
-
         // Enhanced System Instruction
         let fullPrompt = SYSTEM_PROMPT + `\n\n*** CRITICAL INSTRUCTION ***\nThe user is speaking in ${langName} (Browsing Language: ${language}).\nYOU MUST REPLY IN ${langName} ONLY.\nDo not switch languages unless explicitly asked.\n**************************\n\nConversation History:\n`;
         messages.forEach((msg) => {
             fullPrompt += `${msg.role === 'user' ? 'User' : 'Assistant'} (${langName}): ${msg.content}\n`;
         });
         fullPrompt += `Assistant (${langName}):`;
-
-        if (!GOOGLE_API_KEY) {
-            console.error("❌ CRITICAL ERROR: GOOGLE_API_KEY is missing/undefined in .env");
-            return res.status(500).json({ error: "Server Configuration Error: Missing API Key" });
-        }
 
         const modelsToTry = [
             "gemini-1.5-flash",
@@ -94,7 +69,6 @@ const chatHandler = async (req, res) => {
 
         for (const model of modelsToTry) {
             try {
-                console.log(`🤖 Attempting to connect to Brain (${model})...`);
                 const response = await fetch(
                     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GOOGLE_API_KEY}`,
                     {
@@ -112,7 +86,6 @@ const chatHandler = async (req, res) => {
                     console.warn(`⚠️ Model ${model} failed with status ${errorStatus}: ${errorText}`);
 
                     if (errorStatus === 429 || errorStatus === 503) {
-                        // Rate limited on this model, try next
                         continue;
                     }
                     throw new Error(`Google API Error: ${errorStatus} - ${errorText}`);
@@ -122,8 +95,7 @@ const chatHandler = async (req, res) => {
                 generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
                 if (generatedText) {
-                    console.log(`✅ Success with ${model}!`);
-                    break; // Success!
+                    break;
                 }
 
             } catch (e) {
@@ -133,7 +105,7 @@ const chatHandler = async (req, res) => {
         }
 
         if (!generatedText) {
-            console.error("🔥 ALL MODELS FAILED. Returning overload message.");
+            console.error("🔥 ALL MODELS FAILED.");
             return res.status(200).json({
                 role: "assistant",
                 content: language?.startsWith("es")
@@ -156,96 +128,4 @@ const chatHandler = async (req, res) => {
             details: error.message || String(error)
         });
     }
-};
-
-app.post('/.netlify/functions/chat', chatHandler);
-app.post('/api/chat', chatHandler);
-
-// --- ROUTE: SUBMIT INQUIRY (Forms) ---
-const inquiryHandler = async (req, res) => {
-    if (!SUPABASE_URL || !SUPABASE_KEY || !RESEND_API_KEY) {
-        console.error("Missing SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, or RESEND_API_KEY");
-        return res.status(500).json({ error: "Server configuration error: Missing Database/Email Keys" });
-    }
-
-    try {
-        const data = req.body || {};
-        const { name, email, message, phone, event_type, event_date, location, budget, guest_count, service_interest } = data;
-
-        // 1. Initialize Clients
-        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-        const resend = new Resend(RESEND_API_KEY);
-
-        // 2. Insert into Supabase
-        const { error: dbError } = await supabase
-            .from("inquiries")
-            .insert([
-                {
-                    name,
-                    email,
-                    phone,
-                    event_type,
-                    event_date,
-                    location,
-                    budget,
-                    guest_count,
-                    service_interest,
-                    message,
-                },
-            ]);
-
-        if (dbError) {
-            console.error("Supabase Error:", dbError);
-            throw new Error("Database insertion failed");
-        }
-
-        // 3. Send Email to Admin
-        await resend.emails.send({
-            from: "Weddings Lux <onboarding@resend.dev>", // Only works if domain verified or testing
-            to: ["weddingeventslux@gmail.com"],
-            subject: `New Inquiry: ${name} - ${event_type}`,
-            html: `
-        <h1>New Web Inquiry</h1>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
-        <p><strong>Event Type:</strong> ${event_type}</p>
-        <p><strong>Date:</strong> ${event_date || "N/A"}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message || "No message"}</p>
-      `,
-        });
-
-        // 4. Send Confirmation to Client
-        if (email) {
-            await resend.emails.send({
-                from: "Weddings Lux <onboarding@resend.dev>",
-                to: [email],
-                subject: "We received your inquiry - Weddings & Events Luxembourg",
-                html: `
-            <h1>Thank you, ${name}!</h1>
-            <p>We have received your inquiry regarding <strong>${event_type}</strong> photography/videography.</p>
-            <p>Our team will review your details and get back to you shortly.</p>
-            <br>
-            <p>Best regards,</p>
-            <p><strong>The Weddings & Events Luxembourg Team</strong></p>
-          `,
-            });
-        }
-
-        return res.status(200).json({ message: "Success" });
-
-    } catch (error) {
-        console.error("Submit Inquiry Error:", error);
-        return res.status(500).json({ error: error.message || "Internal Server Error" });
-    }
-};
-
-app.post('/.netlify/functions/submit-inquiry', inquiryHandler);
-app.post('/api/submit-inquiry', inquiryHandler);
-
-app.listen(PORT, () => {
-    console.log(`Local AI & Backend Server running on http://localhost:${PORT}`);
-    console.log(`- Chat Endpoint: http://localhost:${PORT}/.netlify/functions/chat`);
-    console.log(`- Form Endpoint: http://localhost:${PORT}/.netlify/functions/submit-inquiry`);
-});
+}
