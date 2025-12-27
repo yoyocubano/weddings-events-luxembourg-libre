@@ -1,5 +1,6 @@
 interface Env {
     DEEPSEEK_API_KEY: string;
+    CLOUDFLARE_GATEWAY_URL?: string;
 }
 
 const SYSTEM_PROMPT = `
@@ -90,7 +91,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
             }))
         ];
 
-        const response = await fetch("https://api.deepseek.com/chat/completions", {
+        // Use AI Gateway if configured, otherwise direct API
+        const apiUrl = env.CLOUDFLARE_GATEWAY_URL
+            ? `${env.CLOUDFLARE_GATEWAY_URL}/chat/completions`
+            : "https://api.deepseek.com/chat/completions";
+
+        const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

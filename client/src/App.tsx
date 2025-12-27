@@ -28,6 +28,7 @@ const Protocol = lazy(() => import("./pages/Protocol"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ImageInventory = lazy(() => import("./pages/ImageInventory"));
 const Privacy = lazy(() => import("./pages/Privacy"));
+const Live = lazy(() => import("./pages/Live"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 /**
@@ -60,6 +61,7 @@ function Router() {
         <Route path={"/protocol"} component={Protocol} />
         <Route path={"/contact"} component={Contact} />
         <Route path={"/images"} component={ImageInventory} />
+        <Route path={"/live"} component={Live} />
         <Route path={"/privacy"} component={Privacy} />
         <Route path={"/404"} component={NotFound} />
 
@@ -87,13 +89,13 @@ function App() {
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground">
             Skip to main content
           </a>
-          
+
           {/* Toaster is used for displaying toast notifications. */}
           <Toaster />
-          
+
           {/* The application's main router. */}
           <Router />
-          
+
           {/* Persistent UI elements that appear on all pages. */}
           <WhatsAppButton />
           <ChatWidget />

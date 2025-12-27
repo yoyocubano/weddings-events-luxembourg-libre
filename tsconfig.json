@@ -1,6 +1,7 @@
 {
   "include": [
     "client/src/**/*",
+    "functions/**/*",
     "shared/**/*",
     "server/**/*",
     "api/**/*"
@@ -22,7 +23,7 @@
       "dom",
       "dom.iterable"
     ],
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
