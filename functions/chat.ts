@@ -1,5 +1,5 @@
 interface Env {
-    GOOGLE_API_KEY: string;
+    DEEPSEEK_API_KEY: string;
 }
 
 const SYSTEM_PROMPT = `
@@ -48,19 +48,7 @@ const ERROR_MESSAGES: { [key: string]: string } = {
     'Luxembourgish': 'Entschëllegt, ech hat en technescht Problem. Kënnt Dir et nach eng Kéier probéieren?'
 };
 
-// Safety block messages by language
-const SAFETY_BLOCK_MESSAGES: { [key: string]: string } = {
-    'Spanish': 'Lo siento, no puedo procesar esa solicitud. Por favor, intenta reformular tu pregunta.',
-    'English': 'I\'m sorry, I cannot process that request. Please try rephrasing your question.',
-    'French': 'Je suis désolé, je ne peux pas traiter cette demande. Veuillez essayer de reformuler votre question.',
-    'German': 'Es tut mir leid, ich kann diese Anfrage nicht bearbeiten. Bitte versuchen Sie, Ihre Frage umzuformulieren.',
-    'Portuguese': 'Desculpe, não consigo processar esse pedido. Por favor, tente reformular sua pergunta.',
-    'Luxembourgish': 'Et deet mir Leed, ech kann dës Ufro net veraarbechten. Probéiert w.e.g. Är Fro ëmzeformuléieren.'
-};
-
-
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-    // CORS Headers
     const headers = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
@@ -71,14 +59,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         return new Response(null, { headers });
     }
 
-    if (!env.GOOGLE_API_KEY) {
-        return new Response(JSON.stringify({ error: "Server configuration error" }), {
+    if (!env.DEEPSEEK_API_KEY) {
+        return new Response(JSON.stringify({ error: "Server configuration error: Missing DEEPSEEK_API_KEY" }), {
             status: 500,
             headers: { ...headers, "Content-Type": "application/json" }
         });
     }
 
-    let detectedLanguage = 'English'; // Default language
+    let detectedLanguage = 'English';
 
     try {
         const bodyText = await request.text();
@@ -93,70 +81,47 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
         detectedLanguage = LANGUAGE_MAP[language] || LANGUAGE_MAP[language?.split('-')[0]] || 'English';
 
-        // console.log(`[Chat API] Processing - Language: ${detectedLanguage}, Messages: ${messages.length}`);
+        // Prepare messages for DeepSeek (System Prompt + History)
+        const deepseekMessages = [
+            { role: "system", content: SYSTEM_PROMPT + `\n\n*** CURRENT USER LANGUAGE: ${detectedLanguage} ***\nRespond ONLY in ${detectedLanguage}.` },
+            ...messages.map((msg: any) => ({
+                role: msg.role === 'client' ? 'user' : msg.role, // Normalize 'client' to 'user' just in case
+                content: msg.content
+            }))
+        ];
 
-        const fullPrompt = SYSTEM_PROMPT +
-            `\n\n*** CRITICAL LANGUAGE INSTRUCTION ***\n` +
-            `The user is communicating in ${detectedLanguage}. YOU MUST respond EXCLUSIVELY in ${detectedLanguage}.\n\n` +
-            `Conversation History:\n` +
-            messages.map((msg: any) => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`).join('\n') +
-            "\nAssistant:";
-
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GOOGLE_API_KEY}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: fullPrompt }] }],
-                    generationConfig: {
-                        temperature: 0.7,
-                        topP: 0.9,
-                        topK: 50,
-                        maxOutputTokens: 2048,
-                    },
-                    safetySettings: [
-                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_LOW_AND_ABOVE" },
-                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
-                    ]
-                })
-            }
-        );
+        const response = await fetch("https://api.deepseek.com/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${env.DEEPSEEK_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "deepseek-chat", // V3
+                messages: deepseekMessages,
+                temperature: 0.7,
+                max_tokens: 1024,
+                stream: false
+            })
+        });
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error("[Chat API] Gemini API Error:", response.status, errorText);
-            throw new Error(`API Error: ${response.status}`);
+            console.error("[Chat API] DeepSeek Error:", response.status, errorText);
+            throw new Error(`DeepSeek API Error: ${response.status}`);
         }
 
         const data: any = await response.json();
-
-        // Handle Safety Block from API
-        if (data.promptFeedback?.blockReason === 'SAFETY') {
-            const safetyMessage = SAFETY_BLOCK_MESSAGES[detectedLanguage] || SAFETY_BLOCK_MESSAGES['English'];
-            return new Response(JSON.stringify({
-                role: "assistant",
-                content: safetyMessage,
-                text: safetyMessage,
-                isBlocked: true
-            }), {
-                status: 200,
-                headers: { ...headers, "Content-Type": "application/json" }
-            });
-        }
-
-        const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        const generatedText = data.choices?.[0]?.message?.content;
 
         if (!generatedText) {
-            throw new Error('Empty response from AI');
+            throw new Error('Empty response from DeepSeek AI');
         }
 
         return new Response(JSON.stringify({
             role: "assistant",
             content: generatedText,
-            text: generatedText,
+            text: generatedText, // legacy support for frontend
         }), {
             status: 200,
             headers: { ...headers, "Content-Type": "application/json" }
@@ -164,7 +129,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
     } catch (error: any) {
         console.error("[Chat API] Function error:", { message: error.message });
-
         const userMessage = ERROR_MESSAGES[detectedLanguage] || ERROR_MESSAGES['English'];
 
         return new Response(JSON.stringify({
